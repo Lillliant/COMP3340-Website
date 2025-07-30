@@ -7,7 +7,6 @@ if (isset($_SESSION['loggedin'])) {
     exit;
 }
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -28,27 +27,24 @@ if (isset($_SESSION['loggedin'])) {
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
 
-    <h2>Login Page</h2>
-
+    <h2>Registration Page</h2>
     <?php
     // Display error message if there is one
     if (isset($_SESSION['error'])) {
         echo '<p class="error">' . $_SESSION['error'] . '</p>';
         unset($_SESSION['error']); // Clear the error message after displaying it
     }
-    if (isset($_SESSION['success'])) {
-        echo '<p class="success">' . $_SESSION['success'] . '</p>';
-        unset($_SESSION['success']); // Clear the success message after displaying it
-    }
     ?>
-
     <div class="center-form">
-        <form action="auth.php" method="post" name="login">
+        <form action="signup.php" method="post">
             <input type="text" name="username" required="required" id="username" placeholder="Username">
+            <br>
+            <input type="email" name="email" required="required" id="email" placeholder="Email">
             <br>
             <input type="password" name="password" required="required" id="password" placeholder="Password">
             <br>
-            <input type="submit" value="Login" />
+            <!-- TODO: add more fields: name, phone number, confirm password, password validation check, etc. -->
+            <input type="submit" value="Register">
         </form>
     </div>
 
