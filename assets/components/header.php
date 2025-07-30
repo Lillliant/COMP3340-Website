@@ -29,12 +29,16 @@
                         <li><a class="dropdown-item" href="#" onclick="toggleTheme('pastel')">Pastel</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/3340/pages/login/login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/3340/pages/login/register.php">Register</a>
-                </li>
+                <?php
+                if (isset($_SESSION['loggedin'])) {
+                    // If the user is logged in, show the logout link
+                    echo '<li class="nav-item"><a class="nav-link" href="/3340/pages/login/logout.php">Logout</a></li>';
+                } else {
+                    // If the user is not logged in, show the login and register links
+                    echo '<li class="nav-item"><a class="nav-link" href="/3340/pages/login/login.php">Login</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="/3340/pages/login/register.php">Register</a></li>';
+                }
+                ?>
             </ul>
         </div>
     </nav>
