@@ -5,17 +5,15 @@
 */
 
 function createDb(
-    $servername = "localhost", 
-    $username = "root", 
+    $servername = "localhost",
+    $username = "root",
     $password = "",
     $dbname = "Newdb",
     $sqlquerypath = "assets/sql/createTables.sql"
-)
-{
+) {
     try { // Test a connection to the database
         $conn = mysqli_connect($servername, $username, $password, $dbname);
-    }
-    catch(Exception $e) { // Connection failed, assume no database exists and create one
+    } catch (Exception $e) { // Connection failed, assume no database exists and create one
         $conn = new mysqli($servername, $username, $password);
         if (!$conn) { // Something is wrong with the credentials or the server
             die("Connection failed: " . mysqli_connect_error());
@@ -24,7 +22,7 @@ function createDb(
         // Create the database and its corresponding tables
         $sql = "CREATE DATABASE $dbname";
         if (mysqli_query($conn, $sql)) { // Check if the database was created successfully
-            echo "Database created successfully\n"; 
+            echo "Database created successfully\n";
             if (mysqli_select_db($conn, $dbname)) { // Select the database to work with
                 echo "Database selected successfully\n";
             } else {
@@ -56,11 +54,3 @@ function createDb(
     echo "Database and Tables created successfully\n"; // Confirmation message
     mysqli_close($conn); // Close the database connection
 }
-
-?>
-
-
-
-
-
-
