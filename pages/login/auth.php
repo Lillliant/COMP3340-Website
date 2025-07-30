@@ -21,7 +21,6 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['account_name'] = $_POST['username'];
         $_SESSION['account_id'] = $id;
-        unset($_SESSION['error']); // Clear any previous error messages
         header('Location: /3340/pages/user/home.php');
         exit;
     } else { // If the combination is incorrect, redirect to the login page with an error message
