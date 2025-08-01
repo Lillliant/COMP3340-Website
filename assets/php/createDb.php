@@ -9,7 +9,7 @@ function createDb(
     $username = "root",
     $password = "",
     $dbname = "Newdb",
-    $sqlquerypath = "assets/sql/createTables.sql"
+    $sqlquerypath = "../assets/sql/createTables.sql"
 ) {
     try { // Test a connection to the database
         $conn = mysqli_connect($servername, $username, $password, $dbname);
