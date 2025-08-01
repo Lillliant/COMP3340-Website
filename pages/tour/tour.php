@@ -83,9 +83,29 @@
                     <p>Balanced</p>
                 </div>
             </div>
+            <button class="btn btn-primary tour-booking" type="button">Book Now</button>
         </div>
     </div>
-
+    <div class="itinerary">
+        <div>
+            <h2>Day 1</h2>
+            <p>
+                Your Northern Italy adventure begins in Milan, the cosmopolitan capital of fashion and design. Upon arrival, you'll be welcomed with a guided orientation walk through the city’s historic center, including the iconic Duomo di Milano and the elegant Galleria Vittorio Emanuele II. The evening concludes with a group welcome dinner featuring Lombard specialties like risotto alla Milanese.
+            </p>
+        </div>
+        <div>
+            <h2>Day 2</h2>
+            <p>
+                After breakfast, we head to Lake Como, renowned for its stunning scenery and charming villages. Enjoy a boat ride on the lake, visiting Bellagio and Varenna. In the afternoon, explore the gardens of Villa Carlotta before returning to Milan for an evening at leisure.
+            </p>
+        </div>
+        <div>
+            <h2>Day 3</h2>
+            <p>
+                Departing Milan, we travel to the picturesque town of Verona, famous for its Shakespearean connections. Visit Juliet's House and the ancient Roman amphitheater. After lunch, continue to Venice, where you'll enjoy a gondola ride through the city's enchanting canals.
+            </p>
+        </div>
+    </div>
     <!-- Footer -->
 </body>
 

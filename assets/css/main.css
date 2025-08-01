@@ -65,3 +65,12 @@ body {
   text-decoration: none;
   color: inherit;
 }
+
+.itinerary {
+  margin: 2em 5em;
+  background-color: antiquewhite;
+  padding: 30px 50px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
