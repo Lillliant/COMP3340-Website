@@ -39,16 +39,19 @@
     {
       "tour_id": 1,
       "image_url": "/3340/assets/images/img1.jpg",
+      "alt": "Tour Image 1",
       "featured": true
     },
     {
       "tour_id": 1,
       "image_url": "/3340/assets/images/img2.jpg",
+      "alt": "Tour Image 2",
       "featured": false
     },
     {
       "tour_id": 1,
       "image_url": "/3340/assets/images/img3.jpg",
+      "alt": "Tour Image 3",
       "featured": false
     }
   ]

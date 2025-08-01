@@ -61,11 +61,11 @@ function insertTour(
     }
 }
 
-function insertImage($tour_id, $image_url, $is_featured)
+function insertImage($tour_id, $image_url, $alt, $is_featured)
 {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO images (tour_id, image_url, is_featured) VALUES (?, ?, ?)");
-    $stmt->bind_param("isi", $tour_id, $image_url, $is_featured);
+    $stmt = $conn->prepare("INSERT INTO images (tour_id, image_url, alt, is_featured) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("issi", $tour_id, $image_url, $alt, $is_featured);
 
     if ($stmt->execute()) {
         echo "<p>Image {$image_url} for tour ID {$tour_id} inserted successfully.</p>";
