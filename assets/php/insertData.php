@@ -2,12 +2,12 @@
 
 require_once 'db.php';
 
-function insertUser($username, $password, $firstName, $lastName, $email, $role, $isActive)
+function insertUser($username, $password, $firstName, $lastName, $email, $role)
 {
     global $conn;
 
-    $stmt = $conn->prepare("INSERT INTO users (username, password, first_name, last_name, email, role, is_active) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssi", $username, $password, $firstName, $lastName, $email, $role, $isActive);
+    $stmt = $conn->prepare("INSERT INTO users (username, password, first_name, last_name, email, role) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $username, $password, $firstName, $lastName, $email, $role);
 
     if ($stmt->execute()) {
         echo "<p>{$role}: {$username} inserted successfully.</p>";
@@ -59,4 +59,19 @@ function insertTour(
     } else {
         echo "<p>Error inserting tour {$id}: {$name}: " . $stmt->error . "</p>";
     }
+}
+
+function insertImage($tour_id, $image_url, $is_featured)
+{
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO images (tour_id, image_url, is_featured) VALUES (?, ?, ?)");
+    $stmt->bind_param("isi", $tour_id, $image_url, $is_featured);
+
+    if ($stmt->execute()) {
+        echo "<p>Image {$image_url} for tour ID {$tour_id} inserted successfully.</p>";
+    } else {
+        echo "<p>Error inserting image {$image_url} for tour ID {$tour_id}: " . $stmt->error . "</p>";
+    }
+
+    $stmt->close();
 }
