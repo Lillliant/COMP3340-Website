@@ -56,7 +56,8 @@ body {
 
 .to-features {
   --bs-icon-link-transform: translate3d(0, -0.125rem, 0);
-  font-size: large;
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
 .to-features .icon-link,
@@ -74,3 +75,32 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.booking-body {
+  margin: 2em 5em;
+  background-color: lightcyan;
+  padding: 30px 50px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-grid {
+  display: grid;
+  grid-template-areas: "details summary";
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+}
+
+.booking-summary {
+  grid-area: summary;
+  padding: 20px;
+  background-color: lightyellow;
+}
+
+.booking-form {
+  grid-area: details;
+  padding: 20px;
+  background-color: lightcoral;
+}
+/* Responsive layout - make the trip summary section disappear */

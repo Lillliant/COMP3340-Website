@@ -20,12 +20,12 @@
   "tours": [
     {
       "id": 1,
-      "name": "City Tour",
-      "description": "Explore the city with our guided tour.",
-      "inclusions": "Guided tour, meals, and transportation.",
+      "name": "Best of Northern Italy",
+      "description": "Join us for an unforgettable journey through Northern Italy, where you will experience breathtaking landscapes, rich history, and vibrant culture.",
+      "inclusions": "Accommodation, meals, guided tours, and transportation.",
       "destination": "Europe",
-      "start_city": "London",
-      "end_city": "Paris",
+      "start_city": "Milan",
+      "end_city": "Rome",
       "category": "cultural",
       "activity_level": "balanced",
       "duration": 8,
@@ -38,19 +38,19 @@
   "images": [
     {
       "tour_id": 1,
-      "image_url": "/3340/assets/images/img1.jpg",
+      "image_url": "/3340/assets/img/img1.jpg",
       "alt": "Tour Image 1",
       "featured": true
     },
     {
       "tour_id": 1,
-      "image_url": "/3340/assets/images/img2.jpg",
+      "image_url": "/3340/assets/img/img2.jpg",
       "alt": "Tour Image 2",
       "featured": false
     },
     {
       "tour_id": 1,
-      "image_url": "/3340/assets/images/img3.jpg",
+      "image_url": "/3340/assets/img/img3.jpg",
       "alt": "Tour Image 3",
       "featured": false
     }
