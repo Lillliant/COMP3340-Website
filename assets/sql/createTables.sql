@@ -1,6 +1,9 @@
 SET AUTOCOMMIT = 0;
 
 -- Drop previous tables if they exist
+DROP TABLE IF EXISTS `addons`;
+DROP TABLE IF EXISTS `prices`;
+DROP TABLE IF EXISTS `images`;
 DROP TABLE IF EXISTS `bookings`;
 DROP TABLE IF EXISTS `tours`;
 DROP TABLE IF EXISTS `users`;
