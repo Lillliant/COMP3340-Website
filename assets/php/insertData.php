@@ -30,14 +30,12 @@ function insertTour(
     $activity_level,
     $duration,
     $base_price,
-    $start_date,
-    $end_date,
     $start_day,
 ) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, inclusions, destination, start_city, end_city, category, activity_level, duration, base_price, start_date, end_date, start_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, inclusions, destination, start_city, end_city, category, activity_level, duration, base_price,start_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
-        "issssssssiissi",
+        "issssssssiii",
         $id,
         $name,
         $description,
@@ -49,8 +47,6 @@ function insertTour(
         $activity_level,
         $duration,
         $base_price,
-        $start_date,
-        $end_date,
         $start_day,
     );
 

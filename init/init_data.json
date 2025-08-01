@@ -30,8 +30,6 @@
       "activity_level": "balanced",
       "duration": 8,
       "base_price": 1200,
-      "start_date": "2023-11-01",
-      "end_date": "2023-11-30",
       "start_day": 1
     }
   ],

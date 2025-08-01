@@ -170,7 +170,7 @@ if (isset($_GET['tourid'])) {
                 </div>
             </div>
             <form action="booking.php" method="get">
-                <button class="btn btn-primary" type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_SESSION['tour']['id']); ?>>Book Now</button>
+                <button class="btn btn-primary" type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_GET['tourid']); ?>>Book Now</button>
             </form>
         </div>
     </div>

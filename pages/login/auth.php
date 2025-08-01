@@ -13,15 +13,20 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
     mysqli_stmt_bind_param($stmt, 'ss', $_POST['username'], $_POST['password']);
     mysqli_stmt_execute($stmt);
     // Store the result to check if the account with the same username exists
-    mysqli_stmt_store_result($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     // If the account is successfully found, we can proceed to login
-    if (mysqli_stmt_num_rows($stmt) > 0) {
+    if ($result->num_rows == 1) {
         session_regenerate_id();
+        $id = $result->fetch_assoc()['id']; // Fetch the user ID from the result
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['account_name'] = $_POST['username'];
         $_SESSION['account_id'] = $id;
-        header('Location: /3340/pages/user/home.php');
+        if (isset($_SESSION['tourid'])) {
+            header('Location: /3340/pages/tour/booking.php?tourid=' . $_SESSION['tourid']);
+        } else {
+            header('Location: /3340/pages/user/home.php');
+        }
         exit;
     } else { // If the combination is incorrect, redirect to the login page with an error message
         $_SESSION['error'] = 'Incorrect username and/or password!';

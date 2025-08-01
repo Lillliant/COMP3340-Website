@@ -34,7 +34,7 @@
     echo "<p><i>Inserting tours...</i></p>";
     foreach ($obj['tours'] as $tour) {
         echo "<p>Inserting tour: " . $tour['name'] . " of ID " . $tour['id'] . "</p>";
-        insertTour($tour['id'], $tour['name'], $tour['description'], $tour['inclusions'], $tour['destination'], $tour['start_city'], $tour['end_city'], $tour['category'], $tour['activity_level'], $tour['duration'], $tour['base_price'], $tour['start_date'], $tour['end_date'], $tour['start_day']);
+        insertTour($tour['id'], $tour['name'], $tour['description'], $tour['inclusions'], $tour['destination'], $tour['start_city'], $tour['end_city'], $tour['category'], $tour['activity_level'], $tour['duration'], $tour['base_price'], $tour['start_day']);
     }
 
     echo "<p><i>Inserting tour images...</i></p>";
