@@ -1,6 +1,7 @@
 SET AUTOCOMMIT = 0;
 
 -- Drop previous tables if they exist
+DROP TABLE IF EXISTS `addon_bookings`;
 DROP TABLE IF EXISTS `addons`;
 DROP TABLE IF EXISTS `itineraries`;
 DROP TABLE IF EXISTS `images`;
@@ -65,18 +66,54 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
 
+-- Create the addons table
+CREATE TABLE `addons` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `tour_id` INT(11) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+COMMIT;
+
 -- Create the bookings table
 CREATE TABLE `bookings` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `tour_id` INT(11) NOT NULL,
   `booking_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `status` ENUM('pending', 'confirmed', 'cancelled') NOT NULL DEFAULT 'pending',
+  `status` ENUM('pending', 'confirmed', 'cancelled', 'completed') NOT NULL DEFAULT 'pending',
+  `base_price` DECIMAL(10,2) NOT NULL,
+  `addon_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `departure_date` DATE NOT NULL,
+  `person_count` INT(11) NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
+
+-- Create the addon_bookings table
+CREATE TABLE `addon_bookings` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `booking_id` INT(11) NOT NULL,
+  `addon_id` INT(11) NOT NULL,
+  `quantity` INT(11) NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`booking_id`) REFERENCES `bookings`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`addon_id`) REFERENCES `addons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+COMMIT;
+
 -- End of createTable.sql
 SET AUTOCOMMIT = 1;
 -- This file is used to create the necessary tables for the application.

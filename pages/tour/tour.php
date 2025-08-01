@@ -5,15 +5,13 @@ require_once('../../assets/php/db.php');
 
 // Fetch tour object of given ID in the URL
 if (isset($_GET['tourid'])) {
-    $tourId = $_GET['tourid'];
-
     // Fetch tour details from the database
     $stmt = $conn->prepare("SELECT * FROM tours WHERE id = ?");
-    $stmt->bind_param("i", $tourId);
+    $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
-        $tour = $result->fetch_assoc();
+        $_SESSION['tour'] = $result->fetch_assoc();
     } else {
         header("Location: ../404.php");
         exit;
@@ -23,7 +21,7 @@ if (isset($_GET['tourid'])) {
     // Fetch tour images
     // Fetch the featured image first
     $stmt = $conn->prepare("SELECT * FROM images WHERE tour_id = ? AND is_featured = 1 LIMIT 1");
-    $stmt->bind_param("i", $tourId);
+    $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $featuredImageResult = $stmt->get_result();
     if ($featuredImageResult->num_rows > 0) {
@@ -34,7 +32,7 @@ if (isset($_GET['tourid'])) {
     $stmt->close();
 
     $stmt = $conn->prepare("SELECT * FROM images WHERE tour_id = ? AND is_featured = FALSE ORDER BY created_at DESC");
-    $stmt->bind_param("i", $tourId);
+    $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $imagesResult = $stmt->get_result();
     $additionalImages = [];
@@ -106,12 +104,12 @@ if (isset($_GET['tourid'])) {
         </div>
         <div class="to-details">
             <div class="to-header">
-                <h2 class="to-title"><?php echo sprintf("%s", $tour['name']); ?></h2>
-                <p>Tour ID: <?php echo sprintf("%s", $tour['id']); ?></p>
+                <h2 class="to-title"><?php echo sprintf("%s", $_SESSION['tour']['name']); ?></h2>
+                <p>Tour ID: <?php echo sprintf("%s", $_SESSION['tour']['id']); ?></p>
             </div>
             <div class="to-description">
-                <p><?php echo sprintf("%s", $tour['description']); ?></p>
-                <p><strong>Inclusions:</strong> <?php echo sprintf("%s", $tour['inclusions']); ?></p>
+                <p><?php echo sprintf("%s", $_SESSION['tour']['description']); ?></p>
+                <p><strong>Inclusions:</strong> <?php echo sprintf("%s", $_SESSION['tour']['inclusions']); ?></p>
             </div>
             <div class="to-features">
                 <div class="to-start-city">
@@ -121,7 +119,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Start City
                     </a>
-                    <p><?php echo sprintf("%s", ucfirst($tour['start_city'])); ?></p>
+                    <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['start_city'])); ?></p>
                 </div>
                 <div class="to-end-city">
                     <a class="icon-link icon-link-hover" href="#">
@@ -130,7 +128,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         End City
                     </a>
-                    <p><?php echo sprintf("%s", ucfirst($tour['end_city'])); ?></p>
+                    <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['end_city'])); ?></p>
                 </div>
                 <div class="to-duration">
                     <a class="icon-link icon-link-hover" href="#">
@@ -139,7 +137,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Duration
                     </a>
-                    <p><?php echo sprintf("%s Day%s", $tour['duration'], $tour['duration'] > 1 ? 's' : ''); ?></p>
+                    <p><?php echo sprintf("%s Day%s", $_SESSION['tour']['duration'], $_SESSION['tour']['duration'] > 1 ? 's' : ''); ?></p>
                 </div>
                 <div class="to-price">
                     <a class="icon-link icon-link-hover" href="#">
@@ -148,7 +146,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Base Price
                     </a>
-                    <p>$<?php echo sprintf("%.2f", $tour['base_price']); ?></p>
+                    <p>$<?php echo sprintf("%.2f", $_SESSION['tour']['base_price']); ?></p>
                 </div>
                 <div class="to-category">
                     <a class="icon-link icon-link-hover" href="#">
@@ -158,7 +156,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Category
                     </a>
-                    <p><?php echo sprintf("%s", ucfirst($tour['category'])); ?></p>
+                    <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['category'])); ?></p>
                 </div>
                 <div class="to-activity">
                     <a class="icon-link icon-link-hover" href="#">
@@ -168,11 +166,11 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Activity Level
                     </a>
-                    <p><?php echo sprintf("%s", ucfirst($tour['activity_level'])); ?></p>
+                    <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['activity_level'])); ?></p>
                 </div>
             </div>
             <form action="booking.php" method="get">
-                <button class="btn btn-primary" type="submit" name="tourid" value=<?php echo sprintf("'%s'", $tour['id']); ?>>Book Now</button>
+                <button class="btn btn-primary" type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_SESSION['tour']['id']); ?>>Book Now</button>
             </form>
         </div>
     </div>
