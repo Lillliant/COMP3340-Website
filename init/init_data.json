@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "firstName": "Admin",
+      "lastName": "",
+      "email": "admin@email.com",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "createdAt": "2023-10-01T00:00:00Z",
+      "updatedAt": "2023-10-01T00:00:00Z",
+      "isActive": true
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "hr@email.com",
+      "username": "hr",
+      "password": "hr123",
+      "role": "user",
+      "created_at": "2023-10-01T00:00:00Z",
+      "updated_at": "2023-10-01T00:00:00Z",
+      "isActive": true
+    }
+  ],
+  "tours": [
+    {
+      "id": 1,
+      "name": "City Tour",
+      "description": "Explore the city with our guided tour.",
+      "destination": "Europe",
+      "inclusions": "Guided tour, meals, and transportation.",
+      "start_city": "London",
+      "end_city": "Paris",
+      "start_date": "2023-11-01",
+      "end_date": "2023-11-07",
+      "base_price": 1200,
+      "activity_level": "Balanced",
+      "category": "cultural",
+      "duration": 8,
+      "start_day": 1,
+      "created_at": "2023-10-01T00:00:00Z",
+      "updated_at": "2023-10-01T00:00:00Z"
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "tour_id": 1,
+      "image_url": "/3340/assets/images/img1.jpg",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "tour_id": 1,
+      "image_url": "/3340/assets/images/img2.jpg"
+    },
+    {
+      "id": 3,
+      "tour_id": 1,
+      "image_url": "/3340/assets/images/img3.jpg"
+    }
+  ]
+}
