@@ -8,7 +8,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/3340/index.php">Home</a>
+                    <a class="nav-link active" aria-current="page"
+                        href=<?php
+                                if (isset($_SESSION['loggedin'])) {
+                                    // Fetch the home page based on the user's login role
+                                    echo $_SESSION['role'] === 'admin' ? '/3340/pages/admin/home.php' : '/3340/pages/user/home.php';
+                                } else {
+                                    echo '/3340/index.php';
+                                }
+                                ?>>
+                        Home
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>

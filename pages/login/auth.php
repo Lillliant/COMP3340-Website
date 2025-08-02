@@ -22,6 +22,13 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['account_name'] = $_POST['username'];
         $_SESSION['account_id'] = $id;
+        $stmt = $conn->prepare("SELECT role FROM users WHERE id = ?");
+        $stmt->bind_param("i", $_SESSION['account_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        $_SESSION['role'] = $user['role']; // Store the user's role in the session
         if (isset($_SESSION['tourid'])) {
             header('Location: /3340/pages/tour/booking.php?tourid=' . $_SESSION['tourid']);
         } else {

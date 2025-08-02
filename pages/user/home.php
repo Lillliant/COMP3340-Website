@@ -29,7 +29,8 @@ if (!isset($_SESSION['loggedin'])) {
     <h1>Trekker Tours</h1>
 
     <h2>User Home Page</h2>
-
+    <button onclick="window.location.href='booking.php'">View My Bookings</button>
+    <button onclick="window.location.href='profile.php'">View My Profile</button>
     <!-- Footer -->
 </body>
 
