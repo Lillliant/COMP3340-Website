@@ -86,21 +86,29 @@ body {
 }
 
 .booking-grid {
+  margin: 5px 0;
   display: grid;
-  grid-template-areas: "details summary";
+  grid-template-areas: "left right";
   grid-template-columns: 2fr 1fr;
   gap: 10px;
 }
 
+.edit-container,
 .booking-summary {
-  grid-area: summary;
+  grid-area: right;
   padding: 20px;
   background-color: lightyellow;
 }
 
+.booking-card,
 .booking-form {
-  grid-area: details;
+  grid-area: left;
   padding: 20px;
   background-color: lightcoral;
 }
+
+.booking-card p {
+  text-align: justify;
+}
+
 /* Responsive layout - make the trip summary section disappear */
