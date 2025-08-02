@@ -54,20 +54,23 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
             <input type="text" name="end_city" id="end_city" placeholder="End City" required>
             <label for="category">Category:</label>
             <select name="category" id="category" required>
+                <option disabled="disabled" selected="selected">Select an option.</option>
                 <option value="adventure">Adventure</option>
                 <option value="cultural">Cultural</option>
                 <option value="relaxation">Relaxation</option>
             </select>
             <label for="activity_level">Activity Level:</label>
             <select name="activity_level" id="activity_level" required>
-                <option value="easy">Relaxing</option>
-                <option value="moderate">Balanced</option>
-                <option value="difficult">Challenging</option>
+                <option disabled="disabled" selected="selected">Select an option.</option>
+                <option value="relaxing">Relaxing</option>
+                <option value="balanced">Balanced</option>
+                <option value="challenging">Challenging</option>
             </select>
             <label for="duration">Duration (days):</label>
             <input type="number" name="duration" id="duration" placeholder="Duration (days)" min="1" required>
             <label for="start_day">Start Day:</label>
             <select name="start_day" id="start_day" required>
+                <option disabled="disabled" selected="selected">Select an option.</option>
                 <option value="0">Sunday</option>
                 <option value="1">Monday</option>
                 <option value="2">Tuesday</option>

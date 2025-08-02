@@ -7,7 +7,7 @@ require_once('../../assets/php/db.php');
 // Check if the page is accessed via POST method
 if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
     $_SESSION['error'] = 'Page accessed illegally.';
-    header('Location: /3340/pages/user/booking.php');
+    header('Location: /3340/pages/user/tour.php');
     exit;
 }
 

@@ -33,9 +33,10 @@ function insertTour(
     $start_day,
 ) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, long_description, inclusions, destination, start_city, end_city, category, activity_level, duration,start_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $is_active = 1; // Default value for is_active for tours in init_data.json
+    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, long_description, inclusions, destination, start_city, end_city, category, activity_level, duration, start_day, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
-        "isssssssssii",
+        "isssssssssiii",
         $id,
         $name,
         $description,
@@ -48,7 +49,7 @@ function insertTour(
         $activity_level,
         $duration,
         $start_day,
-        $is_active = true // Default to true for new tours in init_data.json
+        $is_active
     );
 
     if ($stmt->execute()) {

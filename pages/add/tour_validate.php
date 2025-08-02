@@ -11,16 +11,6 @@ if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
     exit;
 }
 
-// Validate form input
-// If any field is empty, exit with an error message
-foreach ($_POST as $key => $value) {
-    if (empty($value)) {
-        $_SESSION['error'] = 'All fields are required.';
-        header('Location: /3340/pages/add/tour.php');
-        exit;
-    }
-}
-
 // Add the tour into the database
 $stmt = $conn->prepare("INSERT INTO tours (name, description, long_description, inclusions, destination, start_city, end_city, start_day, category, activity_level, duration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param(

@@ -141,7 +141,7 @@ while ($image = $imagesResult->fetch_assoc()) {
                 <?php foreach ($options as $option): ?>
                     <li>
                         <strong><?php echo htmlspecialchars($option['name']); ?></strong> - <?php echo htmlspecialchars($option['description']); ?> ($<?php echo htmlspecialchars($option['price']); ?>)
-                        <form action="../edit/option.php" method="post" onsubmit="return confirm('Are you sure you want to edit this option? Changes will only apply to future bookings.');">
+                        <form action="../edit/option.php" method="get" onsubmit="return confirm('Are you sure you want to edit this option? Changes will only apply to future bookings.');">
                             <input type="hidden" name="option_id" value="<?php echo htmlspecialchars($option['id']); ?>">
                             <input type="hidden" name="tour_id" value="<?php echo htmlspecialchars($tour['id']); ?>">
                             <input type="submit" value="Edit">
@@ -170,7 +170,7 @@ while ($image = $imagesResult->fetch_assoc()) {
                 <label for="image_url">Name:</label>
                 <input type="text" name="image_url" id="add_image_url" placeholder="Image URL" required>
                 <label for="image_alt">Description:</label>
-                <input type="text" name="image_alt" id="add_image_alt" placeholder="Image alt text"></textarea>
+                <input type="text" name="image_alt" id="add_image_alt" placeholder="Image alt text" required></textarea>
                 <input type="submit" value="Add Image">
             </form>
         </div>
@@ -186,11 +186,13 @@ while ($image = $imagesResult->fetch_assoc()) {
                         <?php else: ?>
                             <form action="../edit/image.php" method="post" onsubmit="return confirm('Are you sure you want to make this image <?php echo $image['is_featured'] ? 'un-' : '' ?>featured?');">
                                 <input type="hidden" name="image_id" value="<?php echo htmlspecialchars($image['id']); ?>">
+                                <input type="hidden" name="tour_id" value="<?php echo htmlspecialchars($tour['id']); ?>">
                                 <input type="submit" value="Make featured">
                             </form>
                         <?php endif; ?>
                         <form action="../delete/image.php" method="post" onsubmit="return confirm('Are you sure you want to delete this image?');">
                             <input type="hidden" name="image_id" value="<?php echo htmlspecialchars($image['id']); ?>">
+                            <input type="hidden" name="tour_id" value="<?php echo htmlspecialchars($tour['id']); ?>">
                             <input type="submit" value="Delete">
                         </form>
                     </li>
