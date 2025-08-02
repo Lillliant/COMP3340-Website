@@ -20,13 +20,46 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="/3340/pages/help/about.php">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/3340/pages/tour/search.php">Tours</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Help
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        function generateHelpArticles($articles)
+                        {
+                            foreach ($articles as $title => $link) {
+                                echo sprintf(
+                                    '<li><a class="dropdown-item" href="/3340/pages/help/%s.php">%s</a></li>',
+                                    htmlspecialchars($link),
+                                    htmlspecialchars($title)
+                                );
+                            }
+                        }
+
+                        // If the user is an admin, show admin-specific help articles
+                        if ($_SESSION['role'] === 'admin') {
+                            $helpArticles = [
+                                'Tour Management' => 'tour.php',
+                                'Booking Management' => 'booking.php',
+                                'User Management' => 'user.php',
+                            ];
+                            generateHelpArticles($helpArticles);
+                        }
+
+                        // Otherwise, show general help articles
+                        $helpArticles = [
+                            'Login and Profile' => 'login.php',
+                            'Book Tours' => 'purchase.php',
+                        ];
+                        generateHelpArticles($helpArticles);
+                        ?>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
