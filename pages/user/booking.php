@@ -9,8 +9,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once('../../assets/php/db.php');
 // Obtain user bookings from the database
-$stmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = ?");
-$stmt->bind_param("i", $_SESSION['account_id']);
+$stmt = $conn->prepare("SELECT * FROM bookings");
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
@@ -39,22 +38,38 @@ if ($result->num_rows > 0) {
 
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
+    <!-- Display errors and success messages -->
+    <?php include '../../assets/components/alert.php'; ?>
 
     <h2>My Bookings</h2>
     <div class="booking-list">
         <?php if (count($bookings) > 0): ?>
-            <ul>
-                <?php foreach ($bookings as $booking): ?>
-                    <li>
-                        <string>Booking ID:</strong> <?php echo htmlspecialchars($booking['id']); ?> |
-                            <strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['tour_id']); ?> |
-                            <strong>Date:</strong> <?php echo htmlspecialchars($booking['departure_date']); ?> |
-                            <strong>Status:</strong> <?php echo htmlspecialchars($booking['status']); ?>
-                    </li>
-                <?php endforeach; ?>
+            <?php foreach ($bookings as $booking): ?>
+                <div class="booking-grid">
+                    <div class="booking-card">
+                        <p><strong>Booking ID:</strong> <?php echo htmlspecialchars($booking['id']); ?></p>
+                        <p><strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['tour_id']); ?></p>
+                        <p><strong>User ID:</strong> <?php echo htmlspecialchars($booking['user_id']); ?></p>
+                        <p><strong>Departure Date:</strong> <?php echo htmlspecialchars($booking['departure_date']); ?></p>
+                        <p><strong>Number of People:</strong> <?php echo htmlspecialchars($booking['person_count']); ?></p>
+                        <p><strong>Total Price:</strong> $<?php echo $booking['total_price'] ?></p>
+                        <p><strong>Status:</strong> <?php echo htmlspecialchars(ucfirst($booking['status'])); ?></p>
+                    </div>
+                    <div class="edit-container">
+                        <form action="../edit/booking.php" method="get">
+                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($booking['id']); ?>">
+                            <input type="submit" value="Edit Booking">
+                        </form>
+                        <form action="../delete/booking.php" method="post" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($booking['id']); ?>">
+                            <input type="submit" value="Delete Booking">
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>You have no bookings.</p>
+            <p>There are no bookings.</p>
         <?php endif; ?>
     </div>
     <!-- Footer -->
