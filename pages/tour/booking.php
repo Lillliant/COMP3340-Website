@@ -80,7 +80,7 @@ if (!isset($_SESSION['options'])) {
                     <!-- TODO: Display trip details here -->
                 </div>
                 <div>
-                    <form action="confirmation.php" method="post" name="booking">
+                    <form action="book.php" method="post" name="booking">
                         <h3>Departure Date</h3>
                         <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" required>
                         <input type="number" name="people" id="people" value="1" min="1" max="30" required>
@@ -104,9 +104,9 @@ if (!isset($_SESSION['options'])) {
                     <div>
                         <!-- Departure Date and Arrival Date -->
                         <h4>Departure Date</h4>
-                        <p id="departure-date">YYYY/MM/DD</p>
+                        <p id="departure-date">N/A</p>
                         <h4>Arrival Date</h4>
-                        <p id="arrival-date">YYYY/MM/DD</p>
+                        <p id="arrival-date">N/A</p>
                     </div>
                     <div>
                         <h4>Number of People</h4>
@@ -148,6 +148,15 @@ if (!isset($_SESSION['options'])) {
 
         // Update the number of people and calculate total price
         $(document).ready(function() {
+            // Initialize the total price based on the default option and number of people
+            var initialPeopleCount = $('#people').val();
+            var selectedOption = $('#option').find('option:selected');
+            var optionPrice = parseFloat(selectedOption.text().split('- $')[1]);
+            var totalPrice = optionPrice * initialPeopleCount;
+            $('#total-price').text('$' + totalPrice.toFixed(2));
+            $('#selected-option').text(selectedOption.text());
+            $('#number-of-people').text(initialPeopleCount);
+            // Update total price and selected option on input change
             $('#people').on('input', function() {
                 var peopleCount = $(this).val();
                 $('#number-of-people').text(peopleCount);

@@ -2,41 +2,34 @@
 session_start();
 require_once('../../assets/php/db.php'); // Include the database connection file
 
-// Return to the registration page if the form was not submitted or if the required fields are not set
-if (
-    !($_SERVER['REQUEST_METHOD'] === 'POST') ||
-    !isset($_POST['departure_date'], $_POST['people'])
-) {
+// Obtain booking information from the session or URL
+if (!isset($_GET['booking_id']) && !isset($_SESSION['booking_id'])) {
     header('Location: /3340/404.php');
     exit;
 }
-
-// Check if the required fields are empty
-if (empty($_POST['departure_date']) || empty($_POST['people'])) {
+$bookingId = isset($_GET['booking_id']) ? $_GET['booking_id'] : $_SESSION['booking_id'];
+// Fetch booking details from the database
+$stmt = $conn->prepare("SELECT * FROM bookings WHERE id = ?");
+$stmt->bind_param("i", $bookingId);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows === 0) {
     header('Location: /3340/404.php');
     exit;
 }
+$booking = $result->fetch_assoc();
 
-// Add a new booking to the database
-if ($stmt = mysqli_prepare($conn, 'INSERT INTO bookings (tour_id, user_id, departure_date, person_count, total_price) VALUES (?, ?, ?, ?, ?)')) {
-    $date = DateTime::createFromFormat('m/d/Y', $_POST['departure_date']);
-    $newDate = $date->format('Y-m-d'); // Convert date to 'Y-m-d' format
-    $totalPrice = $_SESSION['tour']['base_price'] * $_POST['people']; // Calculate total price
-    // Bind POST data to the prepared statement
-    mysqli_stmt_bind_param(
-        $stmt,
-        'iissd',
-        $_SESSION['tour']['id'], // Tour ID
-        $_SESSION['account_id'], // User ID from session
-        $newDate, // Departure date
-        $_POST['people'], // Number of people
-        $_SESSION['tour']['base_price'] // Base price
-    );
-    mysqli_stmt_execute($stmt); // Execute the query
-    mysqli_stmt_close($stmt); // Close the statement
-    $bookingId = mysqli_insert_id($conn); // Get the last inserted booking ID
+// Obtain the option details
+$optionId = $booking['option_id'];
+$stmt = $conn->prepare("SELECT * FROM options WHERE id = ?");
+$stmt->bind_param("i", $optionId);
+$stmt->execute();
+$optionResult = $stmt->get_result();
+if ($optionResult->num_rows === 0) {
+    $option = 'No option selected';
+} else {
+    $option = $optionResult->fetch_assoc();
 }
-
 ?>
 
 <!doctype html>
@@ -68,25 +61,33 @@ if ($stmt = mysqli_prepare($conn, 'INSERT INTO bookings (tour_id, user_id, depar
             <div>
                 <h3>Trip Summary</h3>
                 <?php echo $_SESSION['account_id'] ? "<p>Welcome, User ID: " . htmlspecialchars($_SESSION['account_id']) . "</p>" : "<p>Please log in to book a tour.</p>"; ?>
+                <?php if (isset($_GET['booking_id'])) : ?>
+                    <p>Your booking ID is: <?php echo htmlspecialchars($_GET['booking_id']); ?></p>
+                <?php else : ?>
+                    <p>There was an error processing your booking. Please try again.</p>
+                <?php endif; ?>
                 <hr>
                 <div>
                     <!-- Departure Date and Arrival Date -->
                     <h4>Departure Date</h4>
-                    <p id="departure-date">YYYY/MM/DD</p>
+                    <p id="departure-date"><?php echo htmlspecialchars($booking['departure_date']); ?></p>
                     <h4>Arrival Date</h4>
-                    <p id="arrival-date">YYYY/MM/DD</p>
+                    <p id="arrival-date"><?php
+                                            $date = DateTime::createFromFormat('Y-m-d', $booking['departure_date']);
+                                            $duration = date_interval_create_from_date_string($_SESSION['tour']['duration'] . ' days');
+                                            echo htmlspecialchars(date_add($date, $duration)->format('Y-m-d'));
+                                            ?></p>
                 </div>
                 <div>
                     <h4>Number of People</h4>
-                    <p id="number-of-people">1</p>
-                    <h4>Pricing Breakdown</h4>
-                    <p id="base-price"><b>Base Price:</b> $<?php echo htmlspecialchars($_SESSION['tour']['base_price']); ?> x 1</p>
-                    <p id="addon-price"><b>Add-on Price:</b> $0.00 x 1</p>
+                    <p id="number-of-people"><?php echo $booking['person_count'] ?></p>
+                    <h4>Selected Option</h4>
+                    <p id="selected-option"><?php echo sprintf("%s - $%s", $option['name'], $option['price']) ?> x <?php echo $booking['person_count'] ?></p>
                 </div>
                 <div>
                     <!-- Total Price -->
                     <h4>Total Price</h4>
-                    <p id="total-price">$<?php echo htmlspecialchars($_SESSION['tour']['base_price']); ?></p>
+                    <p id="total-price">$<?php echo htmlspecialchars($booking['total_price']); ?></p>
                 </div>
             </div>
         </div>
