@@ -35,7 +35,9 @@ if ($_SESSION['role'] !== 'admin') {
 
     <h2>Admin Home Page</h2>
     <button onclick="window.location.href='booking.php'">View All Bookings</button>
-    <button onclick="window.location.href='profile.php'">View All Users</button>
+    <button onclick="window.location.href='tour.php'">View All Tours</button>
+    <button onclick="window.location.href='user.php'">View All Users</button>
+    <button onclick="window.location.href='../user/profile.php'">View My Profile</button>
     <button onclick="window.location.href='../edit/password.php'">Edit My Password</button>
     <!-- Footer -->
 </body>

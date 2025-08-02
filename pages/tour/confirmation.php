@@ -18,9 +18,10 @@ if (empty($_POST['departure_date']) || empty($_POST['people'])) {
 }
 
 // Add a new booking to the database
-if ($stmt = mysqli_prepare($conn, 'INSERT INTO bookings (tour_id, user_id, departure_date, person_count, base_price) VALUES (?, ?, ?, ?, ?)')) {
+if ($stmt = mysqli_prepare($conn, 'INSERT INTO bookings (tour_id, user_id, departure_date, person_count, total_price) VALUES (?, ?, ?, ?, ?)')) {
     $date = DateTime::createFromFormat('m/d/Y', $_POST['departure_date']);
     $newDate = $date->format('Y-m-d'); // Convert date to 'Y-m-d' format
+    $totalPrice = $_SESSION['tour']['base_price'] * $_POST['people']; // Calculate total price
     // Bind POST data to the prepared statement
     mysqli_stmt_bind_param(
         $stmt,
