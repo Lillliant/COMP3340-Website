@@ -11,7 +11,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'POST') || !isset($_POST['id'])) {
     exit;
 }
 
-// Deactivate the tour associated with the booking
+// Deactivate the tour associated with the ID
 $stmt = $conn->prepare("UPDATE tours SET is_active = 0 WHERE id = ?");
 $stmt->bind_param("i", $_POST['id']);
 if ($stmt->execute()) {
