@@ -11,8 +11,7 @@
                     <a class="nav-link active" aria-current="page"
                         href=<?php
                                 if (isset($_SESSION['loggedin'])) {
-                                    // Fetch the home page based on the user's login role
-                                    echo $_SESSION['role'] === 'admin' ? '/3340/pages/admin/home.php' : '/3340/pages/user/home.php';
+                                    echo '/3340/pages/user/home.php';
                                 } else {
                                     echo '/3340/index.php';
                                 }

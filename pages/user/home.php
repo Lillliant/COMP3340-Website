@@ -29,7 +29,14 @@ if (!isset($_SESSION['loggedin'])) {
     <h1>Trekker Tours</h1>
 
     <h2>User Home Page</h2>
-    <button onclick="window.location.href='booking.php'">View My Bookings</button>
+    <button onclick="window.location.href='booking.php'">Manage Bookings</button>
+    <?php
+    // Check if the user is an admin
+    if ($_SESSION['role'] === 'admin') {
+        echo '<button onclick="window.location.href=\'../user/tour.php\'">Manage Tours</button>';
+        echo '<button onclick="window.location.href=\'../user/user.php\'">Manage Users</button>';
+    }
+    ?>
     <button onclick="window.location.href='profile.php'">View My Profile</button>
     <button onclick="window.location.href='../edit/password.php'">Edit My Password</button>
     <!-- Footer -->
