@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
+                    <a class="nav-link" href="/3340/pages/tour/search.php">Tours</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
