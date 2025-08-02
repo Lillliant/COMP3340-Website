@@ -140,7 +140,7 @@ if ($result->num_rows > 0) {
             <!-- Display the selected option if it exists, otherwise show a default message -->
             <?php echo sprintf(
                 "%s - $%s",
-                $option !== null ? htmlspecialchars($option['name']) : 'No option selected',
+                $option !== null ? htmlspecialchars($option['name']) : 'Option no longer available',
                 $option !== null ? htmlspecialchars($option['price']) : '0.00'
             ); ?>
         </p>
