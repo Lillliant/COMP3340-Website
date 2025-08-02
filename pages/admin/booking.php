@@ -38,6 +38,8 @@ if ($result->num_rows > 0) {
 
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
+    <!-- Display errors and success messages -->
+    <?php include '../../assets/components/messages.php'; ?>
 
     <h2>My Bookings</h2>
     <div class="booking-list">

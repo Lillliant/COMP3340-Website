@@ -67,6 +67,9 @@ if ($result->num_rows > 0) {
     <p>
         Use the form below to edit the booking details. The new values will be updated in the database.
     </p>
+    <!-- Display any success or error messages -->
+    <?php include '../../assets/components/messages.php'; ?>
+
     <div class="center-form">
         <form action="booking_validate.php" method="post">
             <!-- Hidden field to store the booking ID, which cannot be modified. -->
