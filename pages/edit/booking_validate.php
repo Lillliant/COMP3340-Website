@@ -15,20 +15,22 @@ if ($result->num_rows > 0) {
 if (
     !($_SERVER['REQUEST_METHOD'] === 'POST')
 ) {
-    header('Location: /3340/pages/edit/profile.php');
+    header('Location: /3340/pages/admin/booking.php');
     exit;
 }
 
-$newProfileData = [
-    'username' => $_POST['username'],
-    'first_name' => $_POST['first_name'],
-    'last_name' => $_POST['last_name'],
-    'email' => $_POST['email']
+$newBookingData = [
+    'user_id' => $_POST['user_id'],
+    'tour_id' => $_POST['tour_id'],
+    'departure_date' => $_POST['departure_date'],
+    'total_price' => $_POST['total_price'],
+    'person_count' => $_POST['person_count']
 ];
 
-foreach (['username', 'first_name', 'last_name', 'email'] as $field) {
+// Keep existing values if new ones are empty
+foreach (['user_id', 'tour_id', 'departure_date', 'total_price', 'person_count'] as $field) {
     if (empty($_POST[$field])) {
-        $newProfileData[$field] = $user[$field]; // Keep existing value if new one is empty
+        $newBookingData[$field] = $booking[$field]; // Keep existing value if new one is empty
     }
 }
 
