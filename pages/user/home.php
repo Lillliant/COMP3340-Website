@@ -35,6 +35,7 @@ if (!isset($_SESSION['loggedin'])) {
     if ($_SESSION['role'] === 'admin') {
         echo '<button onclick="window.location.href=\'../user/tour.php\'">Manage Tours</button>';
         echo '<button onclick="window.location.href=\'../user/user.php\'">Manage Users</button>';
+        echo '<button onclick="window.location.href=\'monitor.php\'">Website Monitor</button>';
     }
     ?>
     <button onclick="window.location.href='profile.php'">View My Profile</button>
