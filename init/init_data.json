@@ -22,6 +22,7 @@
       "id": 1,
       "name": "Best of Northern Italy",
       "description": "Join us for an unforgettable journey through Northern Italy, where you will experience breathtaking landscapes, rich history, and vibrant culture.",
+      "long_description": "This tour takes you through the stunning regions of Northern Italy, including the majestic Dolomites, the serene lakes of Como and Garda, and the historic cities of Milan and Venice. Enjoy guided tours, local cuisine, and comfortable accommodations as you explore the best that Northern Italy has to offer.",
       "inclusions": "Accommodation, meals, guided tours, and transportation.",
       "destination": "Europe",
       "start_city": "Milan",
@@ -29,8 +30,21 @@
       "category": "cultural",
       "activity_level": "balanced",
       "duration": 8,
-      "base_price": 1200,
       "start_day": 1
+    }
+  ],
+  "options": [
+    {
+      "tour_id": 1,
+      "name": "Comfortable Accommodation",
+      "description": "Stay in 4-star hotels with breakfast included.",
+      "price": 500.0
+    },
+    {
+      "tour_id": 1,
+      "name": "Luxury Accommodation",
+      "description": "Stay in 5-star hotels with breakfast included.",
+      "price": 750.0
     }
   ],
   "images": [

@@ -22,6 +22,7 @@ function insertTour(
     $id,
     $name,
     $description,
+    $long_description,
     $inclusions,
     $destination,
     $start_city,
@@ -29,16 +30,16 @@ function insertTour(
     $category,
     $activity_level,
     $duration,
-    $base_price,
     $start_day,
 ) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, inclusions, destination, start_city, end_city, category, activity_level, duration, base_price,start_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tours (id, name, description, long_description, inclusions, destination, start_city, end_city, category, activity_level, duration,start_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param(
-        "issssssssiii",
+        "isssssssssii",
         $id,
         $name,
         $description,
+        $long_description,
         $inclusions,
         $destination,
         $start_city,
@@ -46,7 +47,6 @@ function insertTour(
         $category,
         $activity_level,
         $duration,
-        $base_price,
         $start_day,
     );
 
@@ -67,6 +67,21 @@ function insertImage($tour_id, $image_url, $alt, $is_featured)
         echo "<p>Image {$image_url} for tour ID {$tour_id} inserted successfully.</p>";
     } else {
         echo "<p>Error inserting image {$image_url} for tour ID {$tour_id}: " . $stmt->error . "</p>";
+    }
+
+    $stmt->close();
+}
+
+function insertOption($tour_id, $name, $description, $price)
+{
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO options (tour_id, name, description, price) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("issd", $tour_id, $name, $description, $price);
+
+    if ($stmt->execute()) {
+        echo "<p>Option {$name} for tour ID {$tour_id} inserted successfully.</p>";
+    } else {
+        echo "<p>Error inserting option {$name} for tour ID {$tour_id}: " . $stmt->error . "</p>";
     }
 
     $stmt->close();

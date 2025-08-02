@@ -40,6 +40,17 @@ if (isset($_GET['tourid'])) {
         $additionalImages[] = $image;
     }
 
+    // Fetch tour options
+    $stmt = $conn->prepare("SELECT * FROM options WHERE tour_id = ?");
+    $stmt->bind_param("i", $_GET['tourid']);
+    $stmt->execute();
+    $optionsResult = $stmt->get_result();
+    $options = [];
+    while ($option = $optionsResult->fetch_assoc()) {
+        $options[] = $option;
+    }
+    $basePrice = count($options) > 0 ? min(array_column($options, 'price')) : 0;
+
     // TODO: handle case where no images are found
 
     $stmt->close();
@@ -146,7 +157,7 @@ if (isset($_GET['tourid'])) {
                         </svg>
                         Base Price
                     </a>
-                    <p>$<?php echo sprintf("%.2f", $_SESSION['tour']['base_price']); ?></p>
+                    <p>$<?php echo sprintf("%.2f", $basePrice); ?></p>
                 </div>
                 <div class="to-category">
                     <a class="icon-link icon-link-hover" href="#">
@@ -175,24 +186,21 @@ if (isset($_GET['tourid'])) {
         </div>
     </div>
     <div class="itinerary">
-        <div>
-            <h2>Day 1</h2>
-            <p>
-                Your Northern Italy adventure begins in Milan, the cosmopolitan capital of fashion and design. Upon arrival, you'll be welcomed with a guided orientation walk through the city’s historic center, including the iconic Duomo di Milano and the elegant Galleria Vittorio Emanuele II. The evening concludes with a group welcome dinner featuring Lombard specialties like risotto alla Milanese.
-            </p>
-        </div>
-        <div>
-            <h2>Day 2</h2>
-            <p>
-                After breakfast, we head to Lake Como, renowned for its stunning scenery and charming villages. Enjoy a boat ride on the lake, visiting Bellagio and Varenna. In the afternoon, explore the gardens of Villa Carlotta before returning to Milan for an evening at leisure.
-            </p>
-        </div>
-        <div>
-            <h2>Day 3</h2>
-            <p>
-                Departing Milan, we travel to the picturesque town of Verona, famous for its Shakespearean connections. Visit Juliet's House and the ancient Roman amphitheater. After lunch, continue to Venice, where you'll enjoy a gondola ride through the city's enchanting canals.
-            </p>
-        </div>
+        <h2>Itinerary</h2>
+        <p><?php echo sprintf("%s", htmlspecialchars($_SESSION['tour']['long_description'])); ?></p>
+        <h2>Options</h2>
+        <ul>
+            <?php
+            foreach ($options as $option) :
+                echo sprintf(
+                    '<li>%s - $%.2f: %s</li>',
+                    htmlspecialchars($option['name']),
+                    htmlspecialchars($option['price']),
+                    htmlspecialchars($option['description'])
+                );
+            endforeach;
+            ?>
+        </ul>
     </div>
     <!-- Footer -->
 </body>

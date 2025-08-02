@@ -1,7 +1,6 @@
 SET AUTOCOMMIT = 0;
 
 -- Drop previous tables if they exist
-DROP TABLE IF EXISTS `addon_bookings`;
 DROP TABLE IF EXISTS `options`;
 DROP TABLE IF EXISTS `images`;
 DROP TABLE IF EXISTS `bookings`;
@@ -40,8 +39,6 @@ CREATE TABLE `tours` (
   `category` ENUM('adventure', 'cultural', 'relaxation') NOT NULL DEFAULT 'relaxation',
   `activity_level` ENUM('relaxing', 'balanced', 'challenging') NOT NULL DEFAULT 'balanced',
   `duration` INT(11) NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
   `start_day` INT(1) NOT NULL,
   `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

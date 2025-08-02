@@ -24,6 +24,23 @@ if (!isset($_SESSION['tour'])) {
     }
 }
 
+if (!isset($_SESSION['options'])) {
+    require_once '../../assets/php/db.php';
+    // Fetch tour options
+    $stmt = $conn->prepare("SELECT * FROM options WHERE tour_id = ?");
+    $stmt->bind_param("i", $_SESSION['tourid']);
+    $stmt->execute();
+    $optionsResult = $stmt->get_result();
+    $_SESSION['options'] = [];
+    if ($optionsResult->num_rows > 0) {
+        // Fetch all options into an array
+        while ($option = $optionsResult->fetch_assoc()) {
+            $_SESSION['options'][] = $option;
+        }
+    } else {
+        $_SESSION['options'] = []; // No options available for this tour
+    }
+}
 ?>
 
 <!doctype html>
@@ -67,6 +84,14 @@ if (!isset($_SESSION['tour'])) {
                         <h3>Departure Date</h3>
                         <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" required>
                         <input type="number" name="people" id="people" value="1" min="1" max="30" required>
+                        <h3>Options</h3>
+                        <select name="option" id="option" required>
+                            <?php foreach ($_SESSION['options'] as $option) : ?>
+                                <option value="<?php echo htmlspecialchars($option['id']); ?>">
+                                    <?php echo htmlspecialchars($option['name']) . " - $" . htmlspecialchars($option['price']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                         <input type="submit" value="Book Now">
                     </form>
                 </div>
@@ -86,14 +111,12 @@ if (!isset($_SESSION['tour'])) {
                     <div>
                         <h4>Number of People</h4>
                         <p id="number-of-people">1</p>
-                        <h4>Pricing Breakdown</h4>
-                        <p id="base-price"><b>Base Price:</b> $<?php echo htmlspecialchars($_SESSION['tour']['base_price']); ?> x 1</p>
-                        <p id="addon-price"><b>Add-on Price:</b> $0.00 x 1</p>
+                        <h4>Selected Option</h4>
+                        <p id="selected-option">None</p>
                     </div>
                     <div>
-                        <!-- Total Price -->
                         <h4>Total Price</h4>
-                        <p id="total-price">$<?php echo htmlspecialchars($_SESSION['tour']['base_price']); ?></p>
+                        <p id="total-price">$0.00</p>
                     </div>
                 </div>
             </div>
@@ -128,11 +151,18 @@ if (!isset($_SESSION['tour'])) {
             $('#people').on('input', function() {
                 var peopleCount = $(this).val();
                 $('#number-of-people').text(peopleCount);
-                var basePrice = <?php echo $_SESSION['tour']['base_price']; ?>;
-                var totalPrice = basePrice * peopleCount;
-                $('#base-price').html(`<b>Base Price:</b> \$${basePrice.toFixed(2)} x${peopleCount}`);
-                $('#addon-price').html(`<b>Add-on Price:</b> $XXX x ${peopleCount}`); // Replace XXX with actual add-on price if applicable
-                $('#total-price').text(`\$${totalPrice.toFixed(2)}`);
+                var selectedOption = $('#option').find('option:selected');
+                var optionPrice = parseFloat(selectedOption.text().split('- $')[1]);
+                var totalPrice = optionPrice * peopleCount;
+                $('#total-price').text('$' + totalPrice.toFixed(2));
+            });
+            $('#option').on('change', function() {
+                var selectedOption = $(this).find('option:selected').text();
+                $('#selected-option').text(selectedOption);
+                var peopleCount = $('#people').val();
+                var optionPrice = parseFloat(selectedOption.split('- $')[1]);
+                var totalPrice = optionPrice * peopleCount;
+                $('#total-price').text('$' + totalPrice.toFixed(2));
             });
         });
     </script>
