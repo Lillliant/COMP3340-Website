@@ -1,15 +1,23 @@
 <?php
 session_start();
 
+// Establish database connection
 require_once('../../assets/php/db.php');
 
-// If the user is already logged in, redirect to home page
-if (!isset($_SESSION['loggedin'])) {
+// If the user is not logged in, or is not an admin, redirect to home page
+if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
     header('Location: /3340/index.php');
     exit;
 }
 
-// Fetch the booking details from the database
+// Fetch the specific booking detail using the booking ID from the URL
+// First validate the booking ID
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    header("Location: /3340/404.php");
+    exit;
+}
+
+// Actually fetch the booking details
 $stmt = $conn->prepare("SELECT * FROM bookings WHERE id = ?");
 $stmt->bind_param("i", $_GET['id']);
 $stmt->execute();
@@ -21,7 +29,7 @@ if ($result->num_rows > 0) {
     exit;
 }
 
-// Fetch the selected option for the booking
+// Fetch the details of the specific booking
 $stmt = $conn->prepare("SELECT * FROM options WHERE id = ?");
 $stmt->bind_param("i", $booking['option_id']);
 $stmt->execute();
@@ -29,10 +37,10 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $option = $result->fetch_assoc();
 } else {
-    header("Location: /3340/404.php");
-    exit;
+    $option = null; // Handle case where no option is found
 }
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -44,6 +52,7 @@ if ($result->num_rows > 0) {
     <!-- For static pages, the components can be included directly -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
+    <!-- Import jQuery and jQuery UI for datepicker -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
@@ -54,25 +63,41 @@ if ($result->num_rows > 0) {
     <?php include '../../assets/components/header.php'; ?>
 
     <!-- Main Content -->
-    <h1>Trekker Tours</h1>
-
-    <h2>Edit Booking</h2>
+    <h1>Edit Booking</h1>
+    <p>
+        Use the form below to edit the booking details. The new values will be updated in the database.
+    </p>
     <div class="center-form">
-        <form action="profile_validate.php" method="post">
-            <input type="text" name="user_id" id="user_id" placeholder=<?php echo htmlspecialchars($booking['user_id']); ?> value="<?php echo htmlspecialchars($booking['user_id']); ?>">
-            <input type="text" name="tour_id" id="tour_id" placeholder=<?php echo htmlspecialchars($booking['tour_id']); ?> value="<?php echo htmlspecialchars($booking['tour_id']); ?>">
-            <input type="text" id="datepicker" name="departure_date" placeholder=<?php echo htmlspecialchars($booking['departure_date']); ?> value="<?php echo htmlspecialchars($booking['departure_date']); ?>">
-            <input type="number" name="person_count" id="person_count" min="1" max="30" value=<?php echo htmlspecialchars($booking['person_count']); ?> value="<?php echo htmlspecialchars($booking['person_count']); ?>">
-            <input type="number" name="total_price" id="total_price" min="0" value=<?php echo htmlspecialchars($booking['total_price']); ?> value="<?php echo htmlspecialchars($booking['total_price']); ?>">
-            <!-- Change the status of the booking -->
+        <form action="booking_validate.php" method="post">
+            <!-- Hidden field to store the booking ID, which cannot be modified. -->
+            <!-- The tour ID also cannot be modified, as it is linked to the booking -->
+            <!-- However, the user ID can be modified to change the booking to a different user, -->
+            <!-- For cases such as allowing an admin to book on behalf of a user -->
+            <input type="hidden" name="booking_id" value="<?php echo htmlspecialchars($booking['id']); ?>">
+            <label for="status">Status:</label>
             <select name="status" id="status">
                 <option value="pending" <?php if ($booking['status'] === 'pending') echo 'selected'; ?>>Pending</option>
                 <option value="confirmed" <?php if ($booking['status'] === 'confirmed') echo 'selected'; ?>>Confirmed</option>
                 <option value="cancelled" <?php if ($booking['status'] === 'cancelled') echo 'selected'; ?>>Cancelled</option>
+                <option value="completed" <?php if ($booking['status'] === 'completed') echo 'selected'; ?>>Completed</option>
             </select>
-            <input type="hidden" name="booking_id" value="<?php echo htmlspecialchars($booking['id']); ?>">
+            <label for="user_id">User ID:</label>
+            <!-- Retain the initial values as placeholders, but allow them to be modified -->
+            <input type="text" name="user_id" id="user_id" value="<?php echo htmlspecialchars($booking['user_id']); ?>">
+            <label for="datepicker">Departure Date:</label>
+            <input type="text" id="datepicker" name="departure_date" value="<?php echo htmlspecialchars($booking['departure_date']); ?>">
+            <label for="person_count">Person Count:</label>
+            <input type="number" name="person_count" id="person_count" min="1" max="30" value="<?php echo htmlspecialchars($booking['person_count']); ?>">
+            <!-- Option selection, which depends on the tour and needs to be dynamically populated -->
+            <label for="option_id">Option:</label>
             <select name="option_id" id="option_id">
-                <option value="<?php echo htmlspecialchars($option['id']); ?>" selected><?php echo htmlspecialchars($option['name']) . ' - $' . htmlspecialchars($option['price']); ?></option>
+                <!-- Changed the default selected option based on the booking's current option -->
+                <?php if ($option): ?>
+                    <option value="<?php echo htmlspecialchars($option['id']); ?>" selected><?php echo htmlspecialchars($option['name']) . ' - $' . htmlspecialchars($option['price']); ?></option>
+                <?php else: ?>
+                    <option value="" disabled selected>Select an option</option>
+                <?php endif; ?>
+                <!-- Populate the options dynamically -->
                 <?php
                 // Fetch all options from the database
                 $stmt = $conn->prepare("SELECT * FROM options WHERE tour_id = ?");
@@ -80,73 +105,81 @@ if ($result->num_rows > 0) {
                 $stmt->execute();
                 $optionsResult = $stmt->get_result();
                 while ($opt = $optionsResult->fetch_assoc()) {
-                    if ($opt['id'] !== $option['id']) {
+                    // Only add options that are not the current booking's option
+                    if ($option == null || $opt['id'] !== $option['id']) {
                         echo '<option value="' . htmlspecialchars($opt['id']) . '">' . htmlspecialchars($opt['name']) . ' - $' . htmlspecialchars($opt['price']) . '</option>';
                     }
                 }
                 ?>
             </select>
+            <label for="total_price">Total Price:</label>
+            <input type="number" name="total_price" id="total_price" min="0" value="<?php echo htmlspecialchars($booking['total_price']); ?>">
             <input type="submit" value="Edit">
         </form>
     </div>
     <!-- Old booking details -->
     <div>
         <h3>Old Booking Details</h3>
-        <p>User ID: <?php echo htmlspecialchars($booking['user_id']); ?></p>
-        <p>Tour ID: <?php echo htmlspecialchars($booking['tour_id']); ?></p>
-        <p>Departure Date: <?php echo htmlspecialchars($booking['departure_date']); ?></p>
-        <p>Person Count: <?php echo htmlspecialchars($booking['person_count']); ?></p>
-        <p>Total Price: <?php echo htmlspecialchars($booking['total_price']); ?></p>
-        <p>Status: <?php echo htmlspecialchars($booking['status']); ?></p>
-        <p>Option: <?php echo sprintf("%s - $%s", htmlspecialchars($option['name']), htmlspecialchars($option['price'])); ?></p>
+        <p><strong>Status:</strong> <?php echo htmlspecialchars(ucfirst($booking['status'])); ?></p>
+        <p><strong>User ID:</strong> <?php echo htmlspecialchars($booking['user_id']); ?></p>
+        <p><strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['tour_id']); ?></p>
+        <p><strong>Departure Date:</strong> <?php echo htmlspecialchars($booking['departure_date']); ?></p>
+        <p><strong>Person Count:</strong> <?php echo htmlspecialchars($booking['person_count']); ?></p>
+        <p><strong>Selected Option:</strong>
+            <!-- Display the selected option if it exists, otherwise show a default message -->
+            <?php echo sprintf(
+                "%s - $%s",
+                $option !== null ? htmlspecialchars($option['name']) : 'No option selected',
+                $option !== null ? htmlspecialchars($option['price']) : '0.00'
+            ); ?>
+        </p>
+        <p><strong>Total Price:</strong> $<?php echo htmlspecialchars($booking['total_price']); ?></p>
     </div>
     <!-- New booking details -->
+
     <div>
         <h3>New Booking Details</h3>
-        <p id="new-user-id">User ID: <?php echo htmlspecialchars($booking['user_id']); ?></p>
-        <p id="new-tour-id">Tour ID: <?php echo htmlspecialchars($booking['tour_id']); ?></p>
-        <p id="new-departure-date">Departure Date: <?php echo htmlspecialchars($booking['departure_date']); ?></p>
-        <p id="new-person-count">Person Count: <?php echo htmlspecialchars($booking['person_count']); ?></p>
-        <p id="new-total-price">Total Price: <?php echo htmlspecialchars($booking['total_price']); ?></p>
-        <p id="status">Status: <?php echo htmlspecialchars($booking['status']); ?></p>
-        <p id="option">Option: <?php
-                                if (isset($booking['option_id'])) {
-                                    $optionId = $booking['option_id'];
-                                    $stmt = $conn->prepare("SELECT name, price FROM options WHERE id = ?");
-                                    $stmt->bind_param("i", $optionId);
-                                    $stmt->execute();
-                                    $optionResult = $stmt->get_result();
-                                    if ($optionResult->num_rows > 0) {
-                                        $optionData = $optionResult->fetch_assoc();
-                                        echo sprintf("%s - $%s", htmlspecialchars($optionData['name']), htmlspecialchars($optionData['price']));
-                                    } else {
-                                        echo 'Option not found';
-                                    }
-                                } else {
-                                    echo 'No option selected';
-                                } ?></p>
+        <!-- Display the new booking details dynamically -->
+        <!-- The default values are set to the current booking details -->
+        <p id="new-status"><strong>Status:</strong> <?php echo htmlspecialchars(ucfirst($booking['status'])); ?></p>
+        <p id="new-user-id"><strong>User ID:</strong> <?php echo htmlspecialchars($booking['user_id']); ?></p>
+        <p id="new-tour-id"><strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['tour_id']); ?></p>
+        <p id="new-departure-date"><strong>Departure Date:</strong> <?php echo htmlspecialchars($booking['departure_date']); ?></p>
+        <p id="new-person-count"><strong>Person Count:</strong> <?php echo htmlspecialchars($booking['person_count']); ?></p>
+        <p id="new-option"><strong>Option:</strong> <?php
+                                                    if ($option !== null) {
+                                                        echo sprintf("%s - $%s", htmlspecialchars($option['name']), htmlspecialchars($option['price']));
+                                                    } else {
+                                                        echo 'No option selected';
+                                                    } ?>
+        </p>
+        <p id="new-total-price"><strong>Total Price:</strong> $<?php echo htmlspecialchars($booking['total_price']); ?></p>
     </div>
 
+    <!-- Footer -->
+
+    <!-- Script to handle dynamic updates -->
     <script>
-        // Update the new booking details dynamically
+        // Update the new booking details dynamically based on form input
         document.querySelector('form').addEventListener('input', function() {
-            document.getElementById('new-user-id').textContent = 'User ID: ' + document.getElementById('user_id').value;
-            document.getElementById('new-tour-id').textContent = 'Tour ID: ' + document.getElementById('tour_id').value;
-            document.getElementById('new-departure-date').textContent = 'Departure Date: ' + document.getElementById('datepicker').value;
-            document.getElementById('new-person-count').textContent = 'Person Count: ' + document.getElementById('person_count').value;
-            document.getElementById('new-total-price').textContent = 'Total Price: ' + document.getElementById('total_price').value;
-            document.getElementById('status').textContent = 'Status: ' + document.getElementById('status').value;
+            document.getElementById('new-user-id').innerHTML = '<strong>User ID:</strong> ' + document.getElementById('user_id').value;
+            document.getElementById('new-departure-date').innerHTML = '<strong>Departure Date:</strong> ' + document.getElementById('datepicker').value;
+            document.getElementById('new-person-count').innerHTML = '<strong>Person Count:</strong> ' + document.getElementById('person_count').value;
+            const statusValue = document.getElementById('status').value;
+            document.getElementById('new-status').innerHTML = '<strong>Status:</strong> ' + statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
             const optionSelect = document.getElementById('option_id');
             const selectedOption = optionSelect.options[optionSelect.selectedIndex];
-            document.getElementById('option').textContent = 'Option: ' + selectedOption.textContent;
+            document.getElementById('new-option').innerHTML = '<strong>Option:</strong> ' + selectedOption.textContent;
         });
 
-        // Update the total price based on the selected option
+        // Update the total price based on the selected option and current person count
         document.getElementById('option_id').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
-            const price = selectedOption.value.split('- $')[1];
-            //document.getElementById('total_price').placeholder = price.toString();
-            document.getElementById('new-total-price').textContent = 'Total Price: $' + price;
+            const basePrice = selectedOption.textContent.split('- $')[1];
+            const personCount = document.getElementById('person_count').value;
+            const totalPrice = (parseFloat(basePrice) * parseInt(personCount, 10)).toFixed(2);
+            document.getElementById('new-total-price').innerHTML = '<strong>Total Price:</strong> $' + totalPrice;
+            document.getElementById('total_price').value = totalPrice;
         });
 
         // Update the total price when the person count changes
@@ -154,33 +187,40 @@ if ($result->num_rows > 0) {
             const personCount = parseInt(this.value, 10);
             const optionSelect = document.getElementById('option_id');
             const selectedOption = optionSelect.options[optionSelect.selectedIndex];
-            const pricePerPerson = parseFloat(selectedOption.value.split('- $')[1]);
-            const totalPrice = personCount * pricePerPerson;
-            //document.getElementById('total_price').placeholder = totalPrice.toFixed(2).toString();
-            document.getElementById('new-total-price').textContent = 'Total Price: $' + totalPrice.toFixed(2);
+            const basePrice = selectedOption.textContent.split('- $')[1];
+            const totalPrice = (parseFloat(basePrice) * parseInt(personCount, 10)).toFixed(2);
+            document.getElementById('new-total-price').innerHTML = '<strong>Total Price:</strong> $' + totalPrice;
+            document.getElementById('total_price').value = totalPrice;
         });
 
         // Initialize the datepicker
         $(function() {
+            var beforeShowDay = function(date) {
+                var day = date.getDay();
+                return [day ==
+                    <?php
+                    require_once('../../assets/php/db.php');
+                    // Fetch the booking details again to get the start day
+                    $stmt = $conn->prepare("SELECT start_day FROM tours WHERE id = ?");
+                    $stmt->bind_param("i", $booking['tour_id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $tour = $result->fetch_assoc();
+                    echo $tour['start_day'];
+                    ?>
+                ];
+            };
+
             $("#datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
                 minDate: 0, // Prevent past dates
-                beforeShowDay: function(date) {
-                    var day = date.getDay();
-                    return [day === <?php echo $_SESSION['tour']['start_day']; ?>, '', ''];
-                },
-                onSelect: function(dateText) {
-                    document.getElementById('new-departure-date').textContent = 'Departure Date: ' + dateText;
-                    var departureDate = new Date(dateText);
-                    var arrivalDate = new Date(departureDate);
-                    arrivalDate.setDate(arrivalDate.getDate() + <?php echo $_SESSION['tour']['duration']; ?>);
-                    document.getElementById('arrival-date').textContent = 'Arrival Date: ' + arrivalDate.toDateString();
+                beforeShowDay: beforeShowDay,
+                onSelect: function(date) {
+                    $('#new-departure-date').html('<strong>Departure Date:</strong> ' + date);
                 }
             });
         });
     </script>
-
-    <!-- Footer -->
 </body>
 
 </html>
