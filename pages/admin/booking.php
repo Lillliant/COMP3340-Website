@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($booking['id']); ?>">
                             <input type="submit" value="Edit Booking">
                         </form>
-                        <form action="../delete/booking.php" method="post">
+                        <form action="../delete/booking.php" method="post" onsubmit="return confirm('Are you sure you want to delete this booking?');">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($booking['id']); ?>">
                             <input type="submit" value="Delete Booking">
                         </form>
