@@ -22,7 +22,7 @@
       "id": 1,
       "name": "Best of Northern Italy",
       "description": "Join us for an unforgettable journey through Northern Italy, where you will experience breathtaking landscapes, rich history, and vibrant culture.",
-      "long_description": "This tour takes you through the stunning regions of Northern Italy, including the majestic Dolomites, the serene lakes of Como and Garda, and the historic cities of Milan and Venice. Enjoy guided tours, local cuisine, and comfortable accommodations as you explore the best that Northern Italy has to offer.",
+      "long_description": "Day one begins in Milan with a city walking tour and welcome dinner. On day two, we visit Lake Como for a relaxing boat cruise and explore Bellagio. Day three takes us to the Dolomites for panoramic views and alpine village visits. On day four, enjoy the scenic beauty of Lake Garda and sample local cuisine. Travel to Verona on day five to explore its Roman amphitheater and Juliet’s balcony. Day six includes a full day discovering Venice, from St. Mark’s Basilica to a gondola ride. On day seven, travel south to Florence and explore Renaissance art and architecture. Finally, day eight wraps up in Rome with a guided tour of the Colosseum and a farewell dinner.",
       "inclusions": "Accommodation, meals, guided tours, and transportation.",
       "destination": "Europe",
       "start_city": "Milan",
@@ -31,20 +31,514 @@
       "activity_level": "balanced",
       "duration": 8,
       "start_day": 1
+    },
+    {
+      "id": 2,
+      "name": "Alpine Adventures in Switzerland",
+      "description": "Embark on a scenic journey through Switzerland’s majestic Alps, pristine lakes, and charming villages.",
+      "long_description": "Day one begins in Zurich with a city tour and a welcome dinner. On day two, travel to Lucerne to visit the Chapel Bridge and cruise across Lake Lucerne. Day three takes you to Interlaken for a day of hiking or paragliding in the Bernese Oberland. Ride the Glacier Express to Zermatt on day four and admire the Matterhorn. On day five, explore Geneva’s Old Town and enjoy Swiss chocolate tasting. The final day wraps up with a visit to Lausanne and scenic vineyards before returning to Zurich for departure.",
+      "inclusions": "Accommodation, daily breakfast, guided tours, train transportation, and entrance fees.",
+      "destination": "Switzerland",
+      "start_city": "Zurich",
+      "end_city": "Zurich",
+      "category": "adventure",
+      "activity_level": "balanced",
+      "duration": 6,
+      "start_day": 4
+    },
+    {
+      "id": 3,
+      "name": "Flavors of Southern France",
+      "description": "Savor the essence of Provence and the French Riviera in this sensory journey through sunlit vineyards and seaside towns.",
+      "long_description": "Arrive in Marseille and explore its old port and markets. Visit Avignon and the Palais des Papes. Spend a day wine tasting in Châteauneuf-du-Pape.",
+      "inclusions": "Accommodation, regional meals, wine tastings, transport, and cultural tours.",
+      "destination": "France",
+      "start_city": "Marseille",
+      "end_city": "Nice",
+      "category": "cultural",
+      "activity_level": "relaxing",
+      "duration": 3,
+      "start_day": 2
+    },
+    {
+      "id": 4,
+      "name": "Iceland Explorer: Fire & Ice",
+      "description": "Discover the land of glaciers and volcanoes with an immersive loop around Iceland’s Ring Road.",
+      "long_description": "Day one starts in Reykjavik with a geothermal spa visit. On day two, explore the Golden Circle and see geysers and waterfalls. Day three takes you to the South Coast with black sand beaches. Visit Vatnajökull Glacier on day four and take a glacier lagoon boat tour. On day five, hike volcanic landscapes in the East Fjords. Day six brings you to the geothermal towns in the North. Enjoy whale watching in Akureyri on day seven. Wrap up with a farewell dinner in Reykjavik on day eight.",
+      "inclusions": "Hotel stays, transport, breakfast, entry to national parks, and guided hikes.",
+      "destination": "Iceland",
+      "start_city": "Reykjavik",
+      "end_city": "Reykjavik",
+      "category": "adventure",
+      "activity_level": "challenging",
+      "duration": 8,
+      "start_day": 5
+    },
+    {
+      "id": 5,
+      "name": "Castles and Culture of Scotland",
+      "description": "Journey through historic castles, whisky distilleries, and dramatic Highlands in this unforgettable Scottish experience.",
+      "long_description": "Start in Edinburgh with a visit to the castle and royal mile. Day two takes you to Stirling and Doune Castle. Day three explores Loch Lomond and the Trossachs. Day four includes a scenic train ride to Fort William. On day five, visit Eilean Donan Castle and travel to Isle of Skye.",
+      "inclusions": "Accommodation, entrance fees, daily transport, whisky tasting, and tour guide.",
+      "destination": "Scotland",
+      "start_city": "Edinburgh",
+      "end_city": "Edinburgh",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 5,
+      "start_day": 0
+    },
+    {
+      "id": 6,
+      "name": "Greek Island Escape",
+      "description": "Hop across the iconic Cycladic islands and experience Greece’s beaches, ruins, and charming towns.",
+      "long_description": "Begin in Athens with a tour of the Acropolis. On day two, sail to Mykonos for seaside charm and nightlife. Explore Delos and its ruins on day three.",
+      "inclusions": "Island ferries, accommodations, breakfast, guided tours, and entry fees.",
+      "destination": "Greece",
+      "start_city": "Athens",
+      "end_city": "Athens",
+      "category": "relaxation",
+      "activity_level": "relaxing",
+      "duration": 3,
+      "start_day": 6
+    },
+    {
+      "id": 7,
+      "name": "Andalusian Discovery",
+      "description": "Explore southern Spain’s flamenco culture, Moorish palaces, and sun-soaked cities.",
+      "long_description": "Start in Seville with flamenco and tapas. Visit the Mezquita in Córdoba on day two. Return to Seville on day three for a farewell dinner.",
+      "inclusions": "Accommodation, transport, meals, and guided cultural experiences.",
+      "destination": "Spain",
+      "start_city": "Seville",
+      "end_city": "Seville",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 3,
+      "start_day": 3
+    },
+    {
+      "id": 8,
+      "name": "Croatia Coastal Cruise",
+      "description": "Cruise the Adriatic Sea from Split to Dubrovnik with stops at Croatia’s most picturesque islands.",
+      "long_description": "Board in Split and explore Diocletian’s Palace. Cruise to Hvar on day two for beach lounging. Visit Korčula’s medieval town on day three.",
+      "inclusions": "Cruise accommodation, all meals on board, shore excursions, and port fees.",
+      "destination": "Croatia",
+      "start_city": "Split",
+      "end_city": "Dubrovnik",
+      "category": "relaxation",
+      "activity_level": "relaxing",
+      "duration": 3,
+      "start_day": 1
+    },
+    {
+      "id": 9,
+      "name": "Highlights of Portugal",
+      "description": "Uncover Portugal’s historic cities, coastal beauty, and soulful music on this unforgettable tour.",
+      "long_description": "Begin in Lisbon with tram rides and Fado music. Day two explores Sintra’s palaces. Travel to Coimbra on day three for university history. Day four includes wine tasting in the Douro Valley. On day five, arrive in Porto and cruise the river. Explore Porto’s old town on day six. Day seven takes you to Aveiro and its canals. Return to Lisbon on day eight for a farewell feast.",
+      "inclusions": "Hotels, transport, wine tastings, cultural shows, and meals.",
+      "destination": "Portugal",
+      "start_city": "Lisbon",
+      "end_city": "Lisbon",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 8,
+      "start_day": 2
+    },
+    {
+      "id": 10,
+      "name": "Wild Landscapes of Norway",
+      "description": "Traverse Norway’s majestic fjords, remote villages, and epic train routes on this wild Nordic adventure.",
+      "long_description": "Start in Oslo with a city highlights tour. Travel to Flåm via scenic train on day two. Cruise the Nærøyfjord on day three. Visit Bergen’s fish markets and harbor on day four. Hike around Trolltunga on day five. Drive to Ålesund on day six with photo stops. Explore Geirangerfjord on day seven. Conclude in Oslo with a farewell dinner on day eight.",
+      "inclusions": "Fjord cruises, rail tickets, lodging, breakfasts, and hiking guides.",
+      "destination": "Norway",
+      "start_city": "Oslo",
+      "end_city": "Oslo",
+      "category": "adventure",
+      "activity_level": "challenging",
+      "duration": 8,
+      "start_day": 4
+    },
+    {
+      "id": 11,
+      "name": "Classic Japan Highlights",
+      "description": "Experience the timeless beauty of Japan through bustling cities, historic temples, and stunning natural landscapes.",
+      "long_description": "Begin in Tokyo with visits to the Meiji Shrine and bustling Shibuya Crossing. Travel to Nikko for its UNESCO World Heritage temples and scenic beauty on day two. Day three brings you to Hakone to enjoy hot springs and views of Mount Fuji. On day four, explore historic Takayama with its well-preserved Edo-period streets. Visit Kanazawa on day five to see traditional gardens and samurai districts. Spend day six in Kyoto exploring famous temples and geisha districts. Travel to Nara on day seven to visit the giant Buddha and deer park. End in Osaka on day eight with vibrant food markets and nightlife.",
+      "inclusions": "Accommodation, meals, guided tours, transportation including trains and buses.",
+      "destination": "Japan",
+      "start_city": "Tokyo",
+      "end_city": "Osaka",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 8,
+      "start_day": 1
+    },
+    {
+      "id": 12,
+      "name": "Balkan Trail Adventure",
+      "description": "Experience the hidden gems of the Balkans on a thrilling journey through rugged mountains, historic towns, and cultural crossroads.",
+      "long_description": "Start in Sarajevo with a city and war history tour. Travel to Mostar on day two to walk its famous bridge. Explore Dubrovnik on day three with a cable car ride. Visit Kotor and its fjord-like bay on day four. Spend day five hiking in Durmitor National Park. Day six takes you to Skopje for local markets and Ottoman architecture. On day seven, explore Lake Ohrid. Wrap up in Tirana with a lively farewell dinner on day eight.",
+      "inclusions": "Hotels, regional transport, entrance tickets, and guided hikes.",
+      "destination": "Balkans",
+      "start_city": "Sarajevo",
+      "end_city": "Tirana",
+      "category": "adventure",
+      "activity_level": "challenging",
+      "duration": 8,
+      "start_day": 0
+    },
+    {
+      "id": 13,
+      "name": "Classic Japan Discovery",
+      "description": "Immerse yourself in Japan's timeless traditions, vibrant cities, and serene temples from Tokyo to Kyoto.",
+      "long_description": "Arrive in Tokyo and explore Asakusa and Shibuya. On day two, visit Mt. Fuji and Lake Kawaguchi. Travel to Hakone on day three for hot springs. Ride the bullet train to Kyoto on day four. Visit temples and a tea ceremony on day five. Explore Nara and its deer park on day six. On day seven, travel to Osaka for food markets. Spend day eight visiting Hiroshima and the Peace Memorial Park. On day nine, relax in Kobe and sample local cuisine. Return to Tokyo on day ten for departure.",
+      "inclusions": "Rail passes, accommodations, guided tours, and cultural experiences.",
+      "destination": "Japan",
+      "start_city": "Tokyo",
+      "end_city": "Tokyo",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 10,
+      "start_day": 2
+    },
+    {
+      "id": 14,
+      "name": "Canadian Rockies Escape",
+      "description": "Experience the wild beauty of the Canadian Rockies on this nature-filled escape through Alberta’s national parks.",
+      "long_description": "Start in Calgary with a welcome dinner. Travel to Banff on day two for scenic drives and gondola rides. Visit Lake Louise and Moraine Lake on day three. Explore Yoho National Park and Emerald Lake on day four. Hike in Jasper National Park on day five. Cruise Maligne Lake on day six. Return to Banff for hot springs and leisure on day seven. End in Calgary with a group breakfast on day eight.",
+      "inclusions": "Hotel stays, park passes, transportation, and guided hikes.",
+      "destination": "Canada",
+      "start_city": "Calgary",
+      "end_city": "Calgary",
+      "category": "adventure",
+      "activity_level": "balanced",
+      "duration": 8,
+      "start_day": 3
+    },
+    {
+      "id": 15,
+      "name": "The Heart of Central Europe",
+      "description": "Travel through grand capitals and medieval towns on this enchanting Central European journey.",
+      "long_description": "Start in Prague with a castle district tour. On day two, explore Kutná Hora and its bone church. Travel to Vienna on day three for classical music and palaces. Spend day four at Schönbrunn Palace and cafes. Day five brings you to Budapest with evening river cruise. Explore thermal baths and ruin pubs on day six. Day seven visits Bratislava’s old town. Return to Prague on day eight with farewell dinner.",
+      "inclusions": "Transport, hotels, breakfast, and city guides.",
+      "destination": "Central Europe",
+      "start_city": "Prague",
+      "end_city": "Prague",
+      "category": "cultural",
+      "activity_level": "relaxing",
+      "duration": 8,
+      "start_day": 4
+    },
+    {
+      "id": 16,
+      "name": "Sunny Escape along China’s Southern Coast",
+      "description": "Relax amidst China’s stunning coastal scenery, ancient towns, and vibrant culinary traditions.",
+      "long_description": "Begin in Guangzhou with a city tour and Cantonese culinary delights. On day two, travel to Kaiping to explore its famous Diaolou watchtowers. Spend day three in Yangshuo enjoying the Li River cruise and stunning karst landscapes. On day four, explore the ancient town of Fenghuang with its riverside architecture. On day five, return to Guangzhou for a farewell dinner and leisure time.",
+      "inclusions": "Accommodation, meals, guided tours, river cruise, and transportation.",
+      "destination": "China",
+      "start_city": "Guangzhou",
+      "end_city": "Guangzhou",
+      "category": "relaxation",
+      "activity_level": "relaxing",
+      "duration": 5,
+      "start_day": 5
+    },
+    {
+      "id": 17,
+      "name": "Moroccan Caravan Experience",
+      "description": "Wander through Morocco’s souks, desert dunes, and vibrant cities on this exotic North African tour.",
+      "long_description": "Arrive in Casablanca with a city tour. On day two, travel to Rabat and Meknes. Day three includes Fes with its historic medina. Journey to the Sahara on day four for camel trekking. Camp under the stars on day five. Travel through the Atlas Mountains on day six. Arrive in Marrakech on day seven and visit its gardens. Depart from Casablanca on day eight.",
+      "inclusions": "Accommodations, meals, camel trek, and local guides.",
+      "destination": "Morocco",
+      "start_city": "Casablanca",
+      "end_city": "Casablanca",
+      "category": "adventure",
+      "activity_level": "challenging",
+      "duration": 8,
+      "start_day": 0
+    },
+    {
+      "id": 18,
+      "name": "Danube River Cruise",
+      "description": "Sail along the Danube River through Central Europe’s most elegant cities and baroque towns.",
+      "long_description": "Begin in Budapest and enjoy a nighttime cruise. Visit Esztergom and Bratislava on day two. Dock in Vienna on day three and attend a concert. On day four, explore the Wachau Valley. Visit Linz and Salzburg on day five. Cruise to Melk Abbey on day six. Arrive in Passau on day seven. Disembark in Munich on day eight for farewell brunch.",
+      "inclusions": "Cruise accommodation, onboard meals, shore excursions, and concerts.",
+      "destination": "Central Europe",
+      "start_city": "Budapest",
+      "end_city": "Munich",
+      "category": "relaxation",
+      "activity_level": "relaxing",
+      "duration": 8,
+      "start_day": 2
+    },
+    {
+      "id": 19,
+      "name": "Wild Patagonia Trek",
+      "description": "Challenge yourself in the wilderness of Patagonia on a guided trek through South America’s most epic landscapes.",
+      "long_description": "Arrive in El Calafate and visit Perito Moreno Glacier. On day two, travel to El Chaltén. Begin trekking Fitz Roy trails on day three. Day four includes glacier lakes and lookout points. Continue hikes to remote valleys on day five. On day six, return to El Calafate. Fly to Torres del Paine on day seven. Depart from Punta Arenas on day eight.",
+      "inclusions": "Guides, campsites, transport, meals, and park permits.",
+      "destination": "South America",
+      "start_city": "El Calafate",
+      "end_city": "Punta Arenas",
+      "category": "adventure",
+      "activity_level": "challenging",
+      "duration": 8,
+      "start_day": 4
+    },
+    {
+      "id": 20,
+      "name": "The Baltic Capitals",
+      "description": "Unveil the charm of Estonia, Latvia, and Lithuania with this enriching cultural tour of the Baltic region.",
+      "long_description": "Start in Tallinn with medieval Old Town tours. On day two, enjoy the Estonian coast and castles. Travel to Riga on day three for Art Nouveau architecture. Day four explores the central market and local cuisine. Travel to Vilnius on day five with stops at Hill of Crosses. Visit Trakai Castle on day six. Explore Vilnius' old town on day seven. Depart from Vilnius on day eight.",
+      "inclusions": "Hotels, transport, breakfast, and local guided tours.",
+      "destination": "Baltic States",
+      "start_city": "Tallinn",
+      "end_city": "Vilnius",
+      "category": "cultural",
+      "activity_level": "balanced",
+      "duration": 8,
+      "start_day": 6
     }
   ],
   "options": [
     {
       "tour_id": 1,
-      "name": "Comfortable Accommodation",
-      "description": "Stay in 4-star hotels with breakfast included.",
-      "price": 500.0
+      "name": "Standard Accommodation",
+      "description": "Stay in well-rated 3-star hotels with continental breakfast included.",
+      "price": 550.0
     },
     {
       "tour_id": 1,
       "name": "Luxury Accommodation",
-      "description": "Stay in 5-star hotels with breakfast included.",
+      "description": "Enjoy 5-star hotel stays with gourmet meals, spa access, and premium amenities.",
+      "price": 1800.0
+    },
+    {
+      "tour_id": 2,
+      "name": "Group City Tour",
+      "description": "Join a shared group walking tour visiting major city landmarks.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 2,
+      "name": "Private Guided Tour",
+      "description": "Experience a fully personalized private city tour with exclusive access and flexible schedule.",
+      "price": 1900.0
+    },
+    {
+      "tour_id": 3,
+      "name": "Basic Meals Plan",
+      "description": "Includes breakfast and selected lunches featuring local cuisine.",
+      "price": 700.0
+    },
+    {
+      "tour_id": 3,
+      "name": "All-Inclusive Gourmet Meals",
+      "description": "Full board with fine dining experiences, local specialties, and premium beverages.",
+      "price": 1950.0
+    },
+    {
+      "tour_id": 4,
+      "name": "Standard Transport Package",
+      "description": "Includes economy class transportation between destinations and transfers.",
+      "price": 650.0
+    },
+    {
+      "tour_id": 4,
+      "name": "Private Chauffeur Service",
+      "description": "Luxury vehicle and dedicated driver for all transfers and excursions, providing comfort and flexibility.",
+      "price": 1750.0
+    },
+    {
+      "tour_id": 5,
+      "name": "Shared Excursion Package",
+      "description": "Participate in group day trips with guided tours to key attractions.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 5,
+      "name": "Exclusive Private Excursion",
+      "description": "Custom private excursions with expert guides and VIP access to sites.",
+      "price": 1850.0
+    },
+    {
+      "tour_id": 6,
+      "name": "Standard Room Accommodation",
+      "description": "Comfortable standard rooms with breakfast included at select hotels.",
       "price": 750.0
+    },
+    {
+      "tour_id": 6,
+      "name": "Executive Suite Accommodation",
+      "description": "Stay in spacious suites with premium amenities, concierge service, and complimentary meals.",
+      "price": 2000.0
+    },
+    {
+      "tour_id": 7,
+      "name": "Regular Adventure Package",
+      "description": "Guided group activities including moderate hikes and sightseeing.",
+      "price": 700.0
+    },
+    {
+      "tour_id": 7,
+      "name": "Elite Adventure Experience",
+      "description": "Private guided extreme adventure activities with expert instructors and customized plans.",
+      "price": 1850.0
+    },
+    {
+      "tour_id": 8,
+      "name": "Economy Meals Plan",
+      "description": "Includes daily breakfast and select dinners with local favorites.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 8,
+      "name": "Gourmet Dining Package",
+      "description": "All meals included with Michelin-starred restaurants and specialty dishes.",
+      "price": 1900.0
+    },
+    {
+      "tour_id": 9,
+      "name": "Standard Cultural Experiences",
+      "description": "Group visits to museums, local markets, and cultural performances.",
+      "price": 650.0
+    },
+    {
+      "tour_id": 9,
+      "name": "VIP Cultural Package",
+      "description": "Private access to cultural sites, exclusive workshops, and personalized performances.",
+      "price": 1800.0
+    },
+    {
+      "tour_id": 10,
+      "name": "Basic Transportation Package",
+      "description": "Standard economy transportation for all transfers and tours.",
+      "price": 700.0
+    },
+    {
+      "tour_id": 10,
+      "name": "Luxury Transportation Package",
+      "description": "Private luxury vehicles with professional drivers for a seamless travel experience.",
+      "price": 1950.0
+    },
+    {
+      "tour_id": 11,
+      "name": "Classic Accommodation",
+      "description": "Stay in centrally located 3-star hotels with breakfast.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 11,
+      "name": "Premium Accommodation",
+      "description": "5-star hotels with deluxe suites, spa access, and gourmet breakfast.",
+      "price": 1850.0
+    },
+    {
+      "tour_id": 12,
+      "name": "Standard Guided Tours",
+      "description": "Join group guided tours covering popular tourist sites.",
+      "price": 650.0
+    },
+    {
+      "tour_id": 12,
+      "name": "Exclusive Private Tours",
+      "description": "Private guided tours tailored to your interests, with VIP entry and personalized itinerary.",
+      "price": 1900.0
+    },
+    {
+      "tour_id": 13,
+      "name": "Basic Meal Plan",
+      "description": "Breakfast and dinner included with traditional dishes.",
+      "price": 700.0
+    },
+    {
+      "tour_id": 13,
+      "name": "Chef's Table Experience",
+      "description": "All meals curated by top chefs with premium ingredients and wine pairings.",
+      "price": 2000.0
+    },
+    {
+      "tour_id": 14,
+      "name": "Group Transportation",
+      "description": "Shared transport services for all transfers and excursions.",
+      "price": 650.0
+    },
+    {
+      "tour_id": 14,
+      "name": "Private Luxury Transport",
+      "description": "Personal chauffeur and luxury vehicle for all travel needs.",
+      "price": 1900.0
+    },
+    {
+      "tour_id": 15,
+      "name": "Standard Activity Package",
+      "description": "Includes group activities and shared excursions with local guides.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 15,
+      "name": "Premium Activity Package",
+      "description": "Private adventures and exclusive access experiences with expert guides.",
+      "price": 1850.0
+    },
+    {
+      "tour_id": 16,
+      "name": "Economy Room",
+      "description": "Comfortable rooms with basic amenities and breakfast included.",
+      "price": 550.0
+    },
+    {
+      "tour_id": 16,
+      "name": "Luxury Suite",
+      "description": "Spacious suites with high-end amenities, premium bedding, and gourmet breakfast.",
+      "price": 1800.0
+    },
+    {
+      "tour_id": 17,
+      "name": "Regular Dining Plan",
+      "description": "Breakfast and dinner with local dishes in partner restaurants.",
+      "price": 650.0
+    },
+    {
+      "tour_id": 17,
+      "name": "Gourmet Dining Plan",
+      "description": "All meals at top restaurants featuring regional and international cuisine.",
+      "price": 1950.0
+    },
+    {
+      "tour_id": 18,
+      "name": "Basic Sightseeing Package",
+      "description": "Group visits to popular landmarks with expert guides.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 18,
+      "name": "Exclusive Sightseeing Package",
+      "description": "Private tours including VIP access to landmarks and personalized experiences.",
+      "price": 1850.0
+    },
+    {
+      "tour_id": 19,
+      "name": "Shared Transportation",
+      "description": "Group shuttles for transfers and excursions.",
+      "price": 550.0
+    },
+    {
+      "tour_id": 19,
+      "name": "Private Chauffeur Service",
+      "description": "Luxury vehicle and personal driver at your disposal throughout the tour.",
+      "price": 1800.0
+    },
+    {
+      "tour_id": 20,
+      "name": "Standard Accommodation",
+      "description": "3-star hotels with breakfast and central locations.",
+      "price": 600.0
+    },
+    {
+      "tour_id": 20,
+      "name": "Premium Accommodation",
+      "description": "Luxury hotels with suites, spa services, and premium dining.",
+      "price": 1900.0
     }
   ],
   "images": [
@@ -64,6 +558,270 @@
       "tour_id": 1,
       "image_url": "/3340/assets/img/img3.jpg",
       "alt": "Tour Image 3",
+      "featured": false
+    },
+    {
+      "tour_id": 2,
+      "image_url": "/3340/assets/img/img3.jpg",
+      "alt": "Tour Image 3",
+      "featured": true
+    },
+    {
+      "tour_id": 2,
+      "image_url": "/3340/assets/img/img4.jpg",
+      "alt": "Tour Image 4",
+      "featured": false
+    },
+    {
+      "tour_id": 2,
+      "image_url": "/3340/assets/img/img1.jpg",
+      "alt": "Tour Image 1",
+      "featured": false
+    },
+    {
+      "tour_id": 3,
+      "image_url": "/3340/assets/img/img5.jpg",
+      "alt": "Tour Image 5",
+      "featured": true
+    },
+    {
+      "tour_id": 3,
+      "image_url": "/3340/assets/img/img6.jpg",
+      "alt": "Tour Image 6",
+      "featured": false
+    },
+    {
+      "tour_id": 4,
+      "image_url": "/3340/assets/img/img7.jpg",
+      "alt": "Tour Image 7",
+      "featured": true
+    },
+    {
+      "tour_id": 4,
+      "image_url": "/3340/assets/img/img8.jpg",
+      "alt": "Tour Image 8",
+      "featured": false
+    },
+    {
+      "tour_id": 4,
+      "image_url": "/3340/assets/img/img3.jpg",
+      "alt": "Tour Image 3",
+      "featured": false
+    },
+    {
+      "tour_id": 5,
+      "image_url": "/3340/assets/img/img9.jpg",
+      "alt": "Tour Image 9",
+      "featured": true
+    },
+    {
+      "tour_id": 5,
+      "image_url": "/3340/assets/img/img10.jpg",
+      "alt": "Tour Image 10",
+      "featured": false
+    },
+    {
+      "tour_id": 6,
+      "image_url": "/3340/assets/img/img11.jpg",
+      "alt": "Tour Image 11",
+      "featured": true
+    },
+    {
+      "tour_id": 6,
+      "image_url": "/3340/assets/img/img2.jpg",
+      "alt": "Tour Image 2",
+      "featured": false
+    },
+    {
+      "tour_id": 7,
+      "image_url": "/3340/assets/img/img12.jpg",
+      "alt": "Tour Image 12",
+      "featured": true
+    },
+    {
+      "tour_id": 7,
+      "image_url": "/3340/assets/img/img13.jpg",
+      "alt": "Tour Image 13",
+      "featured": false
+    },
+    {
+      "tour_id": 7,
+      "image_url": "/3340/assets/img/img1.jpg",
+      "alt": "Tour Image 1",
+      "featured": false
+    },
+    {
+      "tour_id": 8,
+      "image_url": "/3340/assets/img/img14.jpg",
+      "alt": "Tour Image 14",
+      "featured": true
+    },
+    {
+      "tour_id": 8,
+      "image_url": "/3340/assets/img/img15.jpg",
+      "alt": "Tour Image 15",
+      "featured": false
+    },
+    {
+      "tour_id": 9,
+      "image_url": "/3340/assets/img/img16.jpg",
+      "alt": "Tour Image 16",
+      "featured": true
+    },
+    {
+      "tour_id": 9,
+      "image_url": "/3340/assets/img/img17.jpg",
+      "alt": "Tour Image 17",
+      "featured": false
+    },
+    {
+      "tour_id": 10,
+      "image_url": "/3340/assets/img/img18.jpg",
+      "alt": "Tour Image 18",
+      "featured": true
+    },
+    {
+      "tour_id": 10,
+      "image_url": "/3340/assets/img/img19.jpg",
+      "alt": "Tour Image 19",
+      "featured": false
+    },
+    {
+      "tour_id": 10,
+      "image_url": "/3340/assets/img/img20.jpg",
+      "alt": "Tour Image 20",
+      "featured": false
+    },
+    {
+      "tour_id": 11,
+      "image_url": "/3340/assets/img/img21.jpg",
+      "alt": "Tour Image 21",
+      "featured": true
+    },
+    {
+      "tour_id": 11,
+      "image_url": "/3340/assets/img/img22.jpg",
+      "alt": "Tour Image 22",
+      "featured": false
+    },
+    {
+      "tour_id": 12,
+      "image_url": "/3340/assets/img/img5.jpg",
+      "alt": "Tour Image 5",
+      "featured": true
+    },
+    {
+      "tour_id": 12,
+      "image_url": "/3340/assets/img/img6.jpg",
+      "alt": "Tour Image 6",
+      "featured": false
+    },
+    {
+      "tour_id": 13,
+      "image_url": "/3340/assets/img/img7.jpg",
+      "alt": "Tour Image 7",
+      "featured": true
+    },
+    {
+      "tour_id": 13,
+      "image_url": "/3340/assets/img/img8.jpg",
+      "alt": "Tour Image 8",
+      "featured": false
+    },
+    {
+      "tour_id": 13,
+      "image_url": "/3340/assets/img/img9.jpg",
+      "alt": "Tour Image 9",
+      "featured": false
+    },
+    {
+      "tour_id": 14,
+      "image_url": "/3340/assets/img/img10.jpg",
+      "alt": "Tour Image 10",
+      "featured": true
+    },
+    {
+      "tour_id": 14,
+      "image_url": "/3340/assets/img/img11.jpg",
+      "alt": "Tour Image 11",
+      "featured": false
+    },
+    {
+      "tour_id": 15,
+      "image_url": "/3340/assets/img/img12.jpg",
+      "alt": "Tour Image 12",
+      "featured": true
+    },
+    {
+      "tour_id": 15,
+      "image_url": "/3340/assets/img/img13.jpg",
+      "alt": "Tour Image 13",
+      "featured": false
+    },
+    {
+      "tour_id": 16,
+      "image_url": "/3340/assets/img/img14.jpg",
+      "alt": "Tour Image 14",
+      "featured": true
+    },
+    {
+      "tour_id": 16,
+      "image_url": "/3340/assets/img/img15.jpg",
+      "alt": "Tour Image 15",
+      "featured": false
+    },
+    {
+      "tour_id": 17,
+      "image_url": "/3340/assets/img/img16.jpg",
+      "alt": "Tour Image 16",
+      "featured": true
+    },
+    {
+      "tour_id": 17,
+      "image_url": "/3340/assets/img/img17.jpg",
+      "alt": "Tour Image 17",
+      "featured": false
+    },
+    {
+      "tour_id": 18,
+      "image_url": "/3340/assets/img/img18.jpg",
+      "alt": "Tour Image 18",
+      "featured": true
+    },
+    {
+      "tour_id": 18,
+      "image_url": "/3340/assets/img/img19.jpg",
+      "alt": "Tour Image 19",
+      "featured": false
+    },
+    {
+      "tour_id": 19,
+      "image_url": "/3340/assets/img/img20.jpg",
+      "alt": "Tour Image 20",
+      "featured": true
+    },
+    {
+      "tour_id": 19,
+      "image_url": "/3340/assets/img/img21.jpg",
+      "alt": "Tour Image 21",
+      "featured": false
+    },
+    {
+      "tour_id": 20,
+      "image_url": "/3340/assets/img/img22.jpg",
+      "alt": "Tour Image 22",
+      "featured": true
+    },
+    {
+      "tour_id": 20,
+      "image_url": "/3340/assets/img/img1.jpg",
+      "alt": "Tour Image 1",
+      "featured": false
+    },
+    {
+      "tour_id": 20,
+      "image_url": "/3340/assets/img/img2.jpg",
+      "alt": "Tour Image 2",
       "featured": false
     }
   ]
