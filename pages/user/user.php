@@ -13,9 +13,9 @@ $stmt = $conn->prepare("SELECT * FROM users");
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
-    $bookings = $result->fetch_all(MYSQLI_ASSOC);
+    $users = $result->fetch_all(MYSQLI_ASSOC);
 } else {
-    $bookings = [];
+    $users = [];
 }
 ?>
 
@@ -39,21 +39,39 @@ if ($result->num_rows > 0) {
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
 
-    <h2>My Bookings</h2>
+    <h2>Manage Users</h2>
+    <?php include '../../assets/components/alert.php'; ?>
     <div class="booking-list">
-        <?php if (count($bookings) > 0): ?>
-            <ul>
-                <?php foreach ($bookings as $booking): ?>
-                    <li>
-                        <string>Booking ID:</strong> <?php echo htmlspecialchars($booking['id']); ?> |
-                            <strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['username']); ?> |
-                            <strong>Date:</strong> <?php echo htmlspecialchars($booking['email']); ?> |
-                            <strong>Status:</strong> <?php echo htmlspecialchars($booking['role']); ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+        <?php if (count($users) > 0): ?>
+            <?php foreach ($users as $user): ?>
+                <div class="booking-grid">
+                    <div class="booking-card">
+                        <p><strong>User ID:</strong> <?php echo htmlspecialchars($user['id']); ?></p>
+                        <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
+                        <p><strong>Full Name:</strong> <?php echo htmlspecialchars($user['first_name'] . $user['last_name']); ?></p>
+                        <p><strong>Role:</strong> <?php echo htmlspecialchars($user['role']); ?></p>
+                        <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+                        <p><strong>Registered on:</strong> <?php echo date('Y-m-d', strtotime($user['created_at'])); ?></p>
+                    </div>
+                    <div class="edit-container">
+                        <!-- Make Admin/User and Delete buttons -->
+                        <form method="post" action="../edit/role.php">
+                            <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                            <?php if ($user['role'] === 'admin'): ?>
+                                <input type="submit" value="Make User">
+                            <?php else: ?>
+                                <input type="submit" value="Make Admin">
+                            <?php endif; ?>
+                        </form>
+                        <form method="post" action="../delete/user.php">
+                            <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                            <input type="submit" value="Delete User" onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         <?php else: ?>
-            <p>You have no bookings.</p>
+            <p>You have no users.</p>
         <?php endif; ?>
     </div>
     <!-- Footer -->

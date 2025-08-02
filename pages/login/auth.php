@@ -32,11 +32,7 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
         if (isset($_SESSION['tourid'])) {
             header('Location: /3340/pages/tour/booking.php?tourid=' . $_SESSION['tourid']);
         } else {
-            if ($_SESSION['role'] === 'admin') {
-                header('Location: /3340/pages/admin/home.php');
-            } else {
-                header('Location: /3340/pages/user/home.php');
-            }
+            header('Location: /3340/pages/user/home.php'); // Redirect to the user page after successful login
         }
         exit;
     } else { // If the combination is incorrect, redirect to the login page with an error message

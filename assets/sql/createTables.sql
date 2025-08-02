@@ -19,7 +19,6 @@ CREATE TABLE `users` (
   `role` ENUM('admin', 'user') NOT NULL DEFAULT 'user',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
