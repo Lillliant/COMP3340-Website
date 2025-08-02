@@ -136,6 +136,7 @@ if (!isset($_SESSION['options'])) {
 
             $("#datepicker").datepicker({
                 beforeShowDay: beforeShowDay,
+                minDate: 0, // Prevent past dates
                 onSelect: function(date) {
                     var departureDate = new Date(date);
                     $('#departure-date').text(departureDate.toDateString());

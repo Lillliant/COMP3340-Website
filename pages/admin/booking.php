@@ -50,8 +50,8 @@ if ($result->num_rows > 0) {
                         <p><strong>User ID:</strong> <?php echo htmlspecialchars($booking['user_id']); ?></p>
                         <p><strong>Departure Date:</strong> <?php echo htmlspecialchars($booking['departure_date']); ?></p>
                         <p><strong>Number of People:</strong> <?php echo htmlspecialchars($booking['person_count']); ?></p>
-                        <p><strong>Total Price:</strong> $<?php echo $booking['base_price'] * $booking['person_count'] + $booking['addon_price']; ?></p>
-                        <p><strong>Status:</strong> <?php echo htmlspecialchars($booking['status']); ?></p>
+                        <p><strong>Total Price:</strong> $<?php echo $booking['total_price'] ?></p>
+                        <p><strong>Status:</strong> <?php echo htmlspecialchars(ucfirst($booking['status'])); ?></p>
                     </div>
                     <div class="edit-container">
                         <form action="../edit/booking.php" method="get">
@@ -67,7 +67,7 @@ if ($result->num_rows > 0) {
             <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>You have no bookings.</p>
+            <p>There are no bookings.</p>
         <?php endif; ?>
     </div>
     <!-- Footer -->

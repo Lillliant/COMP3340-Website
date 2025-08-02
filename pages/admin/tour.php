@@ -39,22 +39,25 @@ if ($result->num_rows > 0) {
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
 
-    <h2>My Bookings</h2>
+    <h2>All Bookings</h2>
     <div class="booking-list">
-        <?php if (count($bookings) > 0): ?>
-            <ul>
-                <?php foreach ($bookings as $booking): ?>
-                    <li>
-                        <string>Booking ID:</strong> <?php echo htmlspecialchars($booking['id']); ?> |
-                            <strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['name']); ?> |
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else: ?>
-            <p>You have no bookings.</p>
-        <?php endif; ?>
-    </div>
-    <!-- Footer -->
+        <div>
+            
+                </div>
+                <?php if (count($bookings) > 0): ?>
+                    <ul>
+                        <?php foreach ($bookings as $booking): ?>
+                            <li>
+                                <string>Booking ID:</strong> <?php echo htmlspecialchars($booking['id']); ?> |
+                                    <strong>Tour ID:</strong> <?php echo htmlspecialchars($booking['name']); ?> |
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>There are no bookings.</p>
+                <?php endif; ?>
+        </div>
+        <!-- Footer -->
 </body>
 
 </html>
