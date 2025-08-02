@@ -2,8 +2,7 @@ SET AUTOCOMMIT = 0;
 
 -- Drop previous tables if they exist
 DROP TABLE IF EXISTS `addon_bookings`;
-DROP TABLE IF EXISTS `addons`;
-DROP TABLE IF EXISTS `itineraries`;
+DROP TABLE IF EXISTS `options`;
 DROP TABLE IF EXISTS `images`;
 DROP TABLE IF EXISTS `bookings`;
 DROP TABLE IF EXISTS `tours`;
@@ -33,6 +32,7 @@ CREATE TABLE `tours` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
+  `long_description` TEXT NOT NULL,
   `inclusions` TEXT NOT NULL,
   `destination` VARCHAR(255) NOT NULL,
   `start_city` VARCHAR(100) NOT NULL,
@@ -40,7 +40,6 @@ CREATE TABLE `tours` (
   `category` ENUM('adventure', 'cultural', 'relaxation') NOT NULL DEFAULT 'relaxation',
   `activity_level` ENUM('relaxing', 'balanced', 'challenging') NOT NULL DEFAULT 'balanced',
   `duration` INT(11) NOT NULL,
-  `base_price` DECIMAL(10,2) NOT NULL,
   `start_date` DATE NOT NULL,
   `end_date` DATE NOT NULL,
   `start_day` INT(1) NOT NULL,
@@ -66,14 +65,13 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
 
--- Create the addons table
-CREATE TABLE `addons` (
+-- Create the options table
+CREATE TABLE `options` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tour_id` INT(11) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `price` DECIMAL(10,2) NOT NULL,
-  `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -96,20 +94,6 @@ CREATE TABLE `bookings` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-COMMIT;
-
--- Create the addon_bookings table
-CREATE TABLE `addon_bookings` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `booking_id` INT(11) NOT NULL,
-  `addon_id` INT(11) NOT NULL,
-  `quantity` INT(11) NOT NULL DEFAULT 1,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`booking_id`) REFERENCES `bookings`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`addon_id`) REFERENCES `addons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
 
