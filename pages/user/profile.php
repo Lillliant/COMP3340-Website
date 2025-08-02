@@ -41,13 +41,26 @@ if (isset($_SESSION['account_id'])) {
     <!-- Main Content -->
     <h1>User Profile</h1>
     <div>
+        <h2>Edit Profile</h2>
+        <?php
+        // Display error message if there is one
+        if (isset($_SESSION['error'])) {
+            echo '<p class="error">' . $_SESSION['error'] . '</p>';
+            unset($_SESSION['error']); // Clear the error message after displaying it
+        } else if (isset($_SESSION['success'])) {
+            echo '<p class="success">' . $_SESSION['success'] . '</p>';
+            unset($_SESSION['success']); // Clear the success message after displaying it
+        }
+        ?>
+    </div>
+    <div>
         <h2>Welcome, <?php echo htmlspecialchars($user['username']); ?></h2>
         <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
         <p>First name: <?php echo htmlspecialchars($user['first_name']); ?></p>
         <p>Last name: <?php echo htmlspecialchars($user['last_name']); ?></p>
         <p>Role: <?php echo htmlspecialchars($user['role']); ?></p>
         <p>Account Created: <?php echo htmlspecialchars($user['created_at']); ?></p>
-        <button onclick="window.location.href='edit_profile.php'">Edit Profile</button>
+        <button onclick="window.location.href='/3340/pages/edit/profile.php'">Edit Profile</button>
     </div>
     <!-- Footer -->
 </body>

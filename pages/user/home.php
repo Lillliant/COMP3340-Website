@@ -31,6 +31,7 @@ if (!isset($_SESSION['loggedin'])) {
     <h2>User Home Page</h2>
     <button onclick="window.location.href='booking.php'">View My Bookings</button>
     <button onclick="window.location.href='profile.php'">View My Profile</button>
+    <button onclick="window.location.href='../edit/password.php'">Edit My Password</button>
     <!-- Footer -->
 </body>
 
