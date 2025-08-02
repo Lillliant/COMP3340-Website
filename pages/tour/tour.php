@@ -45,11 +45,11 @@ if (isset($_GET['tourid'])) {
     $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $optionsResult = $stmt->get_result();
-    $options = [];
+    $_SESSION['options'] = [];
     while ($option = $optionsResult->fetch_assoc()) {
-        $options[] = $option;
+        $_SESSION['options'][] = $option;
     }
-    $basePrice = count($options) > 0 ? min(array_column($options, 'price')) : 0;
+    $basePrice = count($_SESSION['options']) > 0 ? min(array_column($_SESSION['options'], 'price')) : 0;
 
     // TODO: handle case where no images are found
 
@@ -191,7 +191,7 @@ if (isset($_GET['tourid'])) {
         <h2>Options</h2>
         <ul>
             <?php
-            foreach ($options as $option) :
+            foreach ($_SESSION['options'] as $option) :
                 echo sprintf(
                     '<li>%s - $%.2f: %s</li>',
                     htmlspecialchars($option['name']),
