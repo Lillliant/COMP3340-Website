@@ -44,6 +44,7 @@ if ($result->num_rows > 0) {
     <?php include '../../assets/components/alert.php'; ?>
 
     <h2>Tours</h2>
+    <button onclick="location.href='../add/tour.php'">Add Tour</button>
     <div class="booking-list">
         <?php if (count($tours) > 0): ?>
             <?php foreach ($tours as $tour): ?>

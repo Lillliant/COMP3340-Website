@@ -48,6 +48,7 @@ function insertTour(
         $activity_level,
         $duration,
         $start_day,
+        $is_active = true // Default to true for new tours in init_data.json
     );
 
     if ($stmt->execute()) {

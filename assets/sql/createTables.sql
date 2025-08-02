@@ -40,7 +40,7 @@ CREATE TABLE `tours` (
   `activity_level` ENUM('relaxing', 'balanced', 'challenging') NOT NULL DEFAULT 'balanced',
   `duration` INT(11) NOT NULL,
   `start_day` INT(1) NOT NULL,
-  `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
+  `is_active` BOOLEAN NOT NULL DEFAULT FALSE,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
