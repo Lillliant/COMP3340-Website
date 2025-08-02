@@ -9,7 +9,15 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once('../../assets/php/db.php');
 // Obtain user bookings from the database
-$stmt = $conn->prepare("SELECT * FROM bookings");
+if ($_SESSION['role'] === 'admin') {
+    // Admins can see all bookings
+    $stmt = $conn->prepare("SELECT * FROM bookings");
+} else {
+    // Regular users can only see their own bookings
+    $stmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = ?");
+    $stmt->bind_param("i", $_SESSION['account_id']);
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
@@ -25,7 +33,7 @@ if ($result->num_rows > 0) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>View Bookings</title>
     <!-- Import layout -->
     <!-- For static pages, the components can be included directly -->
     <?php include '../../assets/components/layout.php'; ?>
@@ -41,7 +49,7 @@ if ($result->num_rows > 0) {
     <!-- Display errors and success messages -->
     <?php include '../../assets/components/alert.php'; ?>
 
-    <h2>My Bookings</h2>
+    <h2>View Bookings</h2>
     <div class="booking-list">
         <?php if (count($bookings) > 0): ?>
             <?php foreach ($bookings as $booking): ?>

@@ -4,8 +4,8 @@ session_start();
 // Establish database connection
 require_once('../../assets/php/db.php');
 
-// If the user is not logged in, or is not an admin, redirect to home page
-if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
+// If the user is not logged in redirect to home page
+if (!isset($_SESSION['loggedin'])) {
     header('Location: /3340/index.php');
     exit;
 }
@@ -26,6 +26,14 @@ if ($result->num_rows > 0) {
     $booking = $result->fetch_assoc();
 } else {
     header("Location: /3340/404.php");
+    exit;
+}
+
+// Check if the user is an admin or the owner of the booking
+// Only admins or the user who made the booking can edit it
+if ($_SESSION['role'] !== 'admin' && $_SESSION['account_id'] !== $booking['user_id']) {
+    $_SESSION['error'] = 'You do not have permission to edit this booking.';
+    header('Location: /3340/pages/user/booking.php');
     exit;
 }
 

@@ -7,7 +7,7 @@ require_once('../../assets/php/db.php');
 // Check if the page is accessed via POST method
 if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
     $_SESSION['error'] = 'Page accessed illegally.';
-    header('Location: /3340/pages/admin/booking.php');
+    header('Location: /3340/pages/user/booking.php');
     exit;
 }
 
@@ -18,7 +18,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows === 0) {
     $_SESSION['error'] = 'Booking not found.';
-    header('Location: /3340/pages/admin/booking.php');
+    header('Location: /3340/pages/user/booking.php');
     exit;
 }
 $oldBookingData = $result->fetch_assoc();
@@ -68,7 +68,7 @@ $stmt->bind_param(
 );
 if ($stmt->execute()) { // Check if the update was successful
     $_SESSION['success'] = 'Booking updated successfully.';
-    header('Location: /3340/pages/admin/booking.php');
+    header('Location: /3340/pages/user/booking.php');
     exit;
 } else {
     $_SESSION['error'] = 'Failed to update booking: Something went wrong.';
