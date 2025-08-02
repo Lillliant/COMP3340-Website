@@ -2,7 +2,7 @@
 <!-- TODO: For specific pages, this header includes context-specific help articles (e.g., admin for admin pages) -->
 <header>
     <nav class="header-navbar navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/3340/index.php">
             <img src="/3340/assets/img/logo.png" alt="Trekker Tours Logo" style="width:40px;">
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
