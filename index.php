@@ -9,6 +9,8 @@ session_start(); // Initialize session
   <title>Trekker Tours</title>
   <!-- Common site-wide SEO metadata for Trekker Tours -->
   <?php include 'assets/components/seo.php'; ?>
+  <meta name="description" content="Trekker Tours - Your one-stop destination for exploring the world's most beautiful places. Discover and book your next adventure with us!">
+  <meta name="keywords" content="tours, travel, adventure, trekking, holidays, destinations, booking">
   <!-- Import layout and necessary dynamic theme change function -->
   <?php include 'assets/components/layout.php'; ?>
   <script src="assets/js/toggleTheme.js" defer></script>
