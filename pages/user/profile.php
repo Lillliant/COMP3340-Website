@@ -47,6 +47,7 @@ if (isset($_SESSION['account_id'])) {
     <p class="lead">
         Welcome to your profile page, <?php echo htmlspecialchars($user['username']); ?>! Here you can view and edit your account details.
     </p>
+    <a href="/3340/pages/user/home.php" class="back-button">Go Back to Dashboard</a>
     <!-- Profile details display -->
     <div class="details-card">
         <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?><br>
