@@ -46,7 +46,8 @@ if ($result->num_rows > 0) {
     <p class="lead">
         You can edit your profile details below. Please ensure all fields are filled out correctly. Any fields left blank will retain their current values.
     </p>
-    <a href="/3340/pages/user/profile.php" class="back-button">Go Back to Profile</a>
+    <!-- Go back to the profile page -->
+    <a href="/3340/pages/user/profile.php" class="back-button">Back to Profile</a>
     <!-- Form to edit user profile -->
     <div class="center-form">
         <form action="profile_validate.php" method="post">

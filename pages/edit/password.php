@@ -34,7 +34,8 @@ if (!isset($_SESSION['loggedin'])) {
     <p class="lead">
         Change your password here. Make sure to choose a strong password to keep your account secure.
     </p>
-    <a href="/3340/pages/user/home.php" class="back-button">Go Back to Dashboard</a>
+    <!-- Go back to the user dashboard -->
+    <a href="/3340/pages/user/home.php" class="back-button">Back to Dashboard</a>
     <!-- Form to edit password -->
     <div class="center-form">
         <form action="password_validate.php" method="post">
