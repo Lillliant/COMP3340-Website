@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * auth.php
+ * This script handles user authentication by checking the provided username and password against the database.
+ * If the credentials are valid, it starts a session and redirects the user to their home page.
+ * If the credentials are invalid, it redirects back to the login page with an error message.
+ */
+
 session_start(); // Start the session
 require_once('../../assets/php/db.php'); // Include the database connection file
 
@@ -19,6 +27,8 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
     if ($result->num_rows == 1) {
         session_regenerate_id();
         $id = $result->fetch_assoc()['id']; // Fetch the user ID from the result
+
+        // Set session variables for the logged-in user
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['account_name'] = $_POST['username'];
         $_SESSION['account_id'] = $id;
@@ -29,6 +39,8 @@ if ($stmt = mysqli_prepare($conn, 'SELECT id FROM users WHERE username = ? AND p
         $user = $result->fetch_assoc();
         $stmt->close();
         $_SESSION['role'] = $user['role']; // Store the user's role in the session
+
+        // Redirect to the user's home page or booking page based on the session variable
         if (isset($_SESSION['tourid'])) {
             header('Location: /3340/pages/tour/booking.php?tourid=' . $_SESSION['tourid']);
         } else {

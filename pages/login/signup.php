@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * signup.php
+ * Handles user registration by processing form data submitted via POST from register.php.
+ */
+
 session_start();
 require_once('../../assets/php/db.php'); // Include the database connection file
 
