@@ -47,17 +47,20 @@ if (isset($_SESSION['account_id'])) {
     <p class="lead">
         Welcome to your profile page, <?php echo htmlspecialchars($user['username']); ?>! Here you can view and edit your account details.
     </p>
-    <a href="/3340/pages/user/home.php" class="back-button">Go Back to Dashboard</a>
+    <!-- Go back to the user dashboard -->
+    <a href="/3340/pages/user/home.php" class="back-button">Back to Dashboard</a>
     <!-- Profile details display -->
-    <div class="details-card">
-        <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?><br>
-            <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?><br>
-            <strong>First name:</strong> <?php echo htmlspecialchars($user['first_name']); ?><br>
-            <strong>Last name:</strong> <?php echo htmlspecialchars($user['last_name']); ?><br>
-            <strong>Role:</strong> <?php echo htmlspecialchars($user['role']); ?><br>
-            <strong>Account Created:</strong> <?php echo htmlspecialchars($user['created_at']); ?>
-        </p>
-        <button onclick="window.location.href='/3340/pages/edit/profile.php'">Edit Profile</button>
+    <div class="profile-container">
+        <div class="details-card rounded">
+            <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?><br>
+                <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?><br>
+                <strong>First name:</strong> <?php echo htmlspecialchars($user['first_name']); ?><br>
+                <strong>Last name:</strong> <?php echo htmlspecialchars($user['last_name']); ?><br>
+                <strong>Role:</strong> <?php echo htmlspecialchars($user['role']); ?><br>
+                <strong>Account Created:</strong> <?php echo htmlspecialchars($user['created_at']); ?>
+            </p>
+            <button onclick="window.location.href='/3340/pages/edit/profile.php'">Edit Profile</button>
+        </div>
     </div>
 </body>
 

@@ -12,25 +12,15 @@ form {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.no-bg {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-button,
+button:not(.btn-close),
 input[type="submit"] {
   background-color: #2b652d;
   color: white;
 }
 
-button:hover,
+button:not(.btn-close):hover,
 input[type="submit"]:hover {
   background-color: #45a049;
-}
-
-.details-card {
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .itinerary,
@@ -41,4 +31,22 @@ input[type="submit"]:hover {
 .booking-card,
 .booking-form {
   background-color: #ecf6f1;
+}
+
+.item-grid {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.details-card {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  color: #2b652d;
+}
+
+a:hover {
+  color: #45a049;
 }
