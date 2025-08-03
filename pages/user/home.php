@@ -1,7 +1,7 @@
 <?php
-// We need to use sessions, so you should always initialize sessions using the below function
+// Start the session to manage user authentications
 session_start();
-// If the user is not logged in, redirect to the login page
+// If the user is not logged in, redirect to the index page
 if (!isset($_SESSION['loggedin'])) {
     header('Location: index.php');
     exit;
@@ -12,11 +12,12 @@ if (!isset($_SESSION['loggedin'])) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Dashboard</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="User dashboard for Trekker Tours. Manage your bookings, profile, and access admin features if authorized.">
+    <meta name="keywords" content="user dashboard, trekker tours, bookings, profile, admin, manage tours, manage users, website monitor">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -26,21 +27,27 @@ if (!isset($_SESSION['loggedin'])) {
     <?php include '../../assets/components/header.php'; ?>
 
     <!-- Main Content -->
-    <h1>Trekker Tours</h1>
+    <h1>Home Dashboard</h1>
 
-    <h2>User Home Page</h2>
-    <button onclick="window.location.href='booking.php'">Manage Bookings</button>
-    <?php
-    // Check if the user is an admin
-    if ($_SESSION['role'] === 'admin') {
-        echo '<button onclick="window.location.href=\'../user/tour.php\'">Manage Tours</button>';
-        echo '<button onclick="window.location.href=\'../user/user.php\'">Manage Users</button>';
-        echo '<button onclick="window.location.href=\'monitor.php\'">Website Monitor</button>';
-    }
-    ?>
-    <button onclick="window.location.href='profile.php'">View My Profile</button>
-    <button onclick="window.location.href='../edit/password.php'">Edit My Password</button>
-    <!-- Footer -->
+    <!-- Display errors and success messages -->
+    <?php include '../../assets/components/alert.php'; ?>
+    <p class="lead">
+        Welcome to your dashboard, <?php echo htmlspecialchars($_SESSION['account_name']); ?>! Here you can manage your bookings, view your profile, and access admin features if you have the necessary permissions.
+    </p>
+    <!-- Dashboard buttons for user actions -->
+    <div class="dashboard-buttons">
+        <button onclick="window.location.href='booking.php'">Manage Bookings</button>
+        <?php
+        // Check if the user is an admin
+        if ($_SESSION['role'] === 'admin') {
+            echo '<button onclick="window.location.href=\'../user/tour.php\'">Manage Tours</button>';
+            echo '<button onclick="window.location.href=\'../user/user.php\'">Manage Users</button>';
+            echo '<button onclick="window.location.href=\'monitor.php\'">Website Monitor</button>';
+        }
+        ?>
+        <button onclick="window.location.href='profile.php'">View My Profile</button>
+        <button onclick="window.location.href='../edit/password.php'">Edit My Password</button>
+    </div>
 </body>
 
 </html>
