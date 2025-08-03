@@ -30,6 +30,7 @@ if (isset($_SESSION['loggedin'])) {
     <h2>Registration Page</h2>
     <!-- Display errors and success messages, if any -->
     <?php include '../../assets/components/alert.php'; ?>
+    <!-- Registration Form -->
     <div class="center-form">
         <form action="signup.php" method="post">
             <label for="username">Username:</label>

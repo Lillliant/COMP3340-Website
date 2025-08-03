@@ -12,11 +12,12 @@ if (isset($_SESSION['loggedin'])) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Login to Trekker Tours to access your account and explore exclusive travel adventures and personalized recommendations.">
+    <meta name="keywords" content="login, sign in, account, Trekker Tours, travel, adventure, user login">
     <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -27,32 +28,23 @@ if (isset($_SESSION['loggedin'])) {
 
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
-
     <h2>Login Page</h2>
-
-    <?php
-    // Display error message if there is one
-    if (isset($_SESSION['error'])) {
-        echo '<p class="error">' . $_SESSION['error'] . '</p>';
-        unset($_SESSION['error']); // Clear the error message after displaying it
-    }
-    if (isset($_SESSION['success'])) {
-        echo '<p class="success">' . $_SESSION['success'] . '</p>';
-        unset($_SESSION['success']); // Clear the success message after displaying it
-    }
-    ?>
-
+    <!-- Display errors and success messages, if any -->
+    <?php include '../../assets/components/alert.php'; ?>
+    <!-- Login Form -->
     <div class="center-form">
         <form action="auth.php" method="post" name="login">
-            <input type="text" name="username" required="required" id="username" placeholder="Username">
+            <label for="username">Username:</label>
             <br>
-            <input type="password" name="password" required="required" id="password" placeholder="Password">
+            <input type="text" name="username" required="required" id="username" placeholder="Username" maxlength="50">
             <br>
-            <input type="submit" value="Login" />
+            <label for="password">Password:</label>
+            <br>
+            <input type="password" name="password" required="required" id="password" placeholder="Password" maxlength="255">
+            <br>
+            <input type="submit" value="Login">
         </form>
     </div>
-
-    <!-- Footer -->
 </body>
 
 </html>
