@@ -12,15 +12,20 @@ form {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-button:not(.btn-close),
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next),
 input[type="submit"] {
   background-color: #2b652d;
   color: white;
 }
 
-button:not(.btn-close):hover,
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next):hover,
 input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .itinerary,

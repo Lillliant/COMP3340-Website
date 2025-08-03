@@ -52,7 +52,7 @@ select {
   box-sizing: border-box;
 }
 
-button:not(.btn-close),
+button:not(.btn-close, .carousel-control-prev,.carousel-control-next),
 input[type="submit"] {
   width: 100%;
   padding: 14px 20px;
@@ -230,7 +230,6 @@ input[type="submit"] {
 }
 
 .actions-container {
-
   margin: 0;
 }
 
