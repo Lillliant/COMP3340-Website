@@ -11,11 +11,12 @@ if (isset($_SESSION['loggedin'])) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Register</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Register for Trekker Tours and start your journey. Create your account to access exclusive travel adventures and personalized recommendations.">
+    <meta name="keywords" content="register, sign up, account, Trekker Tours, travel, adventure, user registration">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -26,29 +27,26 @@ if (isset($_SESSION['loggedin'])) {
 
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
-
     <h2>Registration Page</h2>
-    <?php
-    // Display error message if there is one
-    if (isset($_SESSION['error'])) {
-        echo '<p class="error">' . $_SESSION['error'] . '</p>';
-        unset($_SESSION['error']); // Clear the error message after displaying it
-    }
-    ?>
+    <!-- Display errors and success messages, if any -->
+    <?php include '../../assets/components/alert.php'; ?>
     <div class="center-form">
         <form action="signup.php" method="post">
-            <input type="text" name="username" required="required" id="username" placeholder="Username">
+            <label for="username">Username:</label>
             <br>
-            <input type="email" name="email" required="required" id="email" placeholder="Email">
+            <input type="text" name="username" required="required" id="username" placeholder="Username" maxlength="50">
             <br>
-            <input type="password" name="password" required="required" id="password" placeholder="Password">
+            <label for="email">Email:</label>
             <br>
-            <!-- TODO: add more fields: name, phone number, confirm password, password validation check, etc. -->
+            <input type="email" name="email" required="required" id="email" placeholder="Email" maxlength="100">
+            <br>
+            <label for="password">Password:</label>
+            <br>
+            <input type="password" name="password" required="required" id="password" placeholder="Password" maxlength="255">
+            <br>
             <input type="submit" value="Register">
         </form>
     </div>
-
-    <!-- Footer -->
 </body>
 
 </html>

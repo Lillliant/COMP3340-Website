@@ -1,9 +1,9 @@
 <?php
 if (isset($_SESSION['success'])) {
-    echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+    echo '<div class="alert alert-success alert-dismissible fade show">' . htmlspecialchars($_SESSION['success']) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close""></button></div>';
     unset($_SESSION['success']);
 }
 if (isset($_SESSION['error'])) {
-    echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
+    echo '<div class="alert alert-danger alert-dismissible fade show">' . htmlspecialchars($_SESSION['error']) . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close""></button></div>';
     unset($_SESSION['error']);
 }
