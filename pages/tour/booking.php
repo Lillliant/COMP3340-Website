@@ -78,8 +78,8 @@ if (!isset($_SESSION['options'])) { // If the options are not set, fetch them fr
                 <button class="rhide" onclick="window.location.href='tour.php?tourid=<?php echo htmlspecialchars($_GET['tourid']); ?>'">Back to Tour Details</a>
             </span>
         </div>
-        <div class="booking-grid">
-            <div class="booking-form">
+        <div class="item-grid">
+            <div class="booking-form item-left">
                 <form action="book.php" method="post" name="booking" class="no-bg">
                     <label for="datepicker">Departure Date:</label>
                     <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" autocomplete="off" required>
@@ -96,7 +96,7 @@ if (!isset($_SESSION['options'])) { // If the options are not set, fetch them fr
                     <input type="submit" value="Book Now">
                 </form>
             </div>
-            <div class="booking-summary rhide">
+            <div class="booking-summary item-right rhide">
                 <div>
                     <h3>Trip Summary</h3>
                     <?php echo $_SESSION['account_id'] ? "<p>Welcome, User ID: " . htmlspecialchars($_SESSION['account_id']) . "</p>" : "<p>Please log in to book a tour.</p>"; ?>

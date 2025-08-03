@@ -18,6 +18,11 @@ h2 {
   margin: 20px 0;
 }
 
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
 /* Form styles */
 .center-form {
   display: flex;
@@ -30,6 +35,7 @@ h2 {
 
 form {
   padding: 20px;
+  border-radius: 10px;
 }
 
 input[type="number"],
@@ -46,7 +52,7 @@ select {
   box-sizing: border-box;
 }
 
-button,
+button:not(.btn-close),
 input[type="submit"] {
   width: 100%;
   padding: 14px 20px;
@@ -56,7 +62,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-/** Override background color styles */
+/** Override background styles */
 .no-bg {
   background-color: transparent !important;
   box-shadow: none !important;
@@ -157,28 +163,9 @@ input[type="submit"] {
   flex-direction: column;
 }
 
-.booking-grid {
-  margin: 5px 0;
-  display: grid;
-  grid-template-areas: "left right";
-  grid-template-columns: 2fr 1fr;
-  gap: 10px;
-}
-
-.edit-container,
-.booking-summary {
-  grid-area: right;
-  padding: 20px;
-}
-
-.booking-card,
+.booking-summary,
 .booking-form {
-  grid-area: left;
   padding: 20px;
-}
-
-.booking-card p {
-  text-align: justify;
 }
 
 /* Dashboard styles */
@@ -192,12 +179,15 @@ input[type="submit"] {
   margin: 20px 20em;
 }
 
-.details-card {
-  width: 80%;
-  max-width: 800px;
-  margin: auto;
-  padding: 50px;
-  text-align: justify;
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.rounded {
+  border-radius: 10px;
 }
 
 .back-button {
@@ -205,9 +195,50 @@ input[type="submit"] {
   padding: 10px;
 }
 
-/* Responsive layout */
+.item-list {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.item-grid {
+  margin: 20px 20px;
+  display: grid;
+  grid-template-areas: "left right";
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  text-align: justify;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.item-left {
+  grid-area: left;
+}
+
+.item-right {
+  grid-area: right;
+}
+
+.details-card {
+  margin: 0;
+  max-width: 800px;
+  padding: 50px;
+  text-align: justify;
+}
+
+.actions-container {
+
+  margin: 0;
+}
+
+/* Responsive layout - override? */
 @media (max-width: 1000px) {
   #tourContainer {
+    margin: 0 auto;
+    background-color: antiquewhite;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -215,7 +246,7 @@ input[type="submit"] {
   }
 
   .tour-card {
-    width: 100%;
+    width: 80%;
   }
 
   .dashboard-buttons {
@@ -239,18 +270,32 @@ input[type="submit"] {
     margin: 20px 0;
   }
 
-  .booking-grid {
-    margin: 5px 0;
-    display: flex;
-    flex-direction: column;
-  }
-
   .booking-form {
-    flex: 100%;
-    width: 100%;
+    padding: 20px;
   }
 
   .rhide {
     display: none; /* Hide in small space */
+  }
+
+  .profile-container {
+    margin: 20px 20px;
+  }
+
+  .details-card {
+    flex: 80%;
+    padding: 30px;
+  }
+
+  .item-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-grid {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
