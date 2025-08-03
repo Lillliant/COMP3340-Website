@@ -23,6 +23,11 @@ input[type="submit"]:hover {
   background-color: #45a049;
 }
 
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next):active,
+input[type="submit"]:active {
+  background-color: #d1dbcc !important;
+}
+
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   background-color: rgba(0, 0, 0, 0.5);
@@ -54,4 +59,19 @@ a {
 
 a:hover {
   color: #45a049;
+}
+
+.scrollable-gallery {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.scrollable-card {
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.scrollable-right {
+  background-color: #ecf6f1;
 }

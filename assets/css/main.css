@@ -23,6 +23,11 @@ a {
   text-decoration: none;
 }
 
+.button-container {
+  margin: auto;
+  max-width: 300px;
+}
+
 /* Form styles */
 .center-form {
   display: flex;
@@ -33,11 +38,13 @@ a {
   text-align: center;
 }
 
+.no-form-button,
 form {
   padding: 20px;
   border-radius: 10px;
 }
 
+textarea,
 input[type="number"],
 input[type="text"],
 input[type="email"],
@@ -52,7 +59,7 @@ select {
   box-sizing: border-box;
 }
 
-button:not(.btn-close, .carousel-control-prev,.carousel-control-next),
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next),
 input[type="submit"] {
   width: 100%;
   padding: 14px 20px;
@@ -231,6 +238,54 @@ input[type="submit"] {
 
 .actions-container {
   margin: 0;
+}
+
+.item-grid h2,
+.item-grid p {
+  margin: 0 20px;
+}
+
+.additional-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.scrollable-gallery {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 200px;
+  max-height: 500px;
+}
+
+.scrollable-gallery > p {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.scrollable-card {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.scrollable-left {
+  flex: 70%;
+  padding: 20px 10px;
+}
+
+.scrollable-left img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.scrollable-right {
+  flex: 30%;
 }
 
 /* Responsive layout - override? */
