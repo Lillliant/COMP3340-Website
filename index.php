@@ -25,7 +25,6 @@ session_start(); // Initialize session
                               if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                                 // If the user is logged in, display their username
                                 echo ', ' . htmlspecialchars($_SESSION['account_name']);
-                                echo ', ' . $_SESSION['account_name'];
                               }
                               ?>
   </h1>
