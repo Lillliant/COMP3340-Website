@@ -1,20 +1,19 @@
 <?php
-// We need to use sessions, so you should always initialize sessions using the below function
-session_start();
-// If the user is not logged in, redirect to the login page
+session_start(); // Start the session to access session variables
+// If the user is not logged in, redirect to the home page
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.php');
+    header('Location: /3340/index.php');
     exit;
 }
 
-require_once('../../assets/php/db.php');
+require_once('../../assets/php/db.php'); // Include database connection
 // Obtain user bookings from the database
 $stmt = $conn->prepare("SELECT * FROM users");
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $users = $result->fetch_all(MYSQLI_ASSOC);
-} else {
+} else { // No users found, initialize an empty array
     $users = [];
 }
 ?>
@@ -23,11 +22,12 @@ if ($result->num_rows > 0) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Manage Users</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="User Management dashboard for Trekker Tours. Manage user settings and access admin features if authorized.">
+    <meta name="keywords" content="user dashboard, trekker tours, admin, manage users">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -37,15 +37,20 @@ if ($result->num_rows > 0) {
     <?php include '../../assets/components/header.php'; ?>
 
     <!-- Main Content -->
-    <h1>Trekker Tours</h1>
-
-    <h2>Manage Users</h2>
+    <h1>Manage Users</h1>
+    <!-- Display errors and success messages -->
     <?php include '../../assets/components/alert.php'; ?>
-    <div class="booking-list">
+    <!-- Go back to the user dashboard -->
+    <a href="/3340/pages/user/home.php" class="back-button">Back to Dashboard</a>
+
+    <!-- COntainer for list of users -->
+    <div class="item-list">
+        <!-- Display a card for each user -->
         <?php if (count($users) > 0): ?>
             <?php foreach ($users as $user): ?>
-                <div class="booking-grid">
-                    <div class="booking-card">
+                <div class="item-grid">
+                    <!-- Display user details for each user dynamically -->
+                    <div class="details-card no-bg">
                         <p><strong>User ID:</strong> <?php echo htmlspecialchars($user['id']); ?></p>
                         <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
                         <p><strong>Full Name:</strong> <?php echo htmlspecialchars($user['first_name'] . $user['last_name']); ?></p>
@@ -53,9 +58,11 @@ if ($result->num_rows > 0) {
                         <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
                         <p><strong>Registered on:</strong> <?php echo date('Y-m-d', strtotime($user['created_at'])); ?></p>
                     </div>
-                    <div class="edit-container">
+                    <!-- Display available actions for each user -->
+                    <div class="actions-container">
                         <!-- Make Admin/User and Delete buttons -->
-                        <form method="post" action="../edit/role.php">
+                        <!-- Only show the respective button based on the user's role -->
+                        <form method="post" action="../edit/role.php" class="no-bg">
                             <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                             <?php if ($user['role'] === 'admin'): ?>
                                 <input type="submit" value="Make User">
@@ -63,18 +70,18 @@ if ($result->num_rows > 0) {
                                 <input type="submit" value="Make Admin">
                             <?php endif; ?>
                         </form>
-                        <form method="post" action="../delete/user.php">
+                        <form method="post" action="../delete/user.php" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be reversed.');" class="no-bg">
                             <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-                            <input type="submit" value="Delete User" onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                            <input type="submit" value="Delete User">
                         </form>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
+            <!-- If no users are found, display a message -->
             <p>You have no users.</p>
         <?php endif; ?>
     </div>
-    <!-- Footer -->
 </body>
 
 </html>
