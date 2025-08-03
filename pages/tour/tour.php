@@ -1,5 +1,5 @@
 <?php
-// Start the session
+// Start the session and connection
 session_start();
 require_once('../../assets/php/db.php');
 
@@ -12,8 +12,8 @@ if (isset($_GET['tourid'])) {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $_SESSION['tour'] = $result->fetch_assoc();
-    } else {
-        header("Location: ../404.php");
+    } else { // If no tour is found, redirect to 404 page
+        header("Location: /3340/404.php");
         exit;
     }
     $stmt->close();
@@ -27,48 +27,47 @@ if (isset($_GET['tourid'])) {
     if ($featuredImageResult->num_rows > 0) {
         $featuredImage = $featuredImageResult->fetch_assoc();
     } else {
-        $featuredImage = null; // No featured image found
+        $featuredImage = null; // No featured image found, set to null
     }
     $stmt->close();
 
+    // Fetch additional images that are not featured, ordered by creation date
     $stmt = $conn->prepare("SELECT * FROM images WHERE tour_id = ? AND is_featured = FALSE ORDER BY created_at DESC");
     $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $imagesResult = $stmt->get_result();
     $additionalImages = [];
-    while ($image = $imagesResult->fetch_assoc()) {
+    while ($image = $imagesResult->fetch_assoc()) { // Store additional images in an array
         $additionalImages[] = $image;
     }
 
-    // Fetch tour options
+    // Fetch tour options associated with the tour
     $stmt = $conn->prepare("SELECT * FROM options WHERE tour_id = ?");
     $stmt->bind_param("i", $_GET['tourid']);
     $stmt->execute();
     $optionsResult = $stmt->get_result();
     $_SESSION['options'] = [];
-    while ($option = $optionsResult->fetch_assoc()) {
+    while ($option = $optionsResult->fetch_assoc()) { // There may be multiple options for a tour
         $_SESSION['options'][] = $option;
     }
-    $basePrice = count($_SESSION['options']) > 0 ? min(array_column($_SESSION['options'], 'price')) : 0;
-
-    // TODO: handle case where no images are found
-
+    $basePrice = count($_SESSION['options']) > 0 ? min(array_column($_SESSION['options'], 'price')) : 0; // Set base price to the minimum of all options, or 0 if no options are available
     $stmt->close();
 } else { // No tour ID provided, default to the first tour
     header("Location: tour.php?tourid=1");
     exit;
 }
-
 ?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Trekker Tours</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Tour Details</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Explore details, itinerary, and options for your selected Trekker Tour. Book your adventure and discover destinations, activities, and pricing.">
+    <meta name="keywords" content="trekker tours, tour details, itinerary, booking, travel, adventure, destinations, activity level, price, options">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -78,15 +77,26 @@ if (isset($_GET['tourid'])) {
     <?php include '../../assets/components/header.php'; ?>
 
     <!-- Main Content -->
-    <h1>Trekker Tours</h1>
-    <div class="tour-overview">
+    <h1>Tour Details</h1>
+    <p class="lead">
+        Explore the details of your selected tour, including itinerary, options, and pricing. Book your adventure today!
+    </p>
+    <!-- Display errors and success messages -->
+    <?php include '../../assets/components/alert.php'; ?>
+    <div id="tour-overview">
         <div id="carouseltourIndicators" class="carousel slide to-carousel">
             <div class="carousel-indicators">
+                <!-- Display the featured image as active -->
                 <button type="button" data-bs-target="#carouseltourIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouseltourIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouseltourIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <!-- Display additional images as indicators -->
+                <?php
+                for ($i = 0; $i < count($additionalImages); $i++) {
+                    echo sprintf('<button type="button" data-bs-target="#carouseltourIndicators" data-bs-slide-to="%d" aria-label="Slide %d"></button>', $i + 1, $i + 2);
+                }
+                ?>
             </div>
             <div class="carousel-inner">
+                <!-- For any image not found, display a default 404 image -->
                 <div class="carousel-item active">
                     <img src=<?php echo sprintf("'%s'", $featuredImage != null ? $featuredImage['image_url'] : '/3340/assets/img/404.png') ?>
                         class="d-block w-100"
@@ -104,6 +114,7 @@ if (isset($_GET['tourid'])) {
                 }
                 ?>
             </div>
+            <!-- Carousel controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouseltourIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -114,6 +125,7 @@ if (isset($_GET['tourid'])) {
             </button>
         </div>
         <div class="to-details">
+            <!-- Display basic tour information -->
             <div class="to-header">
                 <h2 class="to-title"><?php echo sprintf("%s", $_SESSION['tour']['name']); ?></h2>
                 <p>Tour ID: <?php echo sprintf("%s", $_SESSION['tour']['id']); ?></p>
@@ -122,6 +134,7 @@ if (isset($_GET['tourid'])) {
                 <p><?php echo sprintf("%s", $_SESSION['tour']['description']); ?></p>
                 <p><strong>Inclusions:</strong> <?php echo sprintf("%s", $_SESSION['tour']['inclusions']); ?></p>
             </div>
+            <!-- Display tour features such as start city, end city, duration, price, category, and activity level -->
             <div class="to-features">
                 <div class="to-start-city">
                     <a class="icon-link icon-link-hover" href="#">
@@ -180,15 +193,18 @@ if (isset($_GET['tourid'])) {
                     <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['activity_level'])); ?></p>
                 </div>
             </div>
-            <form action="booking.php" method="get">
-                <button class="btn btn-primary" type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_GET['tourid']); ?>>Book Now</button>
+            <form action="booking.php" method="get" class="no-bg">
+                <button type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_GET['tourid']); ?>>Book Now</button>
             </form>
         </div>
     </div>
+    <!-- Itinerary and options section -->
     <div class="itinerary">
         <h2>Itinerary</h2>
+        <!-- Display the itinerary details dynamically -->
         <p><?php echo sprintf("%s", htmlspecialchars($_SESSION['tour']['long_description'])); ?></p>
         <h2>Options</h2>
+        <!-- Display the available options for the tour -->
         <ul>
             <?php
             foreach ($_SESSION['options'] as $option) :
@@ -202,7 +218,6 @@ if (isset($_GET['tourid'])) {
             ?>
         </ul>
     </div>
-    <!-- Footer -->
 </body>
 
 </html>

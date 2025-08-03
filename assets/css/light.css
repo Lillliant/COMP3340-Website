@@ -1,8 +1,44 @@
 body {
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .header-navbar {
-    background-color: #22c81f;
+  background-color: rgb(102, 122, 99);
+}
+
+form {
+  background-color: #ecf6f1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button,
+input[type="submit"] {
+  background-color: #2b652d;
+  color: white;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.details-card {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.itinerary,
+#tour-overview {
+  background-color: #d1dbcc;
+}
+
+.edit-container,
+.booking-summary {
+  background-color: #ecf6f1;
+}
+
+.booking-card,
+.booking-form {
+  background-color: #ecf6f1;
 }

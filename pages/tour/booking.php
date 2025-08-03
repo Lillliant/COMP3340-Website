@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-if (!isset($_SESSION['tour'])) {
+if (!isset($_SESSION['tour'])) { // If the tour details are not set, fetch them from the database
     // Fetch tour details from the database
     require_once '../../assets/php/db.php';
     $stmt = $conn->prepare("SELECT * FROM tours WHERE id = ?");
@@ -18,13 +18,13 @@ if (!isset($_SESSION['tour'])) {
 
     if ($result->num_rows > 0) {
         $_SESSION['tour'] = $result->fetch_assoc();
-    } else {
+    } else { // If no tour is found, redirect to a 404 page
         header("Location: ../../404.php");
         exit;
     }
 }
 
-if (!isset($_SESSION['options'])) {
+if (!isset($_SESSION['options'])) { // If the options are not set, fetch them from the database
     require_once '../../assets/php/db.php';
     // Fetch tour options
     $stmt = $conn->prepare("SELECT * FROM options WHERE tour_id = ?");
@@ -37,7 +37,7 @@ if (!isset($_SESSION['options'])) {
         while ($option = $optionsResult->fetch_assoc()) {
             $_SESSION['options'][] = $option;
         }
-    } else {
+    } else { // If no options are available, set an empty array
         $_SESSION['options'] = []; // No options available for this tour
     }
 }
@@ -47,16 +47,18 @@ if (!isset($_SESSION['options'])) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Booking Tours</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Explore details, itinerary, and options for your selected Trekker Tour. Book your adventure and discover destinations, activities, and pricing.">
+    <meta name="keywords" content="trekker tours, tour details, itinerary, booking, travel, adventure, destinations, activity level, price, options">
+    <!-- Import layout and necessary dynamic theme change function -->
+    <?php include '../../assets/components/layout.php'; ?>
+    <script src="../../assets/js/toggleTheme.js" defer></script>
+    <!-- Import for datepicker -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
-    <?php include '../../assets/components/layout.php'; ?>
-    <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
 
 <body>
@@ -65,38 +67,36 @@ if (!isset($_SESSION['options'])) {
 
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
-
+    <!-- Display errors and success messages -->
+    <?php include '../../assets/components/alert.php'; ?>
+    <!-- Booking form for the selected tour -->
     <div class="booking-body">
         <div class="booking-header d-flex justify-content-between align-items-center">
             <h2>Trip Overview</h2>
-            <!-- Responsive design: Back to Tour Details icon button only in small space -->
+            <!-- Responsive design: Hide back to tour details button -->
             <span class="tour-booking">
-                <button onclick="window.location.href='tour.php?tourid=<?php echo htmlspecialchars($_GET['tourid']); ?>'">Back to Tour Details</a>
+                <button class="rhide" onclick="window.location.href='tour.php?tourid=<?php echo htmlspecialchars($_GET['tourid']); ?>'">Back to Tour Details</a>
             </span>
         </div>
         <div class="booking-grid">
             <div class="booking-form">
-                <div>
-                    <!-- TODO: Display trip details here -->
-                </div>
-                <div>
-                    <form action="book.php" method="post" name="booking">
-                        <h3>Departure Date</h3>
-                        <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" required>
-                        <input type="number" name="people" id="people" value="1" min="1" max="30" required>
-                        <h3>Options</h3>
-                        <select name="option" id="option" required>
-                            <?php foreach ($_SESSION['options'] as $option) : ?>
-                                <option value="<?php echo htmlspecialchars($option['id']); ?>">
-                                    <?php echo htmlspecialchars($option['name']) . " - $" . htmlspecialchars($option['price']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <input type="submit" value="Book Now">
-                    </form>
-                </div>
+                <form action="book.php" method="post" name="booking no-bg">
+                    <label for="datepicker">Departure Date:</label>
+                    <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" required>
+                    <label for="people">Number of People:</label>
+                    <input type="number" name="people" id="people" value="1" min="1" max="30" required>
+                    <label for="option">Select an Option:</label>
+                    <select name="option" id="option" required>
+                        <?php foreach ($_SESSION['options'] as $option) : ?>
+                            <option value="<?php echo htmlspecialchars($option['id']); ?>">
+                                <?php echo htmlspecialchars($option['name']) . " - $" . htmlspecialchars($option['price']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="submit" value="Book Now">
+                </form>
             </div>
-            <div class="booking-summary">
+            <div class="booking-summary rhide">
                 <div>
                     <h3>Trip Summary</h3>
                     <?php echo $_SESSION['account_id'] ? "<p>Welcome, User ID: " . htmlspecialchars($_SESSION['account_id']) . "</p>" : "<p>Please log in to book a tour.</p>"; ?>

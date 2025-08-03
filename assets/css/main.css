@@ -1,30 +1,104 @@
 body {
-  /* TODO: add fonts and other advanced functionalities */
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
   text-align: center;
 }
 
-.DDenter-form {
+/* Common page styles */
+h1 {
+  margin: 20px 0;
+}
+
+h2 {
+  margin: 0 0 20px 0;
+}
+
+.lead {
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+/* Form styles */
+.center-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
   text-align: center;
 }
 
-.tour-overview {
+form {
+  padding: 20px;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button,
+input[type="submit"] {
+  width: 100%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/** Override background color styles */
+.no-bg {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Image carousel styles */
+/* Keep consistent with the carousel images */
+#featuredToursCarousel {
+  min-height: 50vh;
+  max-height: 77vh;
+}
+
+/* Set a minimum and maximum height to reduce scrolling */
+#featuredToursCarousel img {
+  min-height: 50vh;
+  max-height: 77vh;
+  object-fit: cover; /* Ensures the image covers the entire area without distortion */
+}
+
+/* Tour overview styles */
+#searchContainer {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+#tourContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.tour-card {
+  width: 25%;
+}
+
+#tour-overview {
   margin: auto 5em;
-  background-color: aquamarine;
   padding: 30px 50px;
   text-align: left;
   display: flex;
   flex-direction: row;
-}
-
-/* Responsive layout - makes a one column-layout instead of two-column layout */
-@media (max-width: 1000px) {
-  .tour-overview {
-    flex-direction: column;
-  }
-
-  .to-header {
-    margin: 20px 0;
-  }
 }
 
 .to-header {
@@ -69,7 +143,6 @@ body {
 
 .itinerary {
   margin: 2em 5em;
-  background-color: antiquewhite;
   padding: 30px 50px;
   text-align: left;
   display: flex;
@@ -78,7 +151,6 @@ body {
 
 .booking-body {
   margin: 2em 5em;
-  background-color: lightcyan;
   padding: 30px 50px;
   text-align: left;
   display: flex;
@@ -97,18 +169,88 @@ body {
 .booking-summary {
   grid-area: right;
   padding: 20px;
-  background-color: lightyellow;
 }
 
 .booking-card,
 .booking-form {
   grid-area: left;
   padding: 20px;
-  background-color: lightcoral;
 }
 
 .booking-card p {
   text-align: justify;
 }
 
-/* Responsive layout - make the trip summary section disappear */
+/* Dashboard styles */
+
+.dashboard-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 20em;
+}
+
+.details-card {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
+  padding: 50px;
+  text-align: justify;
+}
+
+.back-button {
+  max-width: 200px;
+  padding: 10px;
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+  #tourContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .tour-card {
+    width: 100%;
+  }
+
+  .dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 20px;
+  }
+
+  .to-header {
+    margin: 20px 0;
+  }
+
+  /** Make a one-column layout for the tour overview */
+  .tour-overview {
+    flex-direction: column;
+  }
+
+  .to-header {
+    margin: 20px 0;
+  }
+
+  .booking-grid {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .booking-form {
+    flex: 100%;
+    width: 100%;
+  }
+
+  .rhide {
+    display: none; /* Hide in small space */
+  }
+}
