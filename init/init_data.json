@@ -11,9 +11,9 @@
     {
       "firstName": "",
       "lastName": "",
-      "email": "hr@email.com",
-      "username": "hr",
-      "password": "hr123",
+      "email": "user@email.com",
+      "username": "user",
+      "password": "user123",
       "role": "user"
     }
   ],
