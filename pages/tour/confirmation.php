@@ -2,24 +2,40 @@
 session_start();
 require_once('../../assets/php/db.php'); // Include the database connection file
 
-// Obtain booking information from the session or URL
-// If the booking ID is not set in the session or URL, redirect to a 404 page
-if (!isset($_GET['booking_id']) && !isset($_SESSION['booking_id'])) {
+// If the user is not logged in, or the booking ID is not set, redirect to the 404 page
+if (!isset($_SESSION['loggedin'])) {
+    $_SESSION['error'] = 'You must be logged in to view this page.';
     header('Location: /3340/404.php');
     exit;
 }
-$bookingId = isset($_GET['booking_id']) ? $_GET['booking_id'] : $_SESSION['booking_id'];
+
+// Check if the booking ID is valid
+if (!isset($_GET['booking_id']) || !is_numeric($_GET['booking_id'])) {
+    $_SESSION['error'] = 'Invalid booking ID.';
+    header('Location: /3340/404.php');
+    exit;
+}
 
 // Fetch booking details from the database
 $stmt = $conn->prepare("SELECT * FROM bookings WHERE id = ?");
-$stmt->bind_param("i", $bookingId);
+$stmt->bind_param("i", $_GET['booking_id']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows === 0) { // If no booking is found, redirect to a 404 page since there has been an error
+    $_SESSION['error'] = 'Booking not found.';
     header('Location: /3340/404.php');
     exit;
 }
 $booking = $result->fetch_assoc();
+
+// If the user is not an admin, they can only view their own bookings
+if ($_SESSION['role'] !== 'admin') {
+    if ($booking['user_id'] !== $_SESSION['account_id']) {
+        $_SESSION['error'] = 'You do not have permission to view this booking.';
+        header('Location: /3340/404.php');
+        exit;
+    }
+}
 
 // Obtain the option details
 $optionId = $booking['option_id'];
@@ -27,9 +43,9 @@ $stmt = $conn->prepare("SELECT * FROM options WHERE id = ?");
 $stmt->bind_param("i", $optionId);
 $stmt->execute();
 $optionResult = $stmt->get_result();
-if ($optionResult->num_rows === 0) {
-    $option = 'No option selected';
-} else {
+if ($optionResult->num_rows === 0) { // If no option is found, set to null
+    $option = null;
+} else { // If an option is found, fetch its details
     $option = $optionResult->fetch_assoc();
 }
 ?>
@@ -54,33 +70,37 @@ if ($optionResult->num_rows === 0) {
 
     <!-- Main Content -->
     <h1>Booking Confirmation</h1>
-    <div class="booking-body">
-        <div class="booking-header">
-            <h3>Trip Summary</h3>
-            <p>Thank you for booking with Trekker Tours! Here are the details of your booking.</p>
-            <p>Your booking ID is: <?php echo htmlspecialchars($bookingId); ?></p>
+    <p>Thank you for booking with Trekker Tours! Here are the details of your booking.</p>
+    <!-- Display success/error messages -->
+    <?php include '../../assets/components/alert.php'; ?>
+
+    <!-- Booking Details -->
+    <div class="container-md border rounded p-3 border-2">
+        <div>
+            <h2>Trip Summary</h2>
             <hr>
-            <div>
-                <!-- Display the booking details dynamically -->
-                <h4>Departure Date</h4>
-                <p id="departure-date"><?php echo htmlspecialchars($booking['departure_date']); ?></p>
-                <h4>Arrival Date</h4>
-                <p id="arrival-date"><?php
-                                        $date = DateTime::createFromFormat('Y-m-d', $booking['departure_date']);
-                                        $duration = date_interval_create_from_date_string($_SESSION['tour']['duration'] . ' days');
-                                        echo htmlspecialchars(date_add($date, $duration)->format('Y-m-d'));
-                                        ?></p>
-            </div>
-            <div>
-                <h4>Number of People</h4>
-                <p id="number-of-people"><?php echo $booking['person_count'] ?></p>
-                <h4>Selected Option</h4>
-                <p id="selected-option"><?php echo sprintf("%s - $%s", $option['name'], $option['price']) ?> x <?php echo $booking['person_count'] ?></p>
-            </div>
-            <div>
-                <h4>Total Price</h4>
-                <p id="total-price">$<?php echo htmlspecialchars($booking['total_price']); ?></p>
-            </div>
+            <p>Your booking ID is: <?php echo htmlspecialchars($_GET['booking_id']); ?></p>
+        </div>
+        <div>
+            <!-- Display the booking details dynamically -->
+            <h4>Tour Name</h4>
+            <p id="tour-name"><?php echo htmlspecialchars($_SESSION['tour']['name']); ?></p>
+            <h4>Status</h4>
+            <p id="status"><?php echo htmlspecialchars(ucfirst($booking['status'])); ?></p>
+            <h4>Departure Date</h4>
+            <p id="departure-date"><?php echo htmlspecialchars($booking['departure_date']); ?></p>
+            <h4>Arrival Date</h4>
+            <p id="arrival-date"><?php
+                                    $date = DateTime::createFromFormat('Y-m-d', $booking['departure_date']);
+                                    $duration = date_interval_create_from_date_string($_SESSION['tour']['duration'] . ' days');
+                                    echo htmlspecialchars(date_add($date, $duration)->format('Y-m-d'));
+                                    ?></p>
+            <h4>Number of People</h4>
+            <p id="number-of-people"><?php echo $booking['person_count'] ?></p>
+            <h4>Selected Option</h4>
+            <p id="selected-option"><?php echo sprintf("%s - $%s", $option['name'], $option['price']) ?> x <?php echo $booking['person_count'] ?></p>
+            <h4>Total Price</h4>
+            <p id="total-price">$<?php echo htmlspecialchars($booking['total_price']); ?></p>
         </div>
     </div>
 </body>
