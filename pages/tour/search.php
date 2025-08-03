@@ -1,6 +1,5 @@
 <?php
-// We need to use sessions, so you should always initialize sessions using the below function
-session_start();
+session_start(); // Initialize session
 
 // Include database connection
 require_once('../../assets/php/db.php');
@@ -11,7 +10,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $tours = $result->fetch_all(MYSQLI_ASSOC);
-} else {
+} else { // If no tours are found, initialize an empty array
     $tours = [];
 }
 ?>
@@ -20,11 +19,12 @@ if ($result->num_rows > 0) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tours</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Search Tours</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Search and discover Trekker Tours. Find your next adventure by browsing our curated list of tours and destinations.">
+    <meta name="keywords" content="search tours, travel, adventure, trekking, holidays, destinations, booking, trekker tours">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
@@ -34,111 +34,73 @@ if ($result->num_rows > 0) {
     <?php include '../../assets/components/header.php'; ?>
 
     <!-- Main Content -->
-    <h1>Trekker Tours</h1>
+    <h1>Search for Tours</h1>
     <!-- Display errors and success messages -->
     <?php include '../../assets/components/alert.php'; ?>
-
-    <h2>Tours</h2>
-    <div>
-        <input type="text" id="searchInput" placeholder="Search for tours..." onkeyup="searchTour();" class="form-control mb-3">
+    <p class="lead">
+        Use the search bar below to find tours that match your interests.
+    </p>
+    <!-- Search bar for tours -->
+    <div id="searchContainer">
+        <input type="search" id="searchInput" placeholder="Search for tours..." onkeyup="searchTour();" class="form-control mb-3 border-end-0 rounded-pill">
     </div>
-    <?php
-    if (count($tours) > 0) {
-        foreach ($tours as $tour) {
-            echo '<div class="tour-overview">';
-            // Display each tour's image as a link
-            $stmt = $conn->prepare("SELECT * FROM images WHERE tour_id = ? AND is_featured = 1 LIMIT 1");
-            $stmt->bind_param("i", $tour['id']);
-            $stmt->execute();
-            $featuredImageResult = $stmt->get_result();
-            if ($featuredImageResult->num_rows > 0) {
-                $featuredImage = $featuredImageResult->fetch_assoc();
-            } else {
-                $featuredImage = null; // No featured image found
-            }
-
-            echo sprintf(
-                '<div class="to-carousel">
-                        <a href="/3340/pages/tour/tour.php?tourid=%s">
-                            <img src="%s" alt="%s" class="d-block w-100" onerror="this.src=%s">
-                        </a>
-                    </div>',
-                htmlspecialchars($tour['id']),
-                $featuredImage ? htmlspecialchars($featuredImage['image_url']) : '/3340/assets/img/404.png',
-                $featuredImage ? htmlspecialchars($featuredImage['alt']) : 'No image available',
-                '/3340/assets/img/404.png'
-            );
-
-            echo sprintf(
-                '<div class="to-details">
-                        <h3>%s</h3>
-                        <p>Duration: %d Day%s</p>
-                        <p>Category: %s</p>
-                        <p>Activity Level: %s</p>
-                        <p>Start City: %s</p>
-                        <p>End City: %s</p>
-                        <p>Destination: %s</p>
-                        <a href="/3340/pages/tour/tour.php?tourid=%s" class="btn btn-primary">View Tour</a>
-                    </div>',
-                htmlspecialchars($tour['name']),
-                htmlspecialchars($tour['duration']),
-                htmlspecialchars($tour['duration'] > 1 ? 's' : ''),
-                htmlspecialchars(ucfirst($tour['category'])),
-                htmlspecialchars(ucfirst($tour['activity_level'])),
-                htmlspecialchars($tour['start_city']),
-                htmlspecialchars($tour['end_city']),
-                htmlspecialchars($tour['destination']),
-                htmlspecialchars($tour['id'])
-            );
-
-            echo '</div>'; // Close tour-overview div
-        }
-    }
-    ?>
-    </div>
-    <!-- Footer -->
-    <script>
-        function searchTour() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const tours = document.querySelectorAll('.tour-overview');
-
-            tours.forEach(tour => {
-                const title = tour.querySelector('h3').textContent.toLowerCase();
-                if (title.includes(searchInput)) {
-                    tour.style.display = 'flex';
+    <!-- Tour result container -->
+    <div id="tourContainer">
+        <?php
+        // For each tour, create a card with details
+        if (count($tours) > 0) {
+            foreach ($tours as $tour) {
+                echo '<div class="card m-3 tour-card">'; // Start card container div
+                // Display each tour's image as a link
+                $stmt = $conn->prepare("SELECT * FROM images WHERE tour_id = ? AND is_featured = 1 LIMIT 1");
+                $stmt->bind_param("i", $tour['id']);
+                $stmt->execute();
+                $featuredImageResult = $stmt->get_result();
+                if ($featuredImageResult->num_rows > 0) {
+                    $featuredImage = $featuredImageResult->fetch_assoc();
                 } else {
-                    const details = tour.querySelectorAll('p');
-                    let found = false;
-                    details.forEach(detail => {
-                        if (detail.textContent.toLowerCase().includes(searchInput)) {
-                            found = true;
-                        }
-                    });
-                    if (found) {
-                        tour.style.display = 'flex';
-                    } else {
-                        tour.style.display = 'none';
-                    }
+                    $featuredImage = null; // No featured image found
                 }
-            });
 
-            // Check if any tours are visible
-            const visibleTours = Array.from(tours).some(tour => tour.style.display !== 'none');
-            let noResults = document.getElementById('noResultsMessage');
-            if (!visibleTours) {
-                if (!noResults) {
-                    noResults = document.createElement('p');
-                    noResults.id = 'noResultsMessage';
-                    noResults.textContent = 'No tours found.';
-                    document.querySelector('body').appendChild(noResults);
-                }
-            } else {
-                if (noResults) {
-                    noResults.remove();
-                }
+                echo sprintf(
+                    '<a href="/3340/pages/tour/tour.php?tourid=%s">
+                        <img src="%s" alt="%s" class="card-img-top" onerror="this.src=%s">
+                    </a>',
+                    htmlspecialchars($tour['id']),
+                    $featuredImage ? htmlspecialchars($featuredImage['image_url']) : '/3340/assets/img/404.png',
+                    $featuredImage ? htmlspecialchars($featuredImage['alt']) : 'No image available',
+                    '/3340/assets/img/404.png'
+                );
+
+                echo sprintf(
+                    '<div class="card-body">
+                        <h3 class="card-title">%s</h3>
+                        <p class="card-text">Duration: %d Day%s</p>
+                        <p class="card-text">Category: %s</p>
+                        <p class="card-text">Activity Level: %s</p>
+                        <p class="card-text">Start City: %s</p>
+                        <p class="card-text">End City: %s</p>
+                        <p class="card-text">Destination: %s</p>
+                        <button href="/3340/pages/tour/tour.php?tourid=%s">View Tour</button>
+                    </div>',
+                    htmlspecialchars($tour['name']),
+                    htmlspecialchars($tour['duration']),
+                    htmlspecialchars($tour['duration'] > 1 ? 's' : ''),
+                    htmlspecialchars(ucfirst($tour['category'])),
+                    htmlspecialchars(ucfirst($tour['activity_level'])),
+                    htmlspecialchars($tour['start_city']),
+                    htmlspecialchars($tour['end_city']),
+                    htmlspecialchars($tour['destination']),
+                    htmlspecialchars($tour['id'])
+                );
+
+                echo '</div>'; // Close card container div
             }
         }
-    </script>
+        ?>
+    </div>
+    <!-- Import search functionality script -->
+    <script src="../../assets/js/search.js"></script>
 </body>
 
 </html>
