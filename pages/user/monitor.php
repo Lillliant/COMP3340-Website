@@ -39,11 +39,12 @@ function checkDatabaseConnection($servername, $username, $password, $dbname)
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
+    <title>Monitor</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="Edit tours for Trekker Tours. Manage all tours and access admin features if authorized.">
+    <meta name="keywords" content="user dashboard, trekker tours, tours, admin, manage tours">
+    <!-- Import layout and necessary dynamic theme change function -->
     <?php include '../../assets/components/layout.php'; ?>
     <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
