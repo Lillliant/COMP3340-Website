@@ -81,7 +81,7 @@ if ($result->num_rows > 0) {
                         <p class="card-text">Start City: %s</p>
                         <p class="card-text">End City: %s</p>
                         <p class="card-text">Destination: %s</p>
-                        <button href="/3340/pages/tour/tour.php?tourid=%s">View Tour</button>
+                        <button onclick="window.location.href=\'/3340/pages/tour/tour.php?tourid=%s\'">View Tour</button>
                     </div>',
                     htmlspecialchars($tour['name']),
                     htmlspecialchars($tour['duration']),
