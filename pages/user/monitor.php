@@ -3,18 +3,6 @@ session_start();
 
 $url = 'http://localhost/3340/';
 
-// If the user is not logged in, redirect to the home page
-if (!isset($_SESSION['loggedin'])) {
-    header('Location: /3340/index.php');
-    exit;
-}
-
-// If the user is not an admin, redirect to the home page
-if ($_SESSION['role'] !== 'admin') {
-    header('Location: /3340/pages/user/home.php');
-    exit;
-}
-
 function isUrlUp($url)
 {
     $ch = curl_init($url);
@@ -24,10 +12,25 @@ function isUrlUp($url)
     curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-    if ($httpCode >= 200 && $httpCode != 404) {
+    if ($httpCode >= 200 && $httpCode < 400) { // Ignore redirects due to lack of session variables & POST/GET requests
         return " is up and running. HTTP Status Code: $httpCode";
     } else {
         return " is down. HTTP Status Code: $httpCode";
+    }
+}
+
+// Check if the database is connected
+function checkDatabaseConnection($servername, $username, $password, $dbname)
+{
+    try {
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            return false; // Connection failed
+        }
+        mysqli_close($conn); // Close the connection
+        return true; // Connection successful
+    } catch (Exception $e) {
+        return false; // Exception occurred
     }
 }
 ?>
@@ -53,7 +56,8 @@ function isUrlUp($url)
     <h1>Trekker Tours</h1>
 
     <h2>Website Monitor</h2>
-    <div>
+    <a href="/3340/pages/user/home.php" class="back-button">Back to Dashboard</a>
+    <div class="additional-details-container">
         <p><?php echo 'Home Page' . isUrlUp($url); ?></p>
         <p>
             <?php
@@ -71,6 +75,12 @@ function isUrlUp($url)
             <?php
             $booking_url = $url . 'pages/tour/tour.php';
             echo 'Tour Details Page' . isUrlUp($booking_url);
+            ?>
+        </p>
+        <p>
+            <?php
+            $booking_url = $url . 'pages/tour/booking.php';
+            echo 'Tour Booking Page' . isUrlUp($booking_url);
             ?>
         </p>
         <p>
@@ -95,6 +105,12 @@ function isUrlUp($url)
             <?php
             $booking_url = $url . 'pages/user/user.php';
             echo 'User Management Page' . isUrlUp($booking_url);
+            ?>
+        </p>
+        <p>
+            <?php
+            $db = checkDatabaseConnection('localhost', 'root', '', 'Newdb') ? 'Database is connected.' : 'Database connection failed.';
+            echo $db;
             ?>
         </p>
     </div>
