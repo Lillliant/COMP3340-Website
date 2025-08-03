@@ -80,9 +80,9 @@ if (!isset($_SESSION['options'])) { // If the options are not set, fetch them fr
         </div>
         <div class="booking-grid">
             <div class="booking-form">
-                <form action="book.php" method="post" name="booking no-bg">
+                <form action="book.php" method="post" name="booking" class="no-bg">
                     <label for="datepicker">Departure Date:</label>
-                    <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" required>
+                    <input type="text" id="datepicker" placeholder="Select a date" name="departure_date" autocomplete="off" required>
                     <label for="people">Number of People:</label>
                     <input type="number" name="people" id="people" value="1" min="1" max="30" required>
                     <label for="option">Select an Option:</label>
@@ -122,8 +122,6 @@ if (!isset($_SESSION['options'])) { // If the options are not set, fetch them fr
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
 
     <!-- Embedded JavaScript for datepicker functionality -->
     <script>

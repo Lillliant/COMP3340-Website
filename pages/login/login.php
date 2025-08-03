@@ -36,11 +36,11 @@ if (isset($_SESSION['loggedin'])) {
         <form action="auth.php" method="post" name="login">
             <label for="username">Username:</label>
             <br>
-            <input type="text" name="username" required="required" id="username" placeholder="Username" maxlength="50">
+            <input type="text" name="username" id="username" placeholder="Username" maxlength="50" autocomplete="off" required>
             <br>
             <label for="password">Password:</label>
             <br>
-            <input type="password" name="password" required="required" id="password" placeholder="Password" maxlength="255">
+            <input type="password" name="password" id="password" placeholder="Password" maxlength="255" autocomplete="off" required>
             <br>
             <input type="submit" value="Login">
         </form>
