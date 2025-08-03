@@ -193,9 +193,24 @@ if (isset($_GET['tourid'])) {
                     <p><?php echo sprintf("%s", ucfirst($_SESSION['tour']['activity_level'])); ?></p>
                 </div>
             </div>
-            <form action="booking.php" method="get" class="no-bg">
-                <button type="submit" name="tourid" value=<?php echo sprintf("'%s'", $_GET['tourid']); ?>>Book Now</button>
-            </form>
+            <!-- Display booking button only if the tour is active -->
+            <?php
+            if (!$_SESSION['tour']['is_active']) {
+                echo sprintf(
+                    '<form action="javascript:void(0);" method="get" class="no-bg">
+                        <button type="submit" name="tourid" value="%s">Coming Soon!</button>
+                    </form>',
+                    htmlspecialchars($_GET['tourid'])
+                );
+            } else {
+                echo sprintf(
+                    '<form action="booking.php" method="get" class="no-bg">
+                        <button type="submit" name="tourid" value="%s">Book Now</button>
+                    </form>',
+                    htmlspecialchars($_GET['tourid'])
+                );
+            }
+            ?>
         </div>
     </div>
     <!-- Itinerary and options section -->
