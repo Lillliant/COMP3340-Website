@@ -59,7 +59,7 @@ select {
   box-sizing: border-box;
 }
 
-button:not(.btn-close, .carousel-control-prev, .carousel-control-next),
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler),
 input[type="submit"] {
   width: 100%;
   padding: 14px 20px;

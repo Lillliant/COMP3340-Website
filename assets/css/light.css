@@ -4,7 +4,11 @@ body {
 }
 
 .header-navbar {
-  background-color: rgb(102, 122, 99);
+  background-color: #7eb975;
+}
+
+.header-navbar a:hover {
+  color: #c8d2c5;
 }
 
 form {
@@ -12,18 +16,18 @@ form {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-button:not(.btn-close, .carousel-control-prev, .carousel-control-next),
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler),
 input[type="submit"] {
   background-color: #2b652d;
   color: white;
 }
 
-button:not(.btn-close, .carousel-control-prev, .carousel-control-next):hover,
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler):hover,
 input[type="submit"]:hover {
   background-color: #45a049;
 }
 
-button:not(.btn-close, .carousel-control-prev, .carousel-control-next):active,
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler):active,
 input[type="submit"]:active {
   background-color: #d1dbcc !important;
 }
