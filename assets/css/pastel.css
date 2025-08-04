@@ -1,8 +1,81 @@
 body {
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .header-navbar {
-    background-color: #1facc8;
+  background-color: #ffb0b5;
+}
+
+.header-navbar a:hover {
+  color: #d2c5cd;
+}
+
+form {
+  background-color: #ffe5e7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler),
+input[type="submit"] {
+  background-color: #ffb0b5;
+  color: white;
+}
+
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler):hover,
+input[type="submit"]:hover {
+  background-color: #ffd3d6;
+}
+
+button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler):active,
+input[type="submit"]:active {
+  background-color: #dbccd1 !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.itinerary,
+#tour-overview {
+  background-color: #f9dcc0;
+}
+
+.booking-card,
+.booking-form {
+  background-color: #ffe5e7;
+}
+
+.item-grid {
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.details-card {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  color: #ffb0b5;
+}
+
+a:hover {
+  color: #ffe5e7;
+}
+
+.scrollable-gallery {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.scrollable-card {
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.scrollable-right {
+  background-color: #ecf6f1;
 }
