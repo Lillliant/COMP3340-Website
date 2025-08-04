@@ -1,0 +1,33 @@
+/*
+  The bookings table stores information unique about the bookings.
+
+  - id: Unique identifier for each booking (Primary Key, auto-incremented).
+  - user_id: References the user who made the booking.
+  - tour_id: References the tour being booked.
+  - booking_date: Timestamp when the booking was created (defaults to current time of insertion).
+  - status: Current status of the booking (pending, confirmed, cancelled, completed).
+  - total_price: Total price for the booking.
+  - departure_date: Date when the tour is scheduled to depart.
+  - person_count: Number of people included in the booking (defaults to 1).
+  - option_id: References any additional option selected for the booking (Foreign Key to options table, nullable).
+  - created_at: Timestamp when the booking record was created.
+  - updated_at: Timestamp when the booking record was last updated.
+*/
+
+TABLE `bookings` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `tour_id` INT(11) NOT NULL,
+  `booking_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `status` ENUM('pending', 'confirmed', 'cancelled', 'completed') NOT NULL DEFAULT 'pending',
+  `total_price` DECIMAL(10,2) NOT NULL,
+  `departure_date` DATE NOT NULL,
+  `person_count` INT(11) NOT NULL DEFAULT 1,
+  `option_id` INT(11) DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`option_id`) REFERENCES `options`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

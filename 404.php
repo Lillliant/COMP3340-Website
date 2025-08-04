@@ -1,14 +1,19 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Trekker Tours</title>
-    <!-- Import layout -->
-    <!-- For static pages, the components can be included directly -->
-    <?php include 'assets/components/layout.php'; ?>
-    <script src="assets/js/toggleTheme.js" defer></script>
+    <title>Page Not Found - Trekker Tours</title>
+    <!-- Common site-wide SEO metadata for Trekker Tours -->
+    <?php include '../../assets/components/seo.php'; ?>
+    <meta name="description" content="404 page for Trekker Tours. The page you are looking for does not exist.">
+    <meta name="keywords" content="404, page not found, trekker tours, error, missing page">
+    <!-- Import layout and necessary dynamic theme change function -->
+    <?php include '../../assets/components/layout.php'; ?>
+    <script src="../../assets/js/toggleTheme.js" defer></script>
 </head>
 
 <body>
@@ -18,8 +23,6 @@
     <!-- Main Content -->
     <h1>Trekker Tours</h1>
     <p>Oh no, the page you are looking for does not exist!</p>
-
-    <!-- Footer -->
 </body>
 
 </html>

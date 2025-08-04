@@ -146,8 +146,17 @@ if ($result->num_rows > 0) {
                     }
                     ?>
                 </select>
-                <label for="total_price">Total Price:</label>
-                <input type="number" name="total_price" id="total_price" min="0" value="<?php echo htmlspecialchars($booking['total_price']); ?>">
+                <?php
+                // If the user is an admin, allow them to change the total price
+                if ($_SESSION['role'] === 'admin') {
+                    echo '<label for="total_price">Total Price:</label>';
+                    echo '<!-- Retain the initial values as placeholders, but allow them to be modified -->';
+                    echo sprintf(
+                        '<input type="number" name="total_price" id="total_price" min="0" value="%s">',
+                        htmlspecialchars($booking['total_price'])
+                    );
+                }
+                ?>
                 <input type="submit" value="Edit">
             </form>
         </div>
@@ -213,7 +222,10 @@ if ($result->num_rows > 0) {
             const personCount = document.getElementById('person_count').value;
             const totalPrice = (parseFloat(basePrice) * parseInt(personCount, 10)).toFixed(2);
             document.getElementById('new-total-price').innerHTML = '<strong>Total Price:</strong> $' + totalPrice;
-            document.getElementById('total_price').value = totalPrice;
+            // if the user is an admin, update the total price input field
+            if (document.getElementById('total_price')) {
+                document.getElementById('total_price').value = totalPrice;
+            }
         });
 
         // Update the total price when the person count changes
@@ -224,7 +236,10 @@ if ($result->num_rows > 0) {
             const basePrice = selectedOption.textContent.split('- $')[1];
             const totalPrice = (parseFloat(basePrice) * parseInt(personCount, 10)).toFixed(2);
             document.getElementById('new-total-price').innerHTML = '<strong>Total Price:</strong> $' + totalPrice;
-            document.getElementById('total_price').value = totalPrice;
+            // if the user is an admin, update the total price input field
+            if (document.getElementById('total_price')) {
+                document.getElementById('total_price').value = totalPrice;
+            }
         });
 
         // Initialize the datepicker

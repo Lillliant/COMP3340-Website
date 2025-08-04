@@ -26,12 +26,10 @@ session_start();
 
     <div class="my-2 mx-5 p-2">
         <p style="text-align: justify;">
-            Trekker Tour is an adventure travel company built for explorers, not tourists.
-
+            Trekker Tour is an adventure travel company built for explorers, not tourists. We have a catalogue of unique, carefully curated tours that take you deep into the heart of each destination, away from the crowds and into the authentic experiences that make travel truly transformative.
             We specialize in small group tours designed for those who crave meaningful experiences—whether it’s hiking remote mountain trails, navigating jungle paths, or discovering hidden villages. Our trips are crafted to take you off the beaten path and deep into the heart of each destination.
-
+            <br>
             At the core of every Trekker Tour experience is cultural immersion. We partner with local communities, stay in locally-owned lodges, and share meals with families—so you're not just passing through, you're connecting. Our guides are locals and seasoned adventurers who know every trail, story, and secret worth uncovering.
-
             With Trekker Tour, you’ll find more than a vacation. You’ll find purposeful adventure, lasting friendships, and a new perspective on the world. Contact us today to start your journey into the extraordinary!
         </p>
 

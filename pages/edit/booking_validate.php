@@ -54,6 +54,24 @@ if ($result->num_rows === 0) {
     exit;
 }
 
+// Check if the price matches the selected option and person count
+$stmt = $conn->prepare("SELECT price FROM options WHERE id = ?");
+$stmt->bind_param("i", $newBookingData['option_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows === 0) {
+    $_SESSION['error'] = 'Invalid option ID.';
+    header('Location: /3340/pages/edit/booking.php?id=' . $newBookingData['id']);
+    exit;
+}
+$optionData = $result->fetch_assoc();
+$stmt->close();
+// If the user does not have the ability to override the total price, change to the calculated price
+$calcPrice = floatval($optionData['price']) * intval($newBookingData['person_count']);
+if (floatval($newBookingData['total_price']) !== $calcPrice && $_SESSION['user_role'] !== 'admin') {
+    $newBookingData['total_price'] = $calcPrice;
+}
+
 // Update the booking in the database
 $stmt = $conn->prepare("UPDATE bookings SET status = ?, user_id = ?, departure_date = ?, person_count = ?, option_id = ?, total_price = ? WHERE id = ?");
 $stmt->bind_param(

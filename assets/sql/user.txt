@@ -1,0 +1,28 @@
+/*
+    The users table stores user account and profile information.
+
+    - id: Primary key, auto-incremented.
+    - username: Unique username for the user.
+    - password: Password for authentication.
+    - first_name: User's first name.
+    - last_name: User's last name.
+    - email: Unique email address of the user.
+    - role: User role, either 'admin' or 'user', defaults to 'user'.
+    - created_at: Timestamp when the user was created.
+    - updated_at: Timestamp when the record was last updated.
+*/
+
+TABLE `users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `role` ENUM('admin', 'user') NOT NULL DEFAULT 'user',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

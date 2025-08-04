@@ -42,7 +42,7 @@
                             {
                                 foreach ($articles as $title => $link) {
                                     echo sprintf(
-                                        '<li><a class="dropdown-item" href="/3340/pages/help/%s.php">%s</a></li>',
+                                        '<li><a class="dropdown-item" href="/3340/pages/help/%s">%s</a></li>',
                                         htmlspecialchars($link),
                                         htmlspecialchars($title)
                                     );

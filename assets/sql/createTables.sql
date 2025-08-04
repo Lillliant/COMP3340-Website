@@ -1,3 +1,13 @@
+/*
+  This SQL script creates the core tables for Trekker Tours.
+
+  Tables:
+    - users: Stores user accounts, including authentication (username, password) and profile information.
+    - tours: Contains details about available tours, such as descriptions, destinations, categories, and activity levels.
+    - images: Associates images with tours, supporting featured images and alt text.
+    - options: Defines additional options for tours (that must be selected during a booking) with pricing and descriptions.
+    - bookings: Records user bookings for tours, including status, total price, departure date, and selected options.
+*/
 SET AUTOCOMMIT = 0;
 
 -- Drop previous tables if they exist

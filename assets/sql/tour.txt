@@ -1,0 +1,85 @@
+/*
+    The tours table stores basic tour information.
+
+    - id: Primary key, auto-increment
+    - name: Tour name
+    - description: Short description
+    - long_description: Detailed description (itinerary details)
+    - inclusions: Included packages (e.g., meals, accommodations, transportations)
+    - destination: Destination name (which region the tour travels in)
+    - start_city: Starting city
+    - end_city: Ending city
+    - category: Tour category (adventure, cultural, relaxation)
+    - activity_level: Activity level (relaxing, balanced, challenging)
+    - duration: Duration in days
+    - start_day: Starting day (1-7) based on the days of the week
+    - is_active: Tour status (whether it is enabled/disabled)
+    - created_at: Creation timestamp
+    - updated_at: Last update timestamp
+*/
+TABLE `tours` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `long_description` TEXT NOT NULL,
+  `inclusions` TEXT NOT NULL,
+  `destination` VARCHAR(255) NOT NULL,
+  `start_city` VARCHAR(100) NOT NULL,
+  `end_city` VARCHAR(100) NOT NULL,
+  `category` ENUM('adventure', 'cultural', 'relaxation') NOT NULL DEFAULT 'relaxation',
+  `activity_level` ENUM('relaxing', 'balanced', 'challenging') NOT NULL DEFAULT 'balanced',
+  `duration` INT(11) NOT NULL,
+  `start_day` INT(1) NOT NULL,
+  `is_active` BOOLEAN NOT NULL DEFAULT FALSE,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*
+    The image table stores any images associated with a tour. An image's src may be associated with many tours.
+
+    - id: Primary key, auto-incremented.
+    - tour_id: Links image to a specific tour.
+    - image_url: URL of the image (max 255 characters).
+    - alt: Alternative text for the image.
+    - is_featured: Boolean flag indicating if the image is featured (default: FALSE). Featured images are used when only one image is allowed.
+    - created_at: Timestamp when the record was created.
+    - updated_at: Timestamp when the record was last updated.
+*/
+TABLE `images` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `tour_id` INT(11) NOT NULL,
+  `image_url` VARCHAR(255) NOT NULL,
+  `alt` TEXT NOT NULL,
+  `is_featured` BOOLEAN NOT NULL DEFAULT FALSE,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+/*
+    The options table stores selectable options for tours.
+    - id: Primary key, auto-incremented.
+    - tour_id: Each option is associated with a tour.
+    - name: Name of the option, unique per tour.
+    - description: Detailed text describing the option.
+    - price: Cost of the option.
+    - created_at: Timestamp of when the option was created.
+    - updated_at: Timestamp of last update.
+*/
+TABLE `options` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `tour_id` INT(11) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tour_option` (`tour_id`, `name`),
+  FOREIGN KEY (`tour_id`) REFERENCES `tours`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
