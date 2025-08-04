@@ -28,6 +28,11 @@ session_start();
     <!-- Display errors and success messages, if any -->
     <?php include '../../assets/components/alert.php'; ?>
     <div style="max-width: 800px; margin: 0 auto; ">
+        <!-- Visual example for managing profile -->
+        <video controls style="width: 100%; height: auto; margin-bottom: 20px;">
+            <source src="/3340/assets/videos/edit-password-profile.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <hr>
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
             <h3>Where to Login or Register</h3>
