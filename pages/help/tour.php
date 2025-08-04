@@ -78,6 +78,12 @@ session_start();
                     On the edit page, modify tour details such as name, description, available days, images, options, or status. Fields left unchanged will keep their current values. For each option and/or image, separate forms are used to modify their details.
                 </li>
                 <li>
+                    For adding images, use the "Add Image" form to upload new images for the tour. For options, use the "Add Option" form to create new tour options.
+                </li>
+                <li>
+                    For images specifically, you can add new images to the tour by attaching their URL in the form. The link can be in the form of a local file path or a URL to an online image. For local files, ensure that they are in the form '/3340/assets/img/' followed by the image name and extension. They must be stored in that folder as well.
+                </li>
+                <li>
                     Click "Edit" to update the tour record.
                 </li>
             </ol>

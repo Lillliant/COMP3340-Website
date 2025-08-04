@@ -1,4 +1,5 @@
 <?php
+// This is a common component for CSS and JS includes
 if (!isset($_SESSION['theme']) && !isset($_COOKIE['theme'])) {
     // If no theme cookie/session is set, default to light theme
     $_SESSION['theme'] = 'light';
