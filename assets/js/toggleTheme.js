@@ -1,3 +1,4 @@
+// Toggles between the different CSS themes
 function toggleTheme(value) {
   let sheet = document.getElementById("themeStylesheet");
   //console.log(`Original location:${sheet.href}`);
