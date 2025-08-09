@@ -1,4 +1,6 @@
 <?php
+/* Common database connection file for the website.
+*/
 $servername = "localhost";
 $username = "root";
 $password = "";

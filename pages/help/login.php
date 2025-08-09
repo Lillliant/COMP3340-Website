@@ -34,7 +34,9 @@ session_start();
             Your browser does not support the video tag.
         </video>
         <hr>
+        <!-- Instructions for managing profile -->
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
+            <!-- Where to Login or Register -->
             <h3>Where to Login or Register</h3>
             <div>
                 <ol style="text-align: justify;">
@@ -50,6 +52,7 @@ session_start();
                 </ol>
             </div>
 
+            <!-- Instructions for viewing profile -->
             <h3>Where to View Your Profile</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -59,7 +62,8 @@ session_start();
                     On the profile page, you can see your personal information and update your account settings.
                 </li>
             </ol>
-
+            
+            <!-- Instructions for editing profile -->
             <h3>How to Edit Your Profile</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -73,6 +77,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for editing password -->
             <h3>How to Edit Your Password</h3>
             <ol style="text-align: justify;">
                 <li>

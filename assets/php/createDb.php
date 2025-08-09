@@ -1,7 +1,6 @@
 <?php
 
-/* 
-    This file creates a connection to the database and retrieves data from a specified table.
+/* This file creates a connection to the database and retrieves data from a specified table.
 */
 
 function createDb(

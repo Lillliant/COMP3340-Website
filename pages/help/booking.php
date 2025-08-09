@@ -31,11 +31,13 @@ session_start();
     <div style="max-width: 800px; margin: 0 auto; ">
         <!-- Visual example for managing bookings -->
         <video controls style="width: 100%; height: auto; margin-bottom: 20px;">
-            <source src="/3340/assets/videos/manage-booking.mkv" type="video/mp4">
+            <source src="/3340/assets/videos/manage-booking.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <hr>
+        <!-- Instructions for managing bookings -->
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
+            <!-- Where to View Bookings -->
             <h3>Where to View Bookings</h3>
             <div>
                 <ol style="text-align: justify;">
@@ -51,6 +53,7 @@ session_start();
                 </ol>
             </div>
 
+            <!-- Instructions for adding bookings -->
             <h3>How to Add Bookings</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -65,6 +68,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for editing bookings -->
             <h3>How to Edit Bookings</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -85,6 +89,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for deleting bookings -->
             <h3>How to Delete a Booking</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -98,6 +103,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Show the database design for bookings -->
             <h3>Database Schema for Bookings</h3>
             <p>
                 The bookings are stored in the <code>bookings</code> table with the following structure:

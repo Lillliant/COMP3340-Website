@@ -12,12 +12,20 @@
     <p>This page is used to initialize the database and create necessary tables.</p>
     <p>Please wait while the initialization process completes...</p>
     <?php
-    // This file is used to initialize the database and create necessary tables
-    // It should be included in the init/init.php file
-    echo "<p><b>Initializing database...</b></p>";
-    require_once('../assets/php/CreateDb.php');
-    createDb();
-    echo "<p>Database initialized successfully.</p>";
+
+    // Try connecting to the database
+    try {
+        require_once('../assets/php/db.php');
+        if (!$conn) {
+            throw new Exception("Database connection failed.");
+        }
+    } catch (Exception $e) {
+        // If connection fails, create the database and tables
+        echo "<p><b>Database connection failed. Creating database...</b></p>";
+        require_once('../assets/php/createDb.php');
+        createDb();
+    }
+
 
     // Then, add a process to handle the initialization of data,
     // Including creating initial accounts and uploading files and links to the database

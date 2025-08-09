@@ -44,8 +44,6 @@ if (!isset($_SESSION['loggedin'])) {
             <input type="submit" value="Edit">
         </form>
     </div>
-
-    <!-- Footer -->
 </body>
 
 </html>

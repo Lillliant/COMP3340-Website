@@ -35,7 +35,9 @@ session_start();
             Your browser does not support the video tag.
         </video>
         <hr>
+        <!-- Instructions for managing bookings -->
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
+            <!-- Where to View Bookings -->
             <h3>Where to View Bookings</h3>
             <div>
                 <ol style="text-align: justify;">
@@ -50,7 +52,8 @@ session_start();
                     </li>
                 </ol>
             </div>
-
+            
+            <!-- Instructions for adding bookings -->
             <h3>How to Make Bookings</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -65,6 +68,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for editing bookings -->
             <h3>How to Edit Bookings</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -82,6 +86,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for deleting bookings -->
             <h3>How to Delete a Booking</h3>
             <ol style="text-align: justify;">
                 <li>

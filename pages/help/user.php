@@ -34,7 +34,9 @@ session_start();
             Your browser does not support the video tag.
         </video>
         <hr>
+        <!-- Instructions for managing users -->
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
+            <!-- Where to View Users -->
             <h3>Where to View Users</h3>
             <div>
                 <ol style="text-align: justify;">
@@ -50,6 +52,7 @@ session_start();
                 </ol>
             </div>
 
+            <!-- Instructions for edit user roles -->
             <h3>How to Edit User Roles</h3>
             <ol style="text-align: justify;">
                 <li>

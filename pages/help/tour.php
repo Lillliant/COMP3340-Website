@@ -23,7 +23,7 @@ session_start();
     <h1>Admin Guide</h1>
     <h2>How to Manage Tours</h2>
     <p class="lead">
-        This guide will show you how to use the dynamic PHP and JavaScript functionalities to manage the tour details that are displayed on the website and used in bookings.
+        This guide will show you how to use the dynamic PHP and JavaScript functionalities to manage the tour details that are displayed on the website and used in bookings. This page will also show you how to add and edit the content in this website (i.e., the image files and the tour products).
     </p>
     <!-- Display errors and success messages, if any -->
     <?php include '../../assets/components/alert.php'; ?>
@@ -34,7 +34,9 @@ session_start();
             Your browser does not support the video tag.
         </video>
         <hr>
+        <!-- Instructions for managing tours -->
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: justify;">
+            <!-- Where to View Tours -->
             <h3>Where to View Tours</h3>
             <div>
                 <ol style="text-align: justify;">
@@ -50,6 +52,7 @@ session_start();
                 </ol>
             </div>
 
+            <!-- Instructions for adding tours -->
             <h3>How to Add Tours</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -66,6 +69,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for editing tours -->
             <h3>How to Edit Tours</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -88,6 +92,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for disabling/enabling tours -->
             <h3>How to Disable/Enable Tours</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -101,6 +106,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for deleting tours -->
             <h3>How to Delete Tours</h3>
             <ol style="text-align: justify;">
                 <li>
@@ -114,6 +120,7 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Database design for the tour table -->
             <h3>Database Schema for Tours</h3>
             <p>
                 The tours are stored in the <code>tours</code> table with the following structure. Supplementary data such as images and options are stored in related tables.
