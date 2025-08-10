@@ -92,6 +92,12 @@ session_start();
                 </li>
             </ol>
 
+            <!-- Instructions for adding images and updating content otherwise -->
+            <h3>How to Update Content</h3>
+            <p>
+                To update the image files or tour products, you can use the forms provided in the Edit Tour page of the <a href="/3340/pages/user/tour.php">Manage Tours</a> section. To change an image, it can first be deleted and then a new image can be added using the "Add Image" form, following the instructions of the previous section. In this website, featured images are used when there are no image carousels to display multiple images. You can set an image as featured by checking the "Featured" button when adding or editing an image.
+            </p>
+
             <!-- Instructions for disabling/enabling tours -->
             <h3>How to Disable/Enable Tours</h3>
             <ol style="text-align: justify;">

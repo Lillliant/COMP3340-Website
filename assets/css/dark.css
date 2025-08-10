@@ -1,3 +1,8 @@
+/* Dark mode styles for Trekker Tours website
+   Each theme style has the same selection of elements, but with different colors
+   This file is used to add to the main.css styles, in colors only to differential themes
+*/
+
 body {
   background-color: #61675a;
   color: #ffffff;

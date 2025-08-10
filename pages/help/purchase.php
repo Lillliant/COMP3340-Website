@@ -52,14 +52,14 @@ session_start();
                     </li>
                 </ol>
             </div>
-            
+
             <!-- Instructions for adding bookings -->
             <h3>How to Make Bookings</h3>
             <ol style="text-align: justify;">
                 <li>
                     In the <a href="/3340/index.php">Trekker Tours</a> homepage or the <a href="/3340/pages/tour/search.php">Tour Search</a> page, find the tour you want to book.
                 </li>
-                <li>Once in the tour detail page, click on the "Book Now" button.</li>
+                <li>Once in the tour detail page, click on the "Book Now" button. You will need to sign in to proceed to the next step.</li>
                 <li>
                     Fill in the booking form with trip dates and any additional options.
                 </li>
