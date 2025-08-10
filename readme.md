@@ -1,3 +1,10 @@
+# Quick Test
+
+On the MyWeb demo page provided in the submission, you can test the features using the following accounts:
+
+1. (admin) - username: admin, password: admin123
+2. (user) - username: user, password: user123
+
 # Installation Instruction
 
 1. Upload the repository to your web server.
@@ -6,9 +13,11 @@
 4. You have now installed the website.
 
 # Frontend
+
 - Technologies used: HTML5, CSS, Bootstrap, JavaScript, JQuery/JQuery UI
 
 # Backend
+
 - Technologies used: MyWeb server, PHP 8.3
 
 # Website Structure
