@@ -59,6 +59,7 @@ select {
   box-sizing: border-box;
 }
 
+/* Exclude bootstrap buttons to avoid unintended styles */
 button:not(.btn-close, .carousel-control-prev, .carousel-control-next, .navbar-toggler),
 input[type="submit"] {
   width: 100%;
@@ -104,6 +105,12 @@ input[type="submit"] {
 
 .tour-card {
   width: 25%;
+}
+
+/* Make the selection more obvious by making the card bigger and more shadowy */
+.tour-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 #tour-overview {
@@ -251,6 +258,7 @@ input[type="submit"] {
   margin: 20px auto;
 }
 
+/* Srollable vertical gallery of image and option cards */
 .scrollable-gallery {
   margin: 20px 0;
   display: flex;
@@ -265,6 +273,7 @@ input[type="submit"] {
   text-align: center;
 }
 
+/* Each card has a left and right section */
 .scrollable-card {
   margin: 20px;
   display: flex;
@@ -290,10 +299,9 @@ input[type="submit"] {
 /* Responsive layout - override? */
 @media (max-width: 1000px) {
   #tourContainer {
-    margin: 0 auto;
-    background-color: antiquewhite;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
   }
@@ -315,12 +323,24 @@ input[type="submit"] {
   }
 
   /** Make a one-column layout for the tour overview */
-  .tour-overview {
+  #tour-overview {
+    margin: auto 2em;
+    padding: 30px;
     flex-direction: column;
+  }
+
+  .itinerary {
+    margin: 30px 2em;
+    padding: 30px;
   }
 
   .to-header {
     margin: 20px 0;
+  }
+
+  .booking-body {
+    margin: 20px;
+    padding: 30px 50px;
   }
 
   .booking-form {
